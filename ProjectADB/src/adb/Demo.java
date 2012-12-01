@@ -3,13 +3,14 @@ package adb;
 import java.io.*;
 import java.util.*;
 
+import manager.InputParser;
 import manager.TransactionManager;
 /**
  * Main Class
  * @author Chia-Yen Hung
  * 
  */
-public class main {
+public class Demo {
 	/**
 	 * main
 	 * @param args
@@ -23,13 +24,13 @@ public class main {
 			System.out.println("Please key in full output path and filename:");
 			String outputFile = in.next(); 
 			//create transaction manager object
-			TransactionManager TM = new TransactionManager(outputFile);
+//			TransactionManager TM = new TransactionManager(outputFile);
 //			for(int i = 1;i<11;i++)
 //			{
 //				Site s = new Site(i);
 //				TM.addSite(s);
 //			}
-			
+			TransactionManager tm;
 			 while(true)
 			 {
 				String line;
@@ -40,11 +41,15 @@ public class main {
 				{
 					System.out.println("Please input the full source path and filename:");
 					line = in.next();
-					FromFile(line,TM);
+//					FromFile(line,TM);
+					InputParser ip = new InputParser(line);
+					tm = new TransactionManager(outputFile, ip.getCommandList());
 					
 				}
 				else if(line.compareToIgnoreCase("n")==0)
 				{
+					tm = new TransactionManager(outputFile);
+//					InputParser ip = new InputParser();
 					System.out.println("Please input command or 'exit' to terminate the program:");
 					line = in.next();
 					//exit if the user type exit
@@ -52,7 +57,7 @@ public class main {
 					{
 						break;
 					}
-					TM.Do(line);
+					tm.Do(line);
 				}
 				else
 				{

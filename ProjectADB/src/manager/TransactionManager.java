@@ -3,6 +3,7 @@ package manager;
 import java.util.*;
 import java.io.*;
 
+import component.Command;
 import component.Operation;
 import component.Site;
 import component.Transaction;
@@ -25,10 +26,30 @@ public class TransactionManager
 	private int intCurrentTimeStamp =0;
 	private Map<String, ArrayList<Operation>> WaitingList;//a map structure to hold all kind of waiting operation from all transactions
 	private Map<Integer, Integer> SiteRecords;//a map structure to hold all the down/recovery record
-	
+	private List<List<String>> commandList = null;		//List of command from file
 	/**
 	 * Transaction Manager object class constructor
+	 * @param ip 
 	 */
+	public TransactionManager(String output_Filename, List<List<String>> list)
+	{
+		//instantiate lists
+		this.sites = new HashMap<Integer, Site>();
+		this.transactions = new HashMap<String, Transaction>();
+		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
+		this.outFile = output_Filename;
+		this.SiteRecords = new HashMap<Integer, Integer>();
+		for(int i = 1 ; i < 11; i++){
+			this.sites.put(i, new Site(i));
+			this.SiteRecords.put(i, intCurrentTimeStamp);
+			this.WriteOutput("Added site " + i);
+		}
+		this.commandList = new ArrayList<List<String>>();
+		for(List<String> s: list)
+			this.commandList.add(s);
+		this.run();
+	}
+	
 	public TransactionManager(String output_Filename)
 	{
 		//instantiate lists
@@ -37,9 +58,19 @@ public class TransactionManager
 		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
 		this.outFile = output_Filename;
 		this.SiteRecords = new HashMap<Integer, Integer>();
-		for(int i = 1 ; i < 11; i++)
+		for(int i = 1 ; i < 11; i++){
 			this.sites.put(i, new Site(i));
+			this.SiteRecords.put(i, intCurrentTimeStamp);
+			this.WriteOutput("Added site " + i);
+		}
 		
+	}
+	
+	private void run(){
+		for(List<String> stringList: this.commandList){
+			for(String s: stringList)
+				this.Do(s);
+		}
 	}
 	/**
 	 * This method can add site for  
