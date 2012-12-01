@@ -1,10 +1,13 @@
-package adb;
+package component;
 
 import java.util.*;
+
+import manager.DataManager;
+import manager.LockManager;
 /**
  * 
  *  Site Class Object
- *  @author Chia-Ming Lin, Li-Yen Hung
+ *  @author Chia-Yen Hung
  */
 public class Site{
 	//class variable

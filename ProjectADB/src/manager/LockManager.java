@@ -1,8 +1,11 @@
-package adb;
+package manager;
+
+import component.Xclass;
+
 //LockManager object class
 /**
  * This Class implements a Lock Manager object
- * @author Chia-Ming Lin, Li-Yen Hung
+ * @author Chia-Yen Hung
  */
 public class LockManager{
 	

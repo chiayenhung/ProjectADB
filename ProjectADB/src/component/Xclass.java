@@ -1,8 +1,8 @@
-package adb;
+package component;
 
 /**
  * Xclass object class
- * @author Chia-Ming Lin, Li-Yen Hung
+ * @author Chia-Yen Hung
  *
  */
 public class Xclass{

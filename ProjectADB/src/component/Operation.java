@@ -1,13 +1,13 @@
-package adb;
+package component;
 
 /**
  * operation object class
- * @author Chia-Ming Lin, Li-Yen Hung
+ * @author Chia-Yen Hung
  *
  */
 public class Operation 
 {
-	enum action_type
+	public enum action_type
 	{
 		read,
 		write,

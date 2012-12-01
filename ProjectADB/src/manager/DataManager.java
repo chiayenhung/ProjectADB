@@ -1,9 +1,12 @@
-package adb;
+package manager;
 
 import java.util.*;
+
+import component.Xclass;
+
 /**
  * Data Manager object class
- * @author Chia-Ming Lin, Li-Yen Hung
+ * @author Chia-Yen Hung
  * 
  */
 public class DataManager{

@@ -1,12 +1,19 @@
-package adb;
+package manager;
 
 import java.util.*;
 import java.io.*;
 
+import component.Operation;
+import component.Site;
+import component.Transaction;
+import component.Operation.action_type;
+import component.Transaction.Attribute;
+
+
 /**
  * 
  * Transaction Manager object class 
- *	@author Chia-Ming Lin, Li-Yen Hung
+ *	@author Chia-Yen Hung 
  */
 public class TransactionManager 
 {
@@ -25,24 +32,26 @@ public class TransactionManager
 	public TransactionManager(String output_Filename)
 	{
 		//instantiate lists
-		sites = new HashMap<Integer, Site>();
-		transactions = new HashMap<String, Transaction>();
-		WaitingList = new HashMap<String, ArrayList<Operation>>();
-		outFile = output_Filename;
-		SiteRecords = new HashMap<Integer, Integer>();
+		this.sites = new HashMap<Integer, Site>();
+		this.transactions = new HashMap<String, Transaction>();
+		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
+		this.outFile = output_Filename;
+		this.SiteRecords = new HashMap<Integer, Integer>();
+		for(int i = 1 ; i < 11; i++)
+			this.sites.put(i, new Site(i));
 		
 	}
 	/**
 	 * This method can add site for  
 	 * @param site
 	 */
-	public void addSite(Site site)
-	{
-		sites.put(site.getID(), site);
-		//create new record for new site
-		SiteRecords.put(site.getID(), intCurrentTimeStamp); //fail timestamp record
-		WriteOutput("Added site " + site.getID());
-	}
+//	public void addSite(Site site)
+//	{
+//		sites.put(site.getID(), site);
+//		//create new record for new site
+//		SiteRecords.put(site.getID(), intCurrentTimeStamp); //fail timestamp record
+//		WriteOutput("Added site " + site.getID());
+//	}
 
 	/**
 	 * Do method execute all kinds of input instructions

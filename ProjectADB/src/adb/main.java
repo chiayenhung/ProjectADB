@@ -2,9 +2,11 @@ package adb;
 
 import java.io.*;
 import java.util.*;
+
+import manager.TransactionManager;
 /**
  * Main Class
- * @author Chia-Ming Lin, Li-Yen Hung
+ * @author Chia-Yen Hung
  * 
  */
 public class main {
@@ -22,11 +24,11 @@ public class main {
 			String outputFile = in.next(); 
 			//create transaction manager object
 			TransactionManager TM = new TransactionManager(outputFile);
-			for(int i = 1;i<11;i++)
-			{
-				Site s = new Site(i);
-				TM.addSite(s);
-			}
+//			for(int i = 1;i<11;i++)
+//			{
+//				Site s = new Site(i);
+//				TM.addSite(s);
+//			}
 			
 			 while(true)
 			 {

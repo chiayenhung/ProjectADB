@@ -1,14 +1,14 @@
-package adb;
+package component;
 
 import java.util.*;
 /**
  * 
  * Transaction object class
- * @author Chia-Ming Lin, Li-Yen Hung
+ * @author Chia-Yen Hung
  */
 public class Transaction 
 {
-	enum Attribute
+	public enum Attribute
 	{
 		ReadOnly,
 		ReadWrite
