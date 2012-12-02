@@ -3,6 +3,7 @@ package adb;
 import java.io.*;
 import java.util.*;
 
+import manager.CommandParser;
 import manager.InputParser;
 import manager.TransactionManager;
 /**
@@ -49,6 +50,7 @@ public class Demo {
 				else if(line.compareToIgnoreCase("n")==0)
 				{
 					tm = new TransactionManager(outputFile);
+//					CommandParser cp = new CommandParser(line)
 //					InputParser ip = new InputParser();
 					System.out.println("Please input command or 'exit' to terminate the program:");
 					line = in.next();
@@ -57,7 +59,8 @@ public class Demo {
 					{
 						break;
 					}
-					tm.Do(line);
+//					tm.Do(line);
+					tm.execute(new CommandParser(line));
 				}
 				else
 				{
@@ -79,23 +82,23 @@ public class Demo {
 	 * @param inFile
 	 * @param TM
 	 */
-	private static void FromFile(String inFile,TransactionManager TM)
-	{
-		try
-		{
-			FileInputStream fstream = new FileInputStream(inFile);
-			DataInputStream in = new DataInputStream(fstream);
-			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-			String strLine;
-			while((strLine = br.readLine())!=null)
-			{
-				TM.Do(strLine);
-				System.out.println(strLine);
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error-" + e.getMessage());
-		}
-	}
+//	private static void FromFile(String inFile,TransactionManager TM)
+//	{
+//		try
+//		{
+//			FileInputStream fstream = new FileInputStream(inFile);
+//			DataInputStream in = new DataInputStream(fstream);
+//			BufferedReader br = new BufferedReader(new InputStreamReader(in));
+//			String strLine;
+//			while((strLine = br.readLine())!=null)
+//			{
+//				TM.Do(strLine);
+//				System.out.println(strLine);
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Error-" + e.getMessage());
+//		}
+//	}
 }
