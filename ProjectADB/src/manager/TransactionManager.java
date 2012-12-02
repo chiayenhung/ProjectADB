@@ -45,11 +45,7 @@ public class TransactionManager
 			this.SiteRecords.put(i, intCurrentTimeStamp);
 			this.WriteOutput("Added site " + i);
 		}
-//		this.commandList = new ArrayList<List<String>>();
-//		for(List<String> s: list)
-//			this.commandList.add(s);
 		this.commandList = list;
-//		System.out.println(this.commandList.size());
 		this.run();
 	}
 	
@@ -76,7 +72,6 @@ public class TransactionManager
 				cp = new CommandParser(s);
 				this.execute(cp);
 			}
-//				this.Do(s);
 		}
 	}
 	
@@ -104,7 +99,7 @@ public class TransactionManager
 			this.write(cp.getTransactionNum(), cp.getXClassNum(), cp.getValue());
 			break;
 		case dump:
-			this.dump();
+			this.dump(cp.getSiteNum(), cp.getXClassNum());
 			break;
 		default : 
 			break;
@@ -116,20 +111,22 @@ public class TransactionManager
 	}
 
 	/**
+	 * @param xClassNum 
+	 * @param siteNum 
 	 * 
 	 */
-	private void dump() {
+	private void dump(int siteNum, int xClassNum) {
 		WriteOutput("Processing dump()");
 		try
 		{
 			//to determine whether is a site/a variable /or all
-//			if(info.compareToIgnoreCase("dump()")==0)
-//			{
+			if(siteNum == -1 && xClassNum == -1)
+			{
 				//commit everything
 				CommitALL();
-//			}
-//			else if(info.contains("dump(x"))
-//			{
+			}
+			else if(siteNum == -1)
+			{
 				//commit only a particular variable
 				//check for if target site is down
 				//get variable id
@@ -137,41 +134,41 @@ public class TransactionManager
 //				int index = info.indexOf("(x");
 //				String id = info.substring(index+2, info.length()-1);
 				
-//				int intID = Integer.parseInt(id);
+				int intID = xClassNum;
 				
-//				intID = (intID % 10) + 1;
+				intID = (intID % 10) + 1;
 				
-//				Site s = (Site)sites.get(intID);
-//				if(!s.isDown())
-//				{
-//					CommitVariable(info);
-//					WriteOutput("Site" + id + " " +s.ToString());
-//				}
-//				else
-//				{
-//					WriteOutput("Site" + id + " is down");
-//				}
-//			}
-//			else
-//			{
+				Site s = (Site)sites.get(intID);
+				if(!s.isDown())
+				{
+					CommitVariable(xClassNum);
+					WriteOutput("Site" + xClassNum + " " +s.ToString());
+				}
+				else
+				{
+					WriteOutput("Site" + xClassNum + " is down");
+				}
+			}
+			else if(xClassNum == -1)
+			{
 				//commit a site
 				//get variable id
 				//extract variable id
 //				int index = info.indexOf("(");
 //				String id = info.substring(index+1, info.length()-1);
 				
-//				int intID = Integer.parseInt(id);
-//				Site s = (Site)sites.get(intID);
-//				if(!s.isDown())
-//				{
-//					CommitSite(info);
-//					WriteOutput("Site" + id + " " +s.ToString());
-//				}
-//				else
-//				{
-//					WriteOutput("Site" + id + " is down");
-//				}
-//			}
+				int intID = siteNum;
+				Site s = (Site)sites.get(siteNum);
+				if(!s.isDown())
+				{
+					CommitSite(siteNum);
+					WriteOutput("Site" + siteNum + " " +s.ToString());
+				}
+				else
+				{
+					WriteOutput("Site" + siteNum + " is down");
+				}
+			}
 		}
 		catch(Exception e)
 		{
@@ -474,105 +471,7 @@ public class TransactionManager
 		this.CreateNewTransaction(transactionNum,intCurrentTimeStamp,Transaction.Attribute.ReadWrite);		
 	}
 
-	/**
-	 * Do method execute all kinds of input instructions
-	 */
-//	public void Do(String action)
-//	{
-//		//determine which action to perform
-//		action = action.trim();
-//		String[] actions = action.split(";");
-//		for(int i = 0;i < actions.length; i++)
-//		{
-//			//make it lower case
-//			String temp = actions[i].toLowerCase();
-//			temp = temp.trim();
-//			
-//			if(temp.contains("begin("))
-//			{	
-//				//begin a new transaction
-////				CreateNewTransaction(temp,intCurrentTimeStamp,Transaction.Attribute.ReadWrite);
-//			}
-//			else if(temp.contains("beginro("))
-//			{
-//				//this transaction is read-only
-//				//begin a new transaction
-////				CreateNewTransaction(temp,intCurrentTimeStamp,Transaction.Attribute.ReadOnly);
-//			}
-//			else if(temp.contains("w("))
-//			{
-//				//write x variable at site
-//				//need return result??
-//				Write(temp);
-//			}
-//			else if(temp.contains("end("))
-//			{
-//				//extract transaction id ;譬如 end(T1)，要把T1拿出來
-//				int index = temp.indexOf("(");
-//				String id = temp.substring(index+1, temp.length()-1);
-//				
-//				//commit and end a particular transaction
-//				//test whether this Transaction can commit or not
-////				if(CanCommit(temp))
-////				{
-////					
-////					Commit("commit(" + id +")");
-////				}
-////				else
-////				{
-////					
-////				}
-//			}
-//			else if(temp.contains("abort("))
-//			{
-//				//abort a transaction
-//				Abort(temp);
-//			}
-//			
-//			else if(temp.substring(0, 2).compareTo("r(")==0)
-//			{
-//				//read a value
-//				Read(temp);
-//			}
-//			
-//			else if(temp.contains("fail("))
-//			{
-//				//purposely fail a site
-//				Fail(temp);
-//				
-//			}
-//			else if(temp.contains("dump("))
-//			{
-//				//commit everyhting on all sites/a site
-//				Dump(temp);
-//			}
-//			
-//			else if(temp.contains("recover"))
-//			{
-//				//recover a down site
-//				Recovery(temp);
-//			}
-//			
-//			else
-//			{
-//				WriteOutput("Unrecognized command " + temp);	
-//			}
-//		
-//		}
-//		
-//		current_state = action;
-//		//increase the timestamp value
-//		intCurrentTimeStamp++;
-//	}
-//	
-//	/**
-//	 * This method can be used to report current state
-//	 */
-//	public String ToString()
-//	{
-//		//returning what operation is being performed
-//		return current_state;
-//	}
+
 	 
 	/**
 	 * WriteOutput method can write the output result to a file 
@@ -613,134 +512,7 @@ public class TransactionManager
 
 	}
 	
-	/**
-	 * This method can write the value to the variable X 
-	 */
-//	private void Write(String info)
-//	{
-//		
-//		try
-//		{
-//			WriteOutput("Processing " + info);
-//			boolean blnInsertOp = false; //flag to insert the current operation into the transaction object
-//			
-//			Transaction t  = null;
-//			//filter some redundant character
-//			int index = info.indexOf("(");
-//			info = info.substring(index+1, info.length()-1);
-//			
-//			
-//			String[] elements = info.split(",");//split the content by "," separator
-//			String t_id = elements[0];//transaction id
-//			t_id = t_id.trim(); //會像是T1 T2 T3
-//			
-//			String x_id = elements[1];//x's id
-//			x_id = x_id.substring(x_id.indexOf("x")+1);
-//			x_id = x_id.trim();  //取出只有X的號碼，EX: X的 1,2,4,5
-//			
-//			String x_value = elements[2];//x's value  要寫在X上的值
-//			x_value = x_value.substring(0, x_value.length());
-//			x_value = x_value.trim();
-//			//convert both string into int
-//			int intValue = Integer.parseInt(x_value);  //x_value是string ， intValue是int
-//			int intX = Integer.parseInt(x_id);		   //x_id是string，intX是int
-//			
-//			//check for valid transaction 
-//			if(transactions.containsKey(t_id))
-//			{
-//				//check transaction attribute
-//				//doesn't allow to write if is read-only
-//				t = (Transaction)transactions.get(t_id);
-//				if(t.getAttribute() == Transaction.Attribute.ReadOnly)
-//				{
-//					WriteOutput("Transaction " + t_id + " doesn't allow to write.");
-//					return;
-//				}
-//			}
-//			else
-//			{
-//				WriteOutput("Transaction " + t_id + " not found.");
-//				return;
-//			}
-//			
-//			ArrayList<Site> evenSite = new ArrayList<Site>();
-//			
-//			if( (intX%2) == 1)
-//			{
-//				int answer = (intX % 10) +1;
-//				Site s = (Site)sites.get(answer);
-//				if(!s.isDown())
-//				{
-//					blnInsertOp=WriteToSingle(intX,intValue,t_id,answer);
-//				}
-//				else
-//				{
-//					//insert the stuck operation into the waiting list
-//					//time stamp = 0 because hasn't written to site yet
-//					Operation op = new Operation(Operation.action_type.write,intValue,intX,0);
-//					InsertIntoWaitingList(op,t_id);
-//				}
-//			}
-//			else
-//			{
-//				int temp = (intX/2)*3;
-//				int answer = 0;
-//				for (int i = (temp-2); i <= temp; i++){
-//					if((i%10) == 0)
-//					{
-//						answer = 10;
-//					}
-//					else
-//					{
-//						int answerSite = (i%10);
-//						answer = answerSite;
-//					}
-//					Site s1 = (Site)sites.get(answer);
-//					evenSite.add(s1);		
-//				}
-//				
-//				Iterator<Site> iteratorSite = evenSite.iterator();
-//				
-//				boolean writeFlag = false;
-//				while(iteratorSite.hasNext()){
-//					Site s = (Site)iteratorSite.next();
-//			        if(!s.isDown())
-//			        {
-//			        	//ReadSingle(s.getID(),intX,t_id);
-//			        	blnInsertOp=WriteToSingle(intX,intValue,t_id,s.getID());
-//			        	//break;
-//			        	writeFlag = true;
-//			        }
-//			        if( (!iteratorSite.hasNext()) && (writeFlag == false) )
-//			        {
-//			        	//insert the stuck operation into the waiting list
-//						//time stamp = 0 because hasn't written to site yet
-//						Operation op = new Operation(Operation.action_type.write,intValue,intX,0);
-//						InsertIntoWaitingList(op,t_id);
-//			        }   
-//				}
-//			}
-//			//insert the new operation into the record
-//			if(blnInsertOp)
-//			{
-//				//increase the time stamp counter
-//				//so that don't hold a same time stamp will regular operation
-//				//maybe this is one from waiting list
-//				intCurrentTimeStamp++;
-//				Operation op = new Operation(Operation.action_type.write, intValue,intX,intCurrentTimeStamp);
-//				t.Insert_Operation(op);
-//				WriteOutput("Operation inserted into " + t_id);
-//			}
-//			
-//		}
-//		catch(Exception e)
-//		{
-//			WriteOutput("Error in Write-"+ e.getMessage());
-//			
-//		}
-//		
-//	}
-	
+
 	/**
 	 * 
 	 */
@@ -917,7 +689,6 @@ public class TransactionManager
 	/**
 	 * Commit method can commit each operation under the transaction
 	 */
-//	private void Commit(String info)
 	private void Commit(int transactionNum)
 	{
 		try
@@ -925,8 +696,6 @@ public class TransactionManager
 			WriteOutput("Processing Commit(" + transactionNum + ")");
 			
 			//extract transaction id
-//			int index = info.indexOf("(");
-//			String id = info.substring(index+1, info.length()-1);
 			String id = "" + transactionNum;
 			if(transactions.containsKey(id))
 			{
@@ -1025,15 +794,12 @@ public class TransactionManager
 	/**
 	 * This method can create a new transaction
 	 */
-//	private void CreateNewTransaction(String _id, int timestamp, Transaction.Attribute attri)
 	private void CreateNewTransaction(int _id, int timestamp, Transaction.Attribute attri)
 	{
 		
 		try
 		{
 			//extract transaction id
-//			int index = _id.indexOf("(");
-//			String id = _id.substring(index+1, _id.length()-1);
 			String id = "" + _id;
 			
 			//check for existing transaction ID before create new one
@@ -1182,201 +948,20 @@ public class TransactionManager
 		}
 		WriteOutput("Operation inserted into waiting list.");
 	}
-	//to tell a site to recover
-//	private void Recovery(String info)
-//	{
-//		
-//		try
-//		{
-//			Site s_backup = null;
-//			//boolean blnOnce = false;//to know whether there is a source site up and running to recover
-//			
-//			WriteOutput("Processing " + info);
-//			
-//			//get site id
-//			//extract site id
-//			int index = info.indexOf("(");
-//			String id = info.substring(index+1, info.length()-1);
-//			int intIndex = Integer.parseInt(id);
-//			
-//			//check for valid site id
-//			if(!sites.containsKey(intIndex))
-//			{
-//				WriteOutput("Site " + id + " not found.");
-//				return;
-//			}
-//			
-//			//call a site to recovery
-//			//get failed site
-//			Site s_down = (Site)sites.get(intIndex);
-//			//look for backup site
-//			if(intIndex==1)
-//			{
-//				//available at all 
-//				//but this site is a backup for another odd index site
-//				//so need to do back up from that site
-//				//one back up only
-//				s_backup = (Site)sites.get(10);
-//				
-//			}
-//			else
-//			{
-//				//one back up only
-//				s_backup = (Site)sites.get(intIndex-1);
-//				
-//				
-//			}
-//			//check whether backup is down also
-//			
-//			if(s_backup.isDown())
-//			{
-//				WriteOutput("Operation failed because backup site is down currently");
-//			}
-//			else
-//			{
-//				
-//				s_down.Recovery(s_backup);
-//				/*
-//				//update timestamp
-//				String record = (String)SiteRecords.get(intIndex);
-//				
-//				String[] recs = record.split(";");
-//				record = recs[0] + ";" + Integer.toString(intCurrentTimeStamp);
-//				SiteRecords.put(intIndex, record);
-//				*/
-//			}
-//			
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Error in Recovery-"+ e.getMessage());
-//		}
-//		
-//	}
-	
-	/**
-	 * this method can be used to purposely fail a site
-	 */
-//	private void Fail(String info)
-//	{
-//		try
-//		{
-//			WriteOutput("Processing " + info);
-//			Site s_backup = null;
-//			//get site id
-//			//extract site id
-//			int index = info.indexOf("(");
-//			String id = info.substring(index+1, info.length()-1);
-//			int intIndex = Integer.parseInt(id);
-//			//check for valid site id
-//			if(!sites.containsKey(intIndex))
-//			{
-//				WriteOutput("Site " + id + " not found.");
-//				return;
-//			}
-//			
-//			//call backup before fail
-//			if(intIndex==1)
-//			{
-//				s_backup = (Site)sites.get(10);
-//			}
-//			else
-//			{
-//				s_backup = (Site)sites.get(intIndex-1);
-//			}
-//			//call a site to fail
-//			Site s = (Site)sites.get(intIndex);
-//			s.Backup(s_backup);
-//			s.Fail();
-//			//String record = (String)SiteRecords.get(s.getID()); 
-//			//record = Integer.toString(intCurrentTimeStamp) + ";0";//reset recovery time
-//			
-//			SiteRecords.put(s.getID(),intCurrentTimeStamp);
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Error in Fail-"+ e.getMessage());
-//		}
-//	}
 
-	/**
-	 * This method can commit a site/variable/ALL
-	 */
-//	private void Dump(String info)
-//	{
-//		WriteOutput("Processing " + info);
-//		try
-//		{
-//			//to determine whether is a site/a variable /or all
-//			if(info.compareToIgnoreCase("dump()")==0)
-//			{
-//				//commit everything
-//				CommitALL();
-//			}
-//			else if(info.contains("dump(x"))
-//			{
-//				//commit only a particular variable
-//				//check for if target site is down
-//				//get variable id
-//				//extract variable id
-//				int index = info.indexOf("(x");
-//				String id = info.substring(index+2, info.length()-1);
-//				
-//				int intID = Integer.parseInt(id);
-//				
-//				intID = (intID % 10) + 1;
-//				
-//				Site s = (Site)sites.get(intID);
-//				if(!s.isDown())
-//				{
-//					CommitVariable(info);
-//					WriteOutput("Site" + id + " " +s.ToString());
-//				}
-//				else
-//				{
-//					WriteOutput("Site" + id + " is down");
-//				}
-//			}
-//			else
-//			{
-//				//commit a site
-//				//get variable id
-//				//extract variable id
-//				int index = info.indexOf("(");
-//				String id = info.substring(index+1, info.length()-1);
-//				
-//				int intID = Integer.parseInt(id);
-//				Site s = (Site)sites.get(intID);
-//				if(!s.isDown())
-//				{
-//					CommitSite(info);
-//					WriteOutput("Site" + id + " " +s.ToString());
-//				}
-//				else
-//				{
-//					WriteOutput("Site" + id + " is down");
-//				}
-//			}
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Error in Dump-"+ e.getMessage());
-//		}
-//	}
-	
 	/**
 	 * this method can be used to commit a particular variable at all sites
 	 */
-	private void CommitVariable(String info)
+	private void CommitVariable(int xClassNum)
 	{
 		try
 		{
 			//get variable id
 			//extract variable id
-			int index = info.indexOf("(x");
-			String id = info.substring(index+2, info.length()-1);
+//			int index = info.indexOf("(x");
+//			String id = info.substring(index+2, info.length()-1);
 			
-			int intX = Integer.parseInt(id);
+			int intX = xClassNum;
 			//calculate the site id
 			int answer = (intX % 10) +1;
 			
@@ -1414,19 +999,19 @@ public class TransactionManager
 	/**
 	 * this method can be used to commit a site
 	 */
-	private void CommitSite(String info)
+	private void CommitSite(int siteNum)
 	{
 		try
 		{
 			//get site id
 			//extract site id
-			int index = info.indexOf("(");
-			String id = info.substring(index+1, info.length()-1);
-			int intID = Integer.parseInt(id);
+//			int index = info.indexOf("(");
+//			String id = info.substring(index+1, info.length()-1);
+//			int intID = Integer.parseInt(id);
 			//check if the site id valid
-			if(!sites.containsKey(intID))
+			if(!sites.containsKey(siteNum))
 			{
-				WriteOutput("Site " + id +" not found.");
+				WriteOutput("Site " + siteNum +" not found.");
 				return;
 			}
 			
@@ -1436,22 +1021,22 @@ public class TransactionManager
 			{
 				int evenIndex = i*2;
 				
-				CommitVariable("dump(x" + evenIndex + ")");
+				CommitVariable(evenIndex);
 				
 			}
 		
 			//find that particular odd indexed x in this site
 			//odd index = (site-1)
 			//if odd index = 0 then is at site 10
-			int oddVarIndex = intID -1;
-			if(oddVarIndex<1)
+			int oddVarIndex = siteNum -1;
+			if(oddVarIndex < 1)
 			{
 				oddVarIndex = 10;
 			}
 			
-			if(oddVarIndex%2>0)
+			if(oddVarIndex % 2 > 0)
 			{
-				CommitVariable("dump(x" + oddVarIndex + ")");
+				CommitVariable(oddVarIndex);
 			}
 			
 		}
@@ -1482,66 +1067,7 @@ public class TransactionManager
 		}
 	}
 
-	/**
-	 * This method can be used to read a variable
-	 */
-//	private void Read(String info)
-//	{
-//		WriteOutput("Processing " + info);
-//		try
-//		{
-//			//int value = 0;
-//			//Site  s = null;
-//			//filter some redundant character
-//			int index = info.indexOf("(");
-//			info = info.substring(index+1, info.length()-1);
-//			
-//			String[] elements = info.split(",");
-//			
-//			String t_id = elements[0];
-//			
-//			String x_id = elements[1].trim().substring(1);
-//			
-//			//check for valid transaction id
-//			if(!transactions.containsKey(t_id))
-//			{
-//				WriteOutput("Transaction " + t_id + " not found.");
-//				return;
-//			}
-//			
-//			
-//			
-//			//convert x id into int
-//			int intX = Integer.parseInt(x_id);
-//			//System.out.println(t_id);
-//			//get transaction object
-//			
-//			if(!transactions.containsKey(t_id))
-//			{
-//				WriteOutput("Transaction " + t_id + " not found.");
-//				return;
-//			}
-//			Transaction t = (Transaction)transactions.get(t_id);
-//			
-//			if(t.getAttribute()==Transaction.Attribute.ReadOnly)
-//			{
-//				//read from multiversion
-//				ReadOnly(t_id,intX);
-//			}
-//			else
-//			{
-//				//set read lock
-//				ReadWithLock(intX,t_id);
-//			}
-//			
-//		
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Error in Read-"+ e.getMessage());
-//		}
-//	}
-	
+
 	/**
 	 * this method can call the site to use multiversion method to read
 	 */
@@ -1989,7 +1515,6 @@ public class TransactionManager
 	/**
 	 * this method is to make sure that is at least a site up and running to perform commit operation
 	 */
-//	private boolean CanCommit(String info)
 	private boolean CanCommit(int transactionNum)
 	{
 		
@@ -1998,8 +1523,7 @@ public class TransactionManager
 			
 			boolean blnSiteUp = true;//target site is up and running
 			//extract transaction id
-//			int index = info.indexOf("(");
-//			String id = info.substring(index+1, info.length()-1);
+
 			String id = "" + transactionNum;
 			
 			WriteOutput("Test commit for transaction " + id);

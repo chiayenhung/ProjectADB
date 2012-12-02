@@ -6,7 +6,7 @@ package manager;
 import type.CommandType;
 
 /**
- * @author ching-yingyang
+ * @author Chia-Yen Hung
  *
  */
 public class CommandParser {
@@ -89,6 +89,13 @@ public class CommandParser {
 		}
 		if(line.startsWith("dump")){
 			this.commandtype = CommandType.dump;
+			this.siteNum = -1;
+			this.XclassNum = -1;
+			String tmp = line.substring(line.indexOf("(") + 1, line.length() - 1).trim();
+			if(tmp.contains("x"))
+				this.XclassNum = Integer.parseInt(line.substring(line.indexOf("x") + 1, line.length() - 1).trim());
+			if(tmp.matches("\\d+"))
+				this.siteNum = Integer.parseInt(tmp);
 			System.err.println(this.commandtype);
 			return;
 		}
