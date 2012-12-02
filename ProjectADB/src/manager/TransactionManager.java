@@ -3,7 +3,6 @@ package manager;
 import java.util.*;
 import java.io.*;
 
-import component.Command;
 import component.Operation;
 import component.Site;
 import component.Transaction;

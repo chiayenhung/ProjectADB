@@ -222,7 +222,7 @@ public class Site{
 					return DM.ReadPreData(X_q.get(i));
 			}
 		}
-		//not find x
+		//cannot find x
 		System.out.println("Read X" + _XID
 				+ " from site" + ID + " fails, because it doesn't exist.");
 		return -1;
@@ -267,7 +267,7 @@ public class Site{
 				}
 			}
 		}
-		//not find x
+		//cannot find x
 		System.out.println("Read X" + _XID
 				+ " from site" + ID + " fails, because it doesn't exist.");
 		return -1;
@@ -315,7 +315,7 @@ public class Site{
 				}
 			}
 		}
-		//not find x
+		//cannot find x
 		System.out.println("Write X" + _XID
 				+ " into site" + ID + " fails, because it doesn't exist.");
 		return -1;
