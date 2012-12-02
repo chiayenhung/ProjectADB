@@ -38,7 +38,7 @@ public class InputParser {
 	 * @return
 	 */
 	public List<List<String>> getCommandList() {
-		// TODO Auto-generated method stub
+//		System.out.println(this.commands.size());
 		return this.commands;
 	}
 
