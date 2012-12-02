@@ -3,12 +3,8 @@ package manager;
 import java.util.*;
 import java.io.*;
 
-<<<<<<< HEAD
-=======
 import type.CommandType;
 
-
->>>>>>> branch 'master' of https://github.com/chiayenhung/ProjectADB.git
 import component.Operation;
 import component.Site;
 import component.Transaction;
