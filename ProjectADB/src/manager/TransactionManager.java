@@ -25,12 +25,13 @@ public class TransactionManager
 	//class variable
 	private Map<String, Transaction> transactions; //list of transaction
 	private Map<Integer, Site> sites;//list of site
-	private String outFile = "";
+//	private String outFile = "";
 //	private CommandType current_state = CommandType.unkown;
 	private int intCurrentTimeStamp =0;
 	private Map<String, ArrayList<Operation>> WaitingList;//a map structure to hold all kind of waiting operation from all transactions
 	private Map<Integer, Integer> SiteRecords;//a map structure to hold all the down/recovery record
 	private List<List<String>> commandList = null;		//List of command from file
+	private Logger logger;
 	/**
 	 * Transaction Manager object class constructor
 	 * @param ip 
@@ -52,18 +53,18 @@ public class TransactionManager
 //		this.run();
 //	}
 	
-	public TransactionManager(String output_Filename)
+	public TransactionManager(String filename)
 	{
 		//instantiate lists
 		this.sites = new HashMap<Integer, Site>();
 		this.transactions = new HashMap<String, Transaction>();
 		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
-		this.outFile = output_Filename;
+		this.logger = new Logger(filename);
 		this.SiteRecords = new HashMap<Integer, Integer>();
 		for(int i = 1 ; i < 11; i++){
 			this.sites.put(i, new Site(i));
 			this.SiteRecords.put(i, intCurrentTimeStamp);
-			this.WriteOutput("Added site " + i);
+			this.logger.log("Added site " + i);
 		}
 		
 	}
@@ -123,7 +124,7 @@ public class TransactionManager
 	 * 
 	 */
 	private void dump(int siteNum, int xClassNum) {
-		WriteOutput("Processing dump()");
+		this.logger.log("Processing dump()");
 		try
 		{
 			//to determine whether is a site/a variable /or all
@@ -147,11 +148,11 @@ public class TransactionManager
 				if(!s.isDown())
 				{
 					CommitVariable(xClassNum);
-					WriteOutput("Site" + xClassNum + " " +s.ToString());
+					this.logger.log("Site" + xClassNum + " " +s.ToString());
 				}
 				else
 				{
-					WriteOutput("Site" + xClassNum + " is down");
+					this.logger.log("Site" + xClassNum + " is down");
 				}
 			}
 			else if(xClassNum == -1)
@@ -165,11 +166,11 @@ public class TransactionManager
 				if(!s.isDown())
 				{
 					CommitSite(siteNum);
-					WriteOutput("Site " + siteNum + " " +s.ToString());
+					this.logger.log("Site " + siteNum + " " +s.ToString());
 				}
 				else
 				{
-					WriteOutput("Site " + siteNum + " is down");
+					this.logger.log("Site " + siteNum + " is down");
 				}
 			}
 		}
@@ -188,7 +189,7 @@ public class TransactionManager
 	private void write(int transactionNum, int xClassNum, int value) {
 		try
 		{
-			WriteOutput("Processing write(T" + transactionNum + ", X" + xClassNum + ", " + value + ")");
+			this.logger.log("Processing write(T" + transactionNum + ", X" + xClassNum + ", " + value + ")");
 			boolean blnInsertOp = false; //flag to insert the current operation into the transaction object
 			
 			Transaction t  = null;
@@ -202,13 +203,13 @@ public class TransactionManager
 				t = (Transaction)transactions.get(t_id);
 				if(t.getAttribute() == TransactionType.ReadOnly)
 				{
-					WriteOutput("Transaction " + t_id + " doesn't allow to write.");
+					this.logger.log("Transaction " + t_id + " doesn't allow to write.");
 					return;
 				}
 			}
 			else
 			{
-				WriteOutput("Transaction " + t_id + " not found.");
+				this.logger.log("Transaction " + t_id + " not found.");
 				return;
 			}
 			
@@ -278,13 +279,13 @@ public class TransactionManager
 				intCurrentTimeStamp++;
 				Operation op = new Operation(OperationType.write, value,xClassNum,intCurrentTimeStamp);
 				t.Insert_Operation(op);
-				WriteOutput("Operation inserted into " + t_id);
+				this.logger.log("Operation inserted into " + t_id);
 			}
 			
 		}
 		catch(Exception e)
 		{
-			WriteOutput("Error in Write-"+ e.getMessage());
+			this.logger.log("Error in Write-"+ e.getMessage());
 			
 		}
 		
@@ -295,7 +296,7 @@ public class TransactionManager
 	 * @param xClassNum
 	 */
 	private void read(int transactionNum, int xClassNum) {
-		WriteOutput("Processing read(T" + transactionNum + ", X" + xClassNum + ")");
+		this.logger.log("Processing read(T" + transactionNum + ", X" + xClassNum + ")");
 		try
 		{
 
@@ -304,14 +305,14 @@ public class TransactionManager
 			//check for valid transaction id
 			if(!transactions.containsKey(t_id))
 			{
-				WriteOutput("Transaction " + t_id + " not found.");
+				this.logger.log("Transaction " + t_id + " not found.");
 				return;
 			}
 			//get transaction object
 			
 			if(!transactions.containsKey(t_id))
 			{
-				WriteOutput("Transaction " + t_id + " not found.");
+				this.logger.log("Transaction " + t_id + " not found.");
 				return;
 			}
 			Transaction t = (Transaction)transactions.get(t_id);
@@ -345,12 +346,12 @@ public class TransactionManager
 			Site s_backup = null;
 			//boolean blnOnce = false;//to know whether there is a source site up and running to recover
 			
-			WriteOutput("Processing recover(" + siteNum + ")");
+			this.logger.log("Processing recover(" + siteNum + ")");
 			
 			//check for valid site id
 			if(!sites.containsKey(siteNum))
 			{
-				WriteOutput("Site " + siteNum + " not found.");
+				this.logger.log("Site " + siteNum + " not found.");
 				return;
 			}
 			
@@ -378,7 +379,7 @@ public class TransactionManager
 			
 			if(s_backup.isDown())
 			{
-				WriteOutput("Operation failed because backup site is down currently");
+				this.logger.log("Operation failed because backup site is down currently");
 			}
 			else
 			{
@@ -426,12 +427,12 @@ public class TransactionManager
 	private void fail(int siteNum) {
 		try
 		{
-			WriteOutput("Processing fail(" + siteNum + ")");
+			this.logger.log("Processing fail(" + siteNum + ")");
 			Site s_backup = null;
 			//check for valid site id
 			if(!sites.containsKey(siteNum))
 			{
-				WriteOutput("Site " + siteNum + " not found.");
+				this.logger.log("Site " + siteNum + " not found.");
 				return;
 			}
 			
@@ -479,41 +480,41 @@ public class TransactionManager
 	/**
 	 * WriteOutput method can write the output result to a file 
 	 */
-	private void WriteOutput(String info)
-	{
-		boolean blnExist=false;
-		try 
-		{
-	        //check for existing file
-			File f = new File(outFile);
-			blnExist = f.exists();
-			if(!blnExist)
-			{
-				//create a new file if doesn't exist
-				blnExist = f.createNewFile();
-				f=null;
-			}
-			if(blnExist)
-			{
-				BufferedWriter out = new BufferedWriter(new FileWriter(outFile,true));
-				Date date = new Date();
-				out.write(date.toString() + ": " + info);
-				out.newLine();
-				out.flush();
-				out.close();
-			}
-			else
-			{
-				System.out.println("Failed to create output file");
-			}
-	    } 
-		catch (IOException e) 
-	    {
-			System.out.println("Error in WriteOutput-"+ e.getMessage());
-	    }
-
-
-	}
+//	private void WriteOutput(String info)
+//	{
+//		boolean blnExist=false;
+//		try 
+//		{
+//	        //check for existing file
+//			File f = new File(outFile);
+//			blnExist = f.exists();
+//			if(!blnExist)
+//			{
+//				//create a new file if doesn't exist
+//				blnExist = f.createNewFile();
+//				f=null;
+//			}
+//			if(blnExist)
+//			{
+//				BufferedWriter out = new BufferedWriter(new FileWriter(outFile,true));
+//				Date date = new Date();
+//				out.write(date.toString() + ": " + info);
+//				out.newLine();
+//				out.flush();
+//				out.close();
+//			}
+//			else
+//			{
+//				System.out.println("Failed to create output file");
+//			}
+//	    } 
+//		catch (IOException e) 
+//	    {
+//			System.out.println("Error in WriteOutput-"+ e.getMessage());
+//	    }
+//
+//
+//	}
 	
 
 	/**
@@ -633,7 +634,7 @@ public class TransactionManager
 		}
 		else if(s_target.getLockMsg() != "NULL")
 		{
-			WriteOutput("Write X" + intX
+			this.logger.log("Write X" + intX
 					//+ " from site" + s_target.getID() 
 					+ " failed, because it is locked by transaction " 
 					+ s_target.getLockMsg());
@@ -696,7 +697,7 @@ public class TransactionManager
 	{
 		try
 		{
-			WriteOutput("Processing Commit(" + transactionNum + ")");
+			this.logger.log("Processing Commit(" + transactionNum + ")");
 			
 			//extract transaction id
 			String id = "" + transactionNum;
@@ -741,19 +742,19 @@ public class TransactionManager
 						}
 					}
 				}
-				WriteOutput("Transaction " + id + " commited.");
+				this.logger.log("Transaction " + id + " commited.");
 				EndTransaction("end("+ id + ")");
 			}
 			else
 			{
-				WriteOutput("Cannot commit transaction " + id + " , not found.");
+				this.logger.log("Cannot commit transaction " + id + " , not found.");
 			}
 			
 			
 		}
 		catch(Exception e)
 		{
-			WriteOutput("Error in Commit-"+ e.getMessage());
+			this.logger.log("Error in Commit-"+ e.getMessage());
 		}
 	}
 	
@@ -773,7 +774,7 @@ public class TransactionManager
 			{
 				//remove the transaction from the map
 				transactions.remove(id);
-				WriteOutput("Transaction " + id + " removed from the list.");
+				this.logger.log("Transaction " + id + " removed from the list.");
 				
 				//pending operation will be removed as well
 				//impossible to have pending operation if the caller is commit()
@@ -784,7 +785,7 @@ public class TransactionManager
 			}
 			else
 			{
-				WriteOutput("Cannot end transaction " + id + " , not found.");
+				this.logger.log("Cannot end transaction " + id + " , not found.");
 			}
 		}
 		catch(Exception e)
@@ -809,7 +810,7 @@ public class TransactionManager
 			if(transactions.containsKey(id))
 			{
 				String msg = "Transaction " + id + " already existed in the collection.";
-				WriteOutput(msg);
+				this.logger.log(msg);
 				//System.out.println(msg);
 			}
 			else
@@ -817,7 +818,7 @@ public class TransactionManager
 				//create a new transaction object
 				Transaction t = new Transaction(id, timestamp, attri);
 				transactions.put(id, t);//insert into map
-				WriteOutput("Transaction " + id + " has been created.");
+				this.logger.log("Transaction " + id + " has been created.");
 			}
 		}
 		catch(Exception e)
@@ -834,7 +835,7 @@ public class TransactionManager
 	{
 		try
 		{
-			WriteOutput("Processing abort(" + transactionId + ")");
+			this.logger.log("Processing abort(" + transactionId + ")");
 			//extract transaction id
 //			int index = info.indexOf("(");
 //			String id = info.substring(index+1, info.length()-1);
@@ -842,7 +843,7 @@ public class TransactionManager
 			//abort the operation if the transaction not found
 			if(!transactions.containsKey(transactionId))
 			{
-				WriteOutput("Transaction " + transactionId + " not found.");
+				this.logger.log("Transaction " + transactionId + " not found.");
 				return;
 			}
 			
@@ -924,7 +925,7 @@ public class TransactionManager
 		}
 		else
 		{
-			WriteOutput("Cannot make decision because invalid transaction's ID");
+			this.logger.log("Cannot make decision because invalid transaction's ID");
 		}
 		//signal the caller cannot proceed
 		return false;//request transaction is gone
@@ -951,7 +952,7 @@ public class TransactionManager
 			ops.add(op);
 			WaitingList.put(t_id, ops);
 		}
-		WriteOutput("Operation inserted into waiting list.");
+		this.logger.log("Operation inserted into waiting list.");
 	}
 
 	/**
@@ -987,7 +988,7 @@ public class TransactionManager
 				//check for valid site id
 				if(!sites.containsKey(answer))
 				{
-					WriteOutput("Site " + answer + " not found.");
+					this.logger.log("Site " + answer + " not found.");
 					return;
 				}
 				Site s = this.sites.get(answer);
@@ -1016,7 +1017,7 @@ public class TransactionManager
 			//check if the site id valid
 			if(!sites.containsKey(siteNum))
 			{
-				WriteOutput("Site " + siteNum +" not found.");
+				this.logger.log("Site " + siteNum +" not found.");
 				return;
 			}
 			
@@ -1068,7 +1069,7 @@ public class TransactionManager
 			{
 				s.Dump();
 			}
-			WriteOutput("Site" + s.getID() + " " + s.ToString());
+			this.logger.log("Site" + s.getID() + " " + s.ToString());
 		}
 	}
 
@@ -1102,12 +1103,12 @@ public class TransactionManager
 			{
 				//read the value
 				value = s.ReadOnly(intX, t_id);
-				WriteOutput("x" + intX + " is " + value);
+				this.logger.log("x" + intX + " is " + value);
 			}
 			else
 			{
 				//abort this transaction since none of the site is up
-				WriteOutput("Cannot read x" + intX + " all sites are down");
+				this.logger.log("Cannot read x" + intX + " all sites are down");
 				this.abort(t_id);
 			}
 		
@@ -1118,7 +1119,7 @@ public class TransactionManager
 			//at one particular site
 			if(!sites.containsKey(answer))
 			{
-				WriteOutput("Site " + answer + " doesn't contained variable x" + intX + ".");
+				this.logger.log("Site " + answer + " doesn't contained variable x" + intX + ".");
 				//impossible will be at backup site also
 				return;
 			}
@@ -1127,7 +1128,7 @@ public class TransactionManager
 			if(!s.isDown())
 			{
 				value = s.ReadOnly(intX, t_id);
-				WriteOutput("x" + intX + " is " + value);
+				this.logger.log("x" + intX + " is " + value);
 			}
 			else
 			{
@@ -1145,12 +1146,12 @@ public class TransactionManager
 				if(!s.isDown())
 				{
 					value = s.ReadOnly(intX,t_id);
-					WriteOutput("x" + intX + " is " + value);
+					this.logger.log("x" + intX + " is " + value);
 				}
 				else
 				{
 					//abort this transaction since none of the site is up
-					WriteOutput("Cannot read x" + intX + " all sites are down");
+					this.logger.log("Cannot read x" + intX + " all sites are down");
 					this.abort(t_id);
 				}
 			}
@@ -1168,7 +1169,7 @@ public class TransactionManager
 		//at one particular site
 		if(!sites.containsKey(TargetSite))
 		{
-			WriteOutput("Site " + TargetSite + " doesn't contained variable x" + intX + ".");
+			this.logger.log("Site " + TargetSite + " doesn't contained variable x" + intX + ".");
 			//impossible will be at backup site, so won't check
 			//abort the transaction
 			this.abort(t_id);
@@ -1176,7 +1177,7 @@ public class TransactionManager
 		}
 		//target site
 		Site s = this.sites.get(TargetSite);
-		WriteOutput("target site " + TargetSite);
+		this.logger.log("target site " + TargetSite);
 		//if(!s.isDown())
 		//{
 			value = s.ReadData(intX, t_id);
@@ -1185,7 +1186,7 @@ public class TransactionManager
 			if(s.getLockMsg()=="NULL")
 			{
 				blnSuccess = true;
-				WriteOutput("x" + intX + " is " + value);
+				this.logger.log("x" + intX + " is " + value);
 				/*
 				//set lock on backup site also
 				int intBackup =0;
@@ -1210,7 +1211,7 @@ public class TransactionManager
 				Transaction t = this.transactions.get(t_id);
 				Operation op = new Operation(OperationType.read,0,intX,intCurrentTimeStamp);
 				t.Insert_Operation(op);
-				WriteOutput("Operation input into " + t_id);
+				this.logger.log("Operation input into " + t_id);
 			}
 			else if(s.getLockMsg().compareToIgnoreCase(t_id)==0)
 			{
@@ -1235,7 +1236,7 @@ public class TransactionManager
 				{
 					//still alive
 					blnSuccess = true;
-					WriteOutput("x" + intX + " is lock by " + s.getLockMsg());
+					this.logger.log("x" + intX + " is lock by " + s.getLockMsg());
 					
 					//reset message
 					s.resetLockMsg();
@@ -1531,7 +1532,7 @@ public class TransactionManager
 
 			String id = "" + transactionNum;
 			
-			WriteOutput("Test commit for transaction " + id);
+			this.logger.log("Test commit for transaction " + id);
 			
 			if(transactions.containsKey(id))
 			{
@@ -1549,7 +1550,7 @@ public class TransactionManager
 				//abort if the target site just recovered
 				if(TargetSiteWasDown(ops))
 				{
-					WriteOutput("target site was down before, lost local lock info");
+					this.logger.log("target site was down before, lost local lock info");
 					this.abort(id);
 					return false;
 				}
@@ -1570,7 +1571,7 @@ public class TransactionManager
 						Site s = (Site)sites.get(answer);
 						if(s.isDown())
 						{
-							WriteOutput("target site is down");
+							this.logger.log("target site is down");
 							this.abort(id);
 							return false;
 						}
@@ -1583,7 +1584,7 @@ public class TransactionManager
 					//last check any pending operation under this transaction id
 					if(WaitingList.containsKey(id))
 					{
-						WriteOutput("There is still operation pending for this transaction " + id);
+						this.logger.log("There is still operation pending for this transaction " + id);
 						this.abort(id);
 						return false;
 						/*
@@ -1599,7 +1600,7 @@ public class TransactionManager
 			}
 			else
 			{
-				WriteOutput("Transaction " + id + " , not found.");
+				this.logger.log("Transaction " + id + " , not found.");
 				blnSiteUp = false;
 			}
 			
