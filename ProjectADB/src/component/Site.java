@@ -2,6 +2,8 @@ package component;
 
 import java.util.*;
 
+import component.Xclass;
+
 import manager.DataManager;
 import manager.LockManager;
 /**
@@ -55,92 +57,105 @@ public class Site{
 		//	Insert_Xclass(X);
 		//}
 		//add odd X variable into target sites
-		
-		Xclass X2 = new Xclass(2);
-		Xclass X4 = new Xclass(4);
-		Xclass X6 = new Xclass(6);
-		Xclass X8 = new Xclass(8);
-		Xclass X10 = new Xclass(10);
-		Xclass X12 = new Xclass(12);
-		Xclass X14 = new Xclass(14);
-		Xclass X16 = new Xclass(16);
-		Xclass X18 = new Xclass(18);
-		Xclass X20 = new Xclass(20);
-		
-		switch(ID)
-		{
-			//switch site id
-			case 1:
-				Insert_Xclass(X2);
-				Insert_Xclass(X8);
-				Insert_Xclass(X14);
-				break;
-			case 2:
-				Xclass X1 = new Xclass(1); 
-				Insert_Xclass(X1);
-				Xclass X11 = new Xclass(11); 
-				Insert_Xclass(X11);
-				Insert_Xclass(X2);
-				Insert_Xclass(X8);
-				Insert_Xclass(X16);
-				break;
-			case 3:
-				Insert_Xclass(X2);
-				Insert_Xclass(X10);
-				Insert_Xclass(X16);
-				break;
-			case 4:
-				Xclass X3 = new Xclass(3); 
-				Insert_Xclass(X3);
-				Xclass X13 = new Xclass(13); 
-				Insert_Xclass(X13);
-				Insert_Xclass(X4);
-				Insert_Xclass(X10);
-				Insert_Xclass(X16);
-				break;
-			case 5:
-				Insert_Xclass(X4);
-				Insert_Xclass(X10);
-				Insert_Xclass(X18);
-				break;
-			case 6:
-				Xclass X5 = new Xclass(5); 
-				Insert_Xclass(X5);
-				Xclass X15 = new Xclass(15); 
-				Insert_Xclass(X15);
-				Insert_Xclass(X4);
-				Insert_Xclass(X12);
-				Insert_Xclass(X18);
-				break;
-			case 7:
-				Insert_Xclass(X6);
-				Insert_Xclass(X12);
-				Insert_Xclass(X18);
-				break;
-			case 8:
-				Xclass X7 = new Xclass(7); 
-				Insert_Xclass(X7);
-				Xclass X17 = new Xclass(17); 
-				Insert_Xclass(X17);
-				Insert_Xclass(X6);
-				Insert_Xclass(X12);
-				Insert_Xclass(X20);
-				break;
-			case 9:
-				Insert_Xclass(X6);
-				Insert_Xclass(X14);
-				Insert_Xclass(X20);
-				break;
-			case 10:
-				Xclass X9 = new Xclass(9); 
-				Insert_Xclass(X9);
-				Xclass X19 = new Xclass(19); 
-				Insert_Xclass(X19);
-				Insert_Xclass(X8);
-				Insert_Xclass(X14);
-				Insert_Xclass(X20);
-				break;
+		for (int i = 1; i <= 10; i++) {
+			Xclass X = new Xclass(i * 2);
+			this.X_q.add(X);
+//			strbuilder.append("X" + i*2 + ", ");
 		}
+		for (int i = 1; i < 20; i += 2) {
+			int temp = ((1 + i) % 10 == 0) ? 10 : (1 + i) % 10;
+			if (temp == this.ID+1) {
+				Xclass X = new Xclass(i);
+				this.X_q.add(X);
+//				strbuilder.append("X" + i + ", ");
+			}
+		}
+		
+//		Xclass X2 = new Xclass(2);
+//		Xclass X4 = new Xclass(4);
+//		Xclass X6 = new Xclass(6);
+//		Xclass X8 = new Xclass(8);
+//		Xclass X10 = new Xclass(10);
+//		Xclass X12 = new Xclass(12);
+//		Xclass X14 = new Xclass(14);
+//		Xclass X16 = new Xclass(16);
+//		Xclass X18 = new Xclass(18);
+//		Xclass X20 = new Xclass(20);
+//		
+//		switch(ID)
+//		{
+//			//switch site id
+//			case 1:
+//				Insert_Xclass(X2);
+//				Insert_Xclass(X8);
+//				Insert_Xclass(X14);
+//				break;
+//			case 2:
+//				Xclass X1 = new Xclass(1); 
+//				Insert_Xclass(X1);
+//				Xclass X11 = new Xclass(11); 
+//				Insert_Xclass(X11);
+//				Insert_Xclass(X2);
+//				Insert_Xclass(X8);
+//				Insert_Xclass(X16);
+//				break;
+//			case 3:
+//				Insert_Xclass(X2);
+//				Insert_Xclass(X10);
+//				Insert_Xclass(X16);
+//				break;
+//			case 4:
+//				Xclass X3 = new Xclass(3); 
+//				Insert_Xclass(X3);
+//				Xclass X13 = new Xclass(13); 
+//				Insert_Xclass(X13);
+//				Insert_Xclass(X4);
+//				Insert_Xclass(X10);
+//				Insert_Xclass(X16);
+//				break;
+//			case 5:
+//				Insert_Xclass(X4);
+//				Insert_Xclass(X10);
+//				Insert_Xclass(X18);
+//				break;
+//			case 6:
+//				Xclass X5 = new Xclass(5); 
+//				Insert_Xclass(X5);
+//				Xclass X15 = new Xclass(15); 
+//				Insert_Xclass(X15);
+//				Insert_Xclass(X4);
+//				Insert_Xclass(X12);
+//				Insert_Xclass(X18);
+//				break;
+//			case 7:
+//				Insert_Xclass(X6);
+//				Insert_Xclass(X12);
+//				Insert_Xclass(X18);
+//				break;
+//			case 8:
+//				Xclass X7 = new Xclass(7); 
+//				Insert_Xclass(X7);
+//				Xclass X17 = new Xclass(17); 
+//				Insert_Xclass(X17);
+//				Insert_Xclass(X6);
+//				Insert_Xclass(X12);
+//				Insert_Xclass(X20);
+//				break;
+//			case 9:
+//				Insert_Xclass(X6);
+//				Insert_Xclass(X14);
+//				Insert_Xclass(X20);
+//				break;
+//			case 10:
+//				Xclass X9 = new Xclass(9); 
+//				Insert_Xclass(X9);
+//				Xclass X19 = new Xclass(19); 
+//				Insert_Xclass(X19);
+//				Insert_Xclass(X8);
+//				Insert_Xclass(X14);
+//				Insert_Xclass(X20);
+//				break;
+//		}
 	}
 	
 	/**

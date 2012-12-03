@@ -39,7 +39,6 @@ public class Demo {
 					line = in.next();
 					InputParser ip = new InputParser(line);
 					tm.setCommandList(ip.getCommandList());
-					tm.run();
 					
 				}
 				else if(line.compareToIgnoreCase("n")==0)
@@ -68,28 +67,4 @@ public class Demo {
 		
 		System.out.println("done");
 	}
-	/**
-	 * read from input file
-	 * @param inFile
-	 * @param TM
-	 */
-//	private static void FromFile(String inFile,TransactionManager TM)
-//	{
-//		try
-//		{
-//			FileInputStream fstream = new FileInputStream(inFile);
-//			DataInputStream in = new DataInputStream(fstream);
-//			BufferedReader br = new BufferedReader(new InputStreamReader(in));
-//			String strLine;
-//			while((strLine = br.readLine())!=null)
-//			{
-//				TM.Do(strLine);
-//				System.out.println(strLine);
-//			}
-//		}
-//		catch(Exception e)
-//		{
-//			System.out.println("Error-" + e.getMessage());
-//		}
-//	}
 }

@@ -10,11 +10,6 @@ import type.TransactionType;
  */
 public class Transaction 
 {
-//	public enum Attribute
-//	{
-//		ReadOnly,
-//		ReadWrite
-//	}
 	//class variable
 	private int timestamp = 0;
 	private String ID = "";

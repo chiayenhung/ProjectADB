@@ -9,12 +9,6 @@ import type.OperationType;
  */
 public class Operation 
 {
-//	public enum action_type
-//	{
-//		read,
-//		write,
-//		commit
-//	}
 	//class variable
 	private OperationType op_type = OperationType.read;
 	private int value = -1;

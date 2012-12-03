@@ -34,25 +34,8 @@ public class TransactionManager
 	private Logger logger;
 	/**
 	 * Transaction Manager object class constructor
-	 * @param ip 
+	 * @param output file path and name 
 	 */
-//	public TransactionManager(String output_Filename, List<List<String>> list)
-//	{
-//		//instantiate lists
-//		this.sites = new HashMap<Integer, Site>();
-//		this.transactions = new HashMap<String, Transaction>();
-//		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
-//		this.outFile = output_Filename;
-//		this.SiteRecords = new HashMap<Integer, Integer>();
-//		for(int i = 1 ; i < 11; i++){
-//			this.sites.put(i, new Site(i));
-//			this.SiteRecords.put(i, intCurrentTimeStamp);
-//			this.WriteOutput("Added site " + i);
-//		}
-//		this.commandList = list;
-//		this.run();
-//	}
-	
 	public TransactionManager(String filename)
 	{
 		//instantiate lists
@@ -69,17 +52,26 @@ public class TransactionManager
 		
 	}
 	
+	/**
+	 * @param list 
+	 * @Description set the command list from file
+	 */
 	public void setCommandList(List<List<String>> list){
 		this.commandList = list;
+		this.run();
 	}
 	
-	public void run(){
+	/**
+	 * run TransactionManager 
+	 */
+	private void run(){
 		CommandParser cp;
 		for(List<String> stringList: this.commandList){
 			for(String s: stringList){
 				cp = new CommandParser(s);
 				this.execute(cp);
 			}
+//			intCurrentTimeStamp++;
 		}
 	}
 	
