@@ -136,7 +136,7 @@ public class TransactionManager
 				
 				int intID = (xClassNum % 10) + 1;
 				
-				Site s = (Site)sites.get(intID);
+				Site s = this.sites.get(intID);
 				if(!s.isDown())
 				{
 					CommitVariable(xClassNum);
@@ -192,7 +192,7 @@ public class TransactionManager
 			{
 				//check transaction attribute
 				//doesn't allow to write if is read-only
-				t = (Transaction)transactions.get(t_id);
+				t = this.transactions.get(t_id);
 				if(t.getAttribute() == TransactionType.ReadOnly)
 				{
 					this.logger.log("Transaction " + t_id + " doesn't allow to write.");
@@ -207,10 +207,10 @@ public class TransactionManager
 			
 			ArrayList<Site> evenSite = new ArrayList<Site>();
 			
-			if( (xClassNum%2) == 1)
+			if( (xClassNum % 2) == 1)
 			{
 				int answer = (xClassNum % 10) +1;
-				Site s = (Site)sites.get(answer);
+				Site s = this.sites.get(answer);
 				if(!s.isDown())
 				{
 					blnInsertOp=WriteToSingle(xClassNum,value,t_id,answer);

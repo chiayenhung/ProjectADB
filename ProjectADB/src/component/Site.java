@@ -62,14 +62,14 @@ public class Site{
 			this.X_q.add(X);
 //			strbuilder.append("X" + i*2 + ", ");
 		}
-		for (int i = 1; i < 20; i += 2) {
-			int temp = ((1 + i) % 10 == 0) ? 10 : (1 + i) % 10;
-			if (temp == this.ID+1) {
-				Xclass X = new Xclass(i);
-				this.X_q.add(X);
-//				strbuilder.append("X" + i + ", ");
-			}
-		}
+//		for (int i = 1; i < 20; i += 2) {
+//			int temp = ((1 + i) % 10 == 0) ? 10 : (1 + i) % 10;
+//			if (temp == this.ID+1) {
+//				Xclass X = new Xclass(i);
+//				this.X_q.add(X);
+////				strbuilder.append("X" + i + ", ");
+//			}
+//		}
 		
 //		Xclass X2 = new Xclass(2);
 //		Xclass X4 = new Xclass(4);
@@ -82,80 +82,80 @@ public class Site{
 //		Xclass X18 = new Xclass(18);
 //		Xclass X20 = new Xclass(20);
 //		
-//		switch(ID)
-//		{
-//			//switch site id
+		switch(ID)
+		{
+			//switch site id
 //			case 1:
 //				Insert_Xclass(X2);
 //				Insert_Xclass(X8);
 //				Insert_Xclass(X14);
 //				break;
-//			case 2:
-//				Xclass X1 = new Xclass(1); 
-//				Insert_Xclass(X1);
-//				Xclass X11 = new Xclass(11); 
-//				Insert_Xclass(X11);
+			case 2:
+				Xclass X1 = new Xclass(1); 
+				Insert_Xclass(X1);
+				Xclass X11 = new Xclass(11); 
+				Insert_Xclass(X11);
 //				Insert_Xclass(X2);
 //				Insert_Xclass(X8);
 //				Insert_Xclass(X16);
-//				break;
+				break;
 //			case 3:
 //				Insert_Xclass(X2);
 //				Insert_Xclass(X10);
 //				Insert_Xclass(X16);
 //				break;
-//			case 4:
-//				Xclass X3 = new Xclass(3); 
-//				Insert_Xclass(X3);
-//				Xclass X13 = new Xclass(13); 
-//				Insert_Xclass(X13);
+			case 4:
+				Xclass X3 = new Xclass(3); 
+				Insert_Xclass(X3);
+				Xclass X13 = new Xclass(13); 
+				Insert_Xclass(X13);
 //				Insert_Xclass(X4);
 //				Insert_Xclass(X10);
 //				Insert_Xclass(X16);
-//				break;
+				break;
 //			case 5:
 //				Insert_Xclass(X4);
 //				Insert_Xclass(X10);
 //				Insert_Xclass(X18);
 //				break;
-//			case 6:
-//				Xclass X5 = new Xclass(5); 
-//				Insert_Xclass(X5);
-//				Xclass X15 = new Xclass(15); 
-//				Insert_Xclass(X15);
+			case 6:
+				Xclass X5 = new Xclass(5); 
+				Insert_Xclass(X5);
+				Xclass X15 = new Xclass(15); 
+				Insert_Xclass(X15);
 //				Insert_Xclass(X4);
 //				Insert_Xclass(X12);
 //				Insert_Xclass(X18);
-//				break;
+				break;
 //			case 7:
 //				Insert_Xclass(X6);
 //				Insert_Xclass(X12);
 //				Insert_Xclass(X18);
 //				break;
-//			case 8:
-//				Xclass X7 = new Xclass(7); 
-//				Insert_Xclass(X7);
-//				Xclass X17 = new Xclass(17); 
-//				Insert_Xclass(X17);
+			case 8:
+				Xclass X7 = new Xclass(7); 
+				Insert_Xclass(X7);
+				Xclass X17 = new Xclass(17); 
+				Insert_Xclass(X17);
 //				Insert_Xclass(X6);
 //				Insert_Xclass(X12);
 //				Insert_Xclass(X20);
-//				break;
+				break;
 //			case 9:
 //				Insert_Xclass(X6);
 //				Insert_Xclass(X14);
 //				Insert_Xclass(X20);
 //				break;
-//			case 10:
-//				Xclass X9 = new Xclass(9); 
-//				Insert_Xclass(X9);
-//				Xclass X19 = new Xclass(19); 
-//				Insert_Xclass(X19);
+			case 10:
+				Xclass X9 = new Xclass(9); 
+				Insert_Xclass(X9);
+				Xclass X19 = new Xclass(19); 
+				Insert_Xclass(X19);
 //				Insert_Xclass(X8);
 //				Insert_Xclass(X14);
 //				Insert_Xclass(X20);
-//				break;
-//		}
+				break;
+		}
 	}
 	
 	/**
@@ -482,13 +482,13 @@ public class Site{
 		for(int i = 0; i < X_q.size(); i++)
 		{
 			if(!X_q.get(i).IsCopy()){
-				s += "Current X" + X_q.get(i).getID() + " = " 
-					+ X_q.get(i).getValue() + "\n";
+				s += "X" + X_q.get(i).getID() + " = " 
+					+ X_q.get(i).getValue() + " ";
 			}
 			else
 			{
-				s += "Current copy X" + X_q.get(i).getID() + " = " 
-				+ X_q.get(i).getValue() + "\n";
+				s += "copy X" + X_q.get(i).getID() + " = " 
+				+ X_q.get(i).getValue() + " ";
 			}
 		}
 		return s;

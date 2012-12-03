@@ -18,7 +18,8 @@ public class Logger {
 	private String filename;
 	
 	public Logger(String filename) {
-		this.filename = filename;
+		Date date = new Date();
+		this.filename = "result/" + date.getTime() + filename;
 	}
 	
 	public void log(String info){
