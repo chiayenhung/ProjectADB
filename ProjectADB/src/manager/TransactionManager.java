@@ -131,8 +131,6 @@ public class TransactionManager
 				//check for if target site is down
 				//get variable id
 				//extract variable id
-//				int index = info.indexOf("(x");
-//				String id = info.substring(index+2, info.length()-1);
 				
 				int intID = xClassNum;
 				
@@ -154,10 +152,8 @@ public class TransactionManager
 				//commit a site
 				//get variable id
 				//extract variable id
-//				int index = info.indexOf("(");
-//				String id = info.substring(index+1, info.length()-1);
 				
-				int intID = siteNum;
+//				int intID = siteNum;
 				Site s = (Site)sites.get(siteNum);
 				if(!s.isDown())
 				{
@@ -435,14 +431,14 @@ public class TransactionManager
 			//call backup before fail
 			if(siteNum==1)
 			{
-				s_backup = (Site)sites.get(10);
+				s_backup = this.sites.get(10);
 			}
 			else
 			{
-				s_backup = (Site)sites.get(siteNum-1);
+				s_backup = this.sites.get(siteNum-1);
 			}
 			//call a site to fail
-			Site s = (Site)sites.get(siteNum);
+			Site s = this.sites.get(siteNum);
 			s.Backup(s_backup);
 			s.Fail();
 			//String record = (String)SiteRecords.get(s.getID()); 
@@ -516,88 +512,88 @@ public class TransactionManager
 	/**
 	 * 
 	 */
-	private boolean WriteToAll(int intX,int intValue,String t_id)
-	{
-		//success if we make it to One site and not all sites down
-		boolean blnWriteOnce= false;
-		
-		ArrayList<Site> kk = new ArrayList<Site>();
-		int xEvenTargetSite = 0;
-		if(intX%2 == 0){
-			int temp = (intX/2)*3;
-			for (int i = (temp-2); i <= temp; i++){
-				if((i%10) == 0)
-				{
-					xEvenTargetSite = 10;
-					
-				}
-				else
-				{
-					int answerSite = (i%10);
-					xEvenTargetSite = answerSite;
-				}
-				Site s1 = sites.get(xEvenTargetSite);
-				kk.add(s1);
-			}
-		}
-		
-		Iterator<Site> iteratorSite = kk.iterator();
-		
-		//get iterator
-		Iterator<Site> k = sites.values().iterator();
-		
-		while(iteratorSite.hasNext())
-		{
-			Site _site = (Site)iteratorSite.next();
-			
-			//only if is not down
-			if(!_site.isDown())
-			{
-				_site.WriteData(intX, intValue, t_id);
-				
-				//check lock message
-				if(_site.getLockMsg().compareToIgnoreCase(t_id)==0)
-				{
-					//same id
-					//write again
-					_site.WriteData(intX, intValue, t_id);
-					blnWriteOnce = true;//set flag, indicating at least write once
-				}
-				else if(_site.getLockMsg() != "NULL")
-				{
-					
-					WriteOutput("Write X" + intX
-							//+ " from site" + _site.getID() 
-							+ " failed, because it is locked by transaction " 
-							+ _site.getLockMsg());				
-					//make decision on which transaction to be aborted
-					if(MakeDecision(_site.getLockMsg(),t_id))
-					{
-						//request-trasanction still alive	
-						//insert the stuck operation into the waiting list
-						//time stamp = 0 because hasn't written to site yet
-						Operation op = new Operation(Operation.action_type.write,intValue,intX,0);
-						InsertIntoWaitingList(op,t_id);
-					}
-					else
-					{
-						//current transaction aborted
-					}
-					//reset lock message
-					_site.resetLockMsg();
-					
-					//break the loop
-					break;
-				}
-				else
-				{
-					blnWriteOnce = true;//set flag, indicating at least write once
-				}
-			}//end if site is down
-		}
-
-		return blnWriteOnce;
-	}
+//	private boolean WriteToAll(int intX,int intValue,String t_id)
+//	{
+//		//success if we make it to One site and not all sites down
+//		boolean blnWriteOnce= false;
+//		
+//		ArrayList<Site> kk = new ArrayList<Site>();
+//		int xEvenTargetSite = 0;
+//		if(intX%2 == 0){
+//			int temp = (intX/2)*3;
+//			for (int i = (temp-2); i <= temp; i++){
+//				if((i%10) == 0)
+//				{
+//					xEvenTargetSite = 10;
+//					
+//				}
+//				else
+//				{
+//					int answerSite = (i%10);
+//					xEvenTargetSite = answerSite;
+//				}
+//				Site s1 = sites.get(xEvenTargetSite);
+//				kk.add(s1);
+//			}
+//		}
+//		
+//		Iterator<Site> iteratorSite = kk.iterator();
+//		
+//		//get iterator
+//		Iterator<Site> k = sites.values().iterator();
+//		
+//		while(iteratorSite.hasNext())
+//		{
+//			Site _site = (Site)iteratorSite.next();
+//			
+//			//only if is not down
+//			if(!_site.isDown())
+//			{
+//				_site.WriteData(intX, intValue, t_id);
+//				
+//				//check lock message
+//				if(_site.getLockMsg().compareToIgnoreCase(t_id)==0)
+//				{
+//					//same id
+//					//write again
+//					_site.WriteData(intX, intValue, t_id);
+//					blnWriteOnce = true;//set flag, indicating at least write once
+//				}
+//				else if(_site.getLockMsg() != "NULL")
+//				{
+//					
+//					WriteOutput("Write X" + intX
+//							//+ " from site" + _site.getID() 
+//							+ " failed, because it is locked by transaction " 
+//							+ _site.getLockMsg());				
+//					//make decision on which transaction to be aborted
+//					if(MakeDecision(_site.getLockMsg(),t_id))
+//					{
+//						//request-trasanction still alive	
+//						//insert the stuck operation into the waiting list
+//						//time stamp = 0 because hasn't written to site yet
+//						Operation op = new Operation(Operation.action_type.write,intValue,intX,0);
+//						InsertIntoWaitingList(op,t_id);
+//					}
+//					else
+//					{
+//						//current transaction aborted
+//					}
+//					//reset lock message
+//					_site.resetLockMsg();
+//					
+//					//break the loop
+//					break;
+//				}
+//				else
+//				{
+//					blnWriteOnce = true;//set flag, indicating at least write once
+//				}
+//			}//end if site is down
+//		}
+//
+//		return blnWriteOnce;
+//	}
 	
 	/**
 	 * write the value to variable that is on target site and back up site(id+1)
@@ -607,7 +603,7 @@ public class TransactionManager
 		//success if we make it to One site or backup
 		boolean blnWriteOnce= false;
 		//target + backup
-		Site s_target = (Site)sites.get(targetSite);
+		Site s_target = this.sites.get(targetSite);
 		int backup=0;
 		if(targetSite==1)			
 		{
@@ -618,7 +614,7 @@ public class TransactionManager
 			backup = targetSite-1;
 		}
 		
-		Site s_backup = (Site)sites.get(backup);
+		Site s_backup = this.sites.get(backup);
 		
 		s_target.WriteData(intX, intValue, t_id);
 		
@@ -700,7 +696,7 @@ public class TransactionManager
 			if(transactions.containsKey(id))
 			{
 				//commit each operation under this transaction
-				Transaction t = (Transaction)transactions.get(id); 
+				Transaction t = this.transactions.get(id); 
 				ArrayList<Operation> ops = (ArrayList<Operation>)t.getOperations();
 				
 				for(int i = 0 ;i < ops.size(); i++)
@@ -730,7 +726,7 @@ public class TransactionManager
 						{
 							//single site + backup
 							//check for site down
-							Site _site = (Site)sites.get(answer);
+							Site _site = this.sites.get(answer);
 							_site.Dump(op.getTarget());
 							//_site = (Site)sites.get(answer+1);
 							//_site.Dump(op.getTarget());
@@ -826,22 +822,24 @@ public class TransactionManager
 	/**
 	 * This method can be used to abort a transaction and roll back
 	 */
-	private  void Abort(String info)
+//	private  void Abort(String info)
+	private  void abort(String transactionId)
 	{
 		try
 		{
-			WriteOutput("Processing " + info);
+			WriteOutput("Processing abort(" + transactionId + ")");
 			//extract transaction id
-			int index = info.indexOf("(");
-			String id = info.substring(index+1, info.length()-1);
+//			int index = info.indexOf("(");
+//			String id = info.substring(index+1, info.length()-1);
+//			String id = "" + transactionNum;
 			//abort the operation if the transaction not found
-			if(!transactions.containsKey(id))
+			if(!transactions.containsKey(transactionId))
 			{
-				WriteOutput("Transaction " + id + " not found.");
+				WriteOutput("Transaction " + transactionId + " not found.");
 				return;
 			}
 			
-			Transaction t = (Transaction)transactions.get(id);
+			Transaction t = this.transactions.get(transactionId);
 			//get a list of operation belongs to this transaction id
 			ArrayList<Operation> ops = (ArrayList<Operation>)t.getOperations();
 			//loop through every operation
@@ -863,7 +861,7 @@ public class TransactionManager
 						{ 
 							Site s = (Site)it.next();
 							
-							s.AbortT(id);
+							s.AbortT(transactionId);
 							//s.Abort(op.getTarget());
 						}
 						
@@ -874,15 +872,15 @@ public class TransactionManager
 					else
 					{
 						//x is at one particular site + backup site
-						Site s = (Site)sites.get(answer);
+						Site s = this.sites.get(answer);
 						//s.Abort(op.getTarget());
-						s.AbortT(id);
+						s.AbortT(transactionId);
 					}
 				}
 			}
 			
 			//end the transaction
-			EndTransaction("end("+ id +")");
+			EndTransaction("end("+ transactionId +")");
 		}
 		catch(Exception e)
 		{
@@ -900,14 +898,14 @@ public class TransactionManager
 		if(transactions.containsKey(LockByID) && transactions.containsKey(RequestID))
 		{
 			//if both transaction existed
-			Transaction t_locked = (Transaction)transactions.get(LockByID);
-			Transaction t_request = (Transaction)transactions.get(RequestID);
+			Transaction t_locked = this.transactions.get(LockByID);
+			Transaction t_request = this.transactions.get(RequestID);
 			if(t_locked.getTimeStamp()<=t_request.getTimeStamp())
 			{
 				//t_request is younger or equal than the t_locked
 				//keep t_locked 
 				//abort request id
-				Abort("abort(" + RequestID + ")");
+				this.abort(RequestID);
 				
 			}
 			else
@@ -936,7 +934,7 @@ public class TransactionManager
 		//check if there is an existing record current transaction
 		if(WaitingList.containsKey(t_id))
 		{
-			ops = (ArrayList<Operation>)WaitingList.get(t_id);
+			ops = this.WaitingList.get(t_id);
 			ops.add(op);
 		}
 		else
@@ -985,7 +983,7 @@ public class TransactionManager
 					WriteOutput("Site " + answer + " not found.");
 					return;
 				}
-				Site s = (Site)sites.get(answer);
+				Site s = this.sites.get(answer);
 				s.Dump(intX);
 			}
 		}
@@ -1077,7 +1075,7 @@ public class TransactionManager
 		int value=0;
 		//get target site
 		int answer = (intX % 10 ) + 1;
-		if(intX%2==0)
+		if(intX % 2==0)
 		{
 			
 			//at all site
@@ -1103,7 +1101,7 @@ public class TransactionManager
 			{
 				//abort this transaction since none of the site is up
 				WriteOutput("Cannot read x" + intX + " all sites are down");
-				Abort("abort(" +  t_id +")");
+				this.abort(t_id);
 			}
 		
 			
@@ -1118,7 +1116,7 @@ public class TransactionManager
 				return;
 			}
 			//target site
-			s = (Site)sites.get(answer);
+			s = this.sites.get(answer);
 			if(!s.isDown())
 			{
 				value = s.ReadOnly(intX, t_id);
@@ -1136,7 +1134,7 @@ public class TransactionManager
 				{
 					backup = answer+1;
 				}
-				s = (Site)sites.get(backup);
+				s = this.sites.get(backup);
 				if(!s.isDown())
 				{
 					value = s.ReadOnly(intX,t_id);
@@ -1146,7 +1144,7 @@ public class TransactionManager
 				{
 					//abort this transaction since none of the site is up
 					WriteOutput("Cannot read x" + intX + " all sites are down");
-					Abort("abort(" +  t_id +")");
+					this.abort(t_id);
 				}
 			}
 			
@@ -1166,11 +1164,11 @@ public class TransactionManager
 			WriteOutput("Site " + TargetSite + " doesn't contained variable x" + intX + ".");
 			//impossible will be at backup site, so won't check
 			//abort the transaction
-			Abort("abort(" + t_id + ")");
+			this.abort(t_id);
 			return;
 		}
 		//target site
-		Site s = (Site)sites.get(TargetSite);
+		Site s = this.sites.get(TargetSite);
 		WriteOutput("target site " + TargetSite);
 		//if(!s.isDown())
 		//{
@@ -1202,7 +1200,7 @@ public class TransactionManager
 				//increase time stamp so that won't conflict with regular transaction
 				//maybe this operation is invoke from waiting list
 				intCurrentTimeStamp++;
-				Transaction t = (Transaction)transactions.get(t_id);
+				Transaction t = this.transactions.get(t_id);
 				Operation op = new Operation(Operation.action_type.read,0,intX,intCurrentTimeStamp);
 				t.Insert_Operation(op);
 				WriteOutput("Operation input into " + t_id);
@@ -1257,119 +1255,119 @@ public class TransactionManager
 	/**
 	 * this method can read a variable which is at all sites
 	 */
-	private void ReadAll(int TargetSite,int intX,String t_id)
-	{
-		int value = 0;
-		boolean blnSuccess = false;
-		Site s = null;
-		//at one particular site
-		if(!sites.containsKey(TargetSite))
-		{
-			WriteOutput("Site " + TargetSite + " doesn't contained variable x" + intX + ".");
-			//impossible will be at backup site, so won't check
-			//abort the transaction
-			Abort("abort(" + t_id + ")");
-			return;
-		}		
-		//check target site is up and running
-		//s = (Site)sites.get(TargetSite);
-		//if(!s.isDown())
-		//{
-		//read the value, and set lock at all sites
-		
-		ArrayList<Site> kk = new ArrayList<Site>();
-		
-		//int xOddTargetSite = (intX % 10) +1;
-		int xEvenTargetSite = 0;
-		if(intX%2 == 0){
-			int temp = (intX/2)*3;
-			for (int i = (temp-2); i <= temp; i++){
-				if((i%10) == 0)
-				{
-					xEvenTargetSite = 10;
-					
-				}
-				else
-				{
-					int answerSite = (i%10);
-					xEvenTargetSite = answerSite;
-				}
-				Site s1 = sites.get(xEvenTargetSite);
-				kk.add(s1);		
-			}			
-		}			
-		//Iterator<Site> k = sites.values().iterator();
-		
-		Iterator<Site> iteratorSite = kk.iterator();
-		
-		while(iteratorSite.hasNext())
-		{
-			s = (Site)iteratorSite.next();
-			if(!s.isDown())
-	    	{
-	    		//read + set lock
-		    	value = s.ReadData(intX, t_id);
-		    	if(s.getLockMsg().compareToIgnoreCase(t_id)==0)
-		    	{
-		    		//self locked
-		    		blnSuccess = true;
-		    		value = s.ReadData(intX, t_id);
-		    		this.WriteOutput("the target site is site"+ s.getID());
-		    		//return;
-		    	}
-		    	else if(s.getLockMsg()!="NULL")
-		    	{
-		    		WriteOutput("x" + intX + " is locked by " + s.getLockMsg());
-		    		
-		    		
-		    		//to abort current transaction?
-		    		if(MakeDecision(s.getLockMsg(),t_id))
-		    		{
-		    			//reset the lock msg
-			    		s.resetLockMsg();
-		    			//current transaction still alive
-		    			//write into waiting list at the end of method
-		    			break;
-		    		
-		    		}
-		    		else
-		    		{
-		    			//current transaction aborted
-		    			//reset the lock msg
-			    		s.resetLockMsg();
-		    			return;
-		    		}
-		    		
-		    		
-		    	}
-		    	else
-		    	{
-		    		//no lock on it
-		    		blnSuccess = true;
-		    	}
-	    	}//if site is up only
-			
-		}
-		if(!blnSuccess)
-		{
-			//save the operation to waiting list
-			//time stamp = 0, because hasn't written to site yet
-			Operation op = new Operation(Operation.action_type.read,0,intX,0);
-	    	InsertIntoWaitingList(op,t_id);
-		}
-		else
-		{
-			WriteOutput("x" + intX + " is " + value);
-			//write to transaction record
-			//increase time stamp so that won't conflict with regular transaction
-			//maybe this operation is invoke from waiting list
-			intCurrentTimeStamp++;
-			Transaction t = (Transaction)transactions.get(t_id);
-			Operation op = new Operation(Operation.action_type.read,0,intX,intCurrentTimeStamp);
-			t.Insert_Operation(op);
-			WriteOutput("Operation input into " + t_id);
-		}
-	}
+//	private void ReadAll(int TargetSite,int intX,String t_id)
+//	{
+//		int value = 0;
+//		boolean blnSuccess = false;
+//		Site s = null;
+//		//at one particular site
+//		if(!sites.containsKey(TargetSite))
+//		{
+//			WriteOutput("Site " + TargetSite + " doesn't contained variable x" + intX + ".");
+//			//impossible will be at backup site, so won't check
+//			//abort the transaction
+//			this.abort(t_id);
+//			return;
+//		}		
+//		//check target site is up and running
+//		//s = (Site)sites.get(TargetSite);
+//		//if(!s.isDown())
+//		//{
+//		//read the value, and set lock at all sites
+//		
+//		ArrayList<Site> kk = new ArrayList<Site>();
+//		
+//		//int xOddTargetSite = (intX % 10) +1;
+//		int xEvenTargetSite = 0;
+//		if(intX%2 == 0){
+//			int temp = (intX/2)*3;
+//			for (int i = (temp-2); i <= temp; i++){
+//				if((i%10) == 0)
+//				{
+//					xEvenTargetSite = 10;
+//					
+//				}
+//				else
+//				{
+//					int answerSite = (i%10);
+//					xEvenTargetSite = answerSite;
+//				}
+//				Site s1 = sites.get(xEvenTargetSite);
+//				kk.add(s1);		
+//			}			
+//		}			
+//		//Iterator<Site> k = sites.values().iterator();
+//		
+//		Iterator<Site> iteratorSite = kk.iterator();
+//		
+//		while(iteratorSite.hasNext())
+//		{
+//			s = (Site)iteratorSite.next();
+//			if(!s.isDown())
+//	    	{
+//	    		//read + set lock
+//		    	value = s.ReadData(intX, t_id);
+//		    	if(s.getLockMsg().compareToIgnoreCase(t_id)==0)
+//		    	{
+//		    		//self locked
+//		    		blnSuccess = true;
+//		    		value = s.ReadData(intX, t_id);
+//		    		this.WriteOutput("the target site is site"+ s.getID());
+//		    		//return;
+//		    	}
+//		    	else if(s.getLockMsg()!="NULL")
+//		    	{
+//		    		WriteOutput("x" + intX + " is locked by " + s.getLockMsg());
+//		    		
+//		    		
+//		    		//to abort current transaction?
+//		    		if(MakeDecision(s.getLockMsg(),t_id))
+//		    		{
+//		    			//reset the lock msg
+//			    		s.resetLockMsg();
+//		    			//current transaction still alive
+//		    			//write into waiting list at the end of method
+//		    			break;
+//		    		
+//		    		}
+//		    		else
+//		    		{
+//		    			//current transaction aborted
+//		    			//reset the lock msg
+//			    		s.resetLockMsg();
+//		    			return;
+//		    		}
+//		    		
+//		    		
+//		    	}
+//		    	else
+//		    	{
+//		    		//no lock on it
+//		    		blnSuccess = true;
+//		    	}
+//	    	}//if site is up only
+//			
+//		}
+//		if(!blnSuccess)
+//		{
+//			//save the operation to waiting list
+//			//time stamp = 0, because hasn't written to site yet
+//			Operation op = new Operation(Operation.action_type.read,0,intX,0);
+//	    	InsertIntoWaitingList(op,t_id);
+//		}
+//		else
+//		{
+//			WriteOutput("x" + intX + " is " + value);
+//			//write to transaction record
+//			//increase time stamp so that won't conflict with regular transaction
+//			//maybe this operation is invoke from waiting list
+//			intCurrentTimeStamp++;
+//			Transaction t = (Transaction)transactions.get(t_id);
+//			Operation op = new Operation(Operation.action_type.read,0,intX,intCurrentTimeStamp);
+//			t.Insert_Operation(op);
+//			WriteOutput("Operation input into " + t_id);
+//		}
+//	}
 	//read will set a read-lock
 	private void ReadWithLock(int intX,String t_id)
 	{
@@ -1381,7 +1379,7 @@ public class TransactionManager
 		if( (intX%2) == 1)
 		{
 			answer = (intX % 10) +1;
-			Site s = (Site)sites.get(answer);
+			Site s = this.sites.get(answer);
 			if(!s.isDown())
 			{
 				ReadSingle(answer,intX,t_id);
@@ -1408,7 +1406,7 @@ public class TransactionManager
 					int answerSite = (i%10);
 					answer = answerSite;
 				}
-				Site s1 = (Site)sites.get(answer);
+				Site s1 = this.sites.get(answer);
 				evenSite.add(s1);		
 			}
 			
@@ -1480,7 +1478,7 @@ public class TransactionManager
 			{   
 				for(int j = 1;j<=10;j++)
 				{
-					int downTime = (Integer)SiteRecords.get(j);
+					int downTime = this.SiteRecords.get(j);
 					
 					if(op.getTimeStamp()<downTime)
 					{
@@ -1492,8 +1490,8 @@ public class TransactionManager
 			}
 			else
 			{
-				int downTime = (Integer)SiteRecords.get(SiteIndex);
-				if(op.getTimeStamp()<downTime)
+				int downTime = this.SiteRecords.get(SiteIndex);
+				if(op.getTimeStamp() < downTime)
 				{
 					//the site has down before
 					return true;
@@ -1531,7 +1529,7 @@ public class TransactionManager
 			if(transactions.containsKey(id))
 			{
 				//commit each operation under this transaction
-				Transaction t = (Transaction)transactions.get(id); 
+				Transaction t = this.transactions.get(id); 
 				ArrayList<Operation> ops = (ArrayList<Operation>)t.getOperations();
 				
 				//no operation to be checked
@@ -1545,7 +1543,7 @@ public class TransactionManager
 				if(TargetSiteWasDown(ops))
 				{
 					WriteOutput("target site was down before, lost local lock info");
-					Abort("abort(" + id + ")");
+					this.abort(id);
 					return false;
 				}
 				
@@ -1566,7 +1564,7 @@ public class TransactionManager
 						if(s.isDown())
 						{
 							WriteOutput("target site is down");
-							Abort("abort(" + id + ")");
+							this.abort(id);
 							return false;
 						}
 					}
@@ -1579,7 +1577,7 @@ public class TransactionManager
 					if(WaitingList.containsKey(id))
 					{
 						WriteOutput("There is still operation pending for this transaction " + id);
-						Abort("abort(" + id + ")");
+						this.abort(id);
 						return false;
 						/*
 						WriteOutput("Cannot commit yet, pending operation found under this transaction id");
@@ -1604,7 +1602,7 @@ public class TransactionManager
 		}
 		catch(Exception e)
 		{
-			System.out.println("Error in CanCommit-"+ e.getMessage());
+			System.err.println("Error in CanCommit-"+ e.getMessage());
 			return false;
 		}
 		
@@ -1633,13 +1631,13 @@ public class TransactionManager
 			if(trans.size()==1)
 			{
 				index = 0;
-				t = (Transaction)transactions.get(trans.get(index));
+				t = this.transactions.get(trans.get(index));
 				
 			}
 			else
 			{
 				index= getNext(trans);
-				t = (Transaction)transactions.get(trans.get(index));
+				t = this.transactions.get(trans.get(index));
 			}
 			
 			//process the transaction
@@ -1656,8 +1654,8 @@ public class TransactionManager
 	 */
 	private void processWaitingOperations(String t_id)
 	{
-		ArrayList<Operation> ops = (ArrayList<Operation>)WaitingList.get(t_id);
-		ArrayList<Operation> tempOps = new ArrayList<Operation>();
+		List<Operation> ops = (ArrayList<Operation>)WaitingList.get(t_id);
+		List<Operation> tempOps = new ArrayList<Operation>();
 		for(int i = 0;i<ops.size();i++)
 		{
 			tempOps.add(ops.get(i));
@@ -1716,12 +1714,12 @@ public class TransactionManager
 			{
 				//get the 1st transaction
 				t_id = trans.get(0);
-				t_keep = (Transaction)transactions.get(t_id);
+				t_keep = this.transactions.get(t_id);
 			}
 			else
 			{
 				t_id = trans.get(i);
-				t_temp = (Transaction)transactions.get(t_id);
+				t_temp = this.transactions.get(t_id);
 				//compare both time stamp
 				if(t_keep.getTimeStamp()>t_temp.getTimeStamp())
 				{
