@@ -1,5 +1,7 @@
 package component;
 
+import type.OperationType;
+
 /**
  * operation object class
  * @author Chia-Yen Hung
@@ -7,14 +9,14 @@ package component;
  */
 public class Operation 
 {
-	public enum action_type
-	{
-		read,
-		write,
-		commit
-	}
+//	public enum action_type
+//	{
+//		read,
+//		write,
+//		commit
+//	}
 	//class variable
-	private action_type op_type = action_type.read;
+	private OperationType op_type = OperationType.read;
 	private int value = -1;
 	private int target = -1;
 	private int timeStamp = 0;
@@ -26,7 +28,7 @@ public class Operation
 	 * @param location
 	 * @param ts
 	 */
-	public Operation(action_type type,int _value,int location,int ts)
+	public Operation(OperationType type,int _value,int location,int ts)
 	{
 		op_type = type;
 		value = _value;
@@ -37,7 +39,7 @@ public class Operation
 	 * set the operation type
 	 * @param new_type
 	 */
-	public void setOperationType(action_type new_type)
+	public void setOperationType(OperationType new_type)
 	{
 		op_type = new_type;
 	}
@@ -45,7 +47,7 @@ public class Operation
 	 * return the this object operation read/write
 	 * @return
 	 */
-	public action_type getOperationType()
+	public OperationType getOperationType()
 	{
 		return op_type;
 	}

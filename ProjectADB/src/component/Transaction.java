@@ -1,6 +1,8 @@
 package component;
 
 import java.util.*;
+
+import type.TransactionType;
 /**
  * 
  * Transaction object class
@@ -8,23 +10,23 @@ import java.util.*;
  */
 public class Transaction 
 {
-	public enum Attribute
-	{
-		ReadOnly,
-		ReadWrite
-	}
+//	public enum Attribute
+//	{
+//		ReadOnly,
+//		ReadWrite
+//	}
 	//class variable
 	private int timestamp = 0;
 	private String ID = "";
 	private ArrayList<Operation> op_q;
-	private Transaction.Attribute attribute;
+	private TransactionType attribute;
 	/**
 	 * class constructor
 	 * @param _ID
 	 * @param _timestamp
 	 * @param att
 	 */
-	public Transaction(String _ID,int _timestamp,Transaction.Attribute att)
+	public Transaction(String _ID,int _timestamp,TransactionType att)
 	{
 		op_q =new ArrayList<Operation>();
 		//op_q.add(_op);
@@ -36,7 +38,7 @@ public class Transaction
 	 * get transaction attribute
 	 * @return
 	 */
-	public Transaction.Attribute getAttribute()
+	public TransactionType getAttribute()
 	{
 		return attribute;
 	}

@@ -3,13 +3,16 @@ package manager;
 import java.util.*;
 import java.io.*;
 
-import type.CommandType;
+import type.OperationType;
+import type.TransactionType;
+
+//import type.CommandType;
 
 import component.Operation;
 import component.Site;
 import component.Transaction;
-import component.Operation.action_type;
-import component.Transaction.Attribute;
+//import component.Operation.action_type;
+//import component.Transaction.Attribute;
 
 
 /**
@@ -23,7 +26,7 @@ public class TransactionManager
 	private Map<String, Transaction> transactions; //list of transaction
 	private Map<Integer, Site> sites;//list of site
 	private String outFile = "";
-	private CommandType current_state = CommandType.unkown;
+//	private CommandType current_state = CommandType.unkown;
 	private int intCurrentTimeStamp =0;
 	private Map<String, ArrayList<Operation>> WaitingList;//a map structure to hold all kind of waiting operation from all transactions
 	private Map<Integer, Integer> SiteRecords;//a map structure to hold all the down/recovery record
@@ -105,7 +108,7 @@ public class TransactionManager
 			break;
 				
 		}
-		current_state = cp.getCommandType();
+//		current_state = cp.getCommandType();
 		//increase the timestamp value
 		intCurrentTimeStamp++;
 	}
@@ -193,7 +196,7 @@ public class TransactionManager
 				//check transaction attribute
 				//doesn't allow to write if is read-only
 				t = (Transaction)transactions.get(t_id);
-				if(t.getAttribute() == Transaction.Attribute.ReadOnly)
+				if(t.getAttribute() == TransactionType.ReadOnly)
 				{
 					WriteOutput("Transaction " + t_id + " doesn't allow to write.");
 					return;
@@ -219,7 +222,7 @@ public class TransactionManager
 				{
 					//insert the stuck operation into the waiting list
 					//time stamp = 0 because hasn't written to site yet
-					Operation op = new Operation(Operation.action_type.write,value,xClassNum,0);
+					Operation op = new Operation(OperationType.write,value,xClassNum,0);
 					InsertIntoWaitingList(op,t_id);
 				}
 			}
@@ -257,7 +260,7 @@ public class TransactionManager
 			        {
 			        	//insert the stuck operation into the waiting list
 						//time stamp = 0 because hasn't written to site yet
-						Operation op = new Operation(Operation.action_type.write,value,xClassNum,0);
+						Operation op = new Operation(OperationType.write,value,xClassNum,0);
 						InsertIntoWaitingList(op,t_id);
 			        }   
 				}
@@ -269,7 +272,7 @@ public class TransactionManager
 				//so that don't hold a same time stamp will regular operation
 				//maybe this is one from waiting list
 				intCurrentTimeStamp++;
-				Operation op = new Operation(Operation.action_type.write, value,xClassNum,intCurrentTimeStamp);
+				Operation op = new Operation(OperationType.write, value,xClassNum,intCurrentTimeStamp);
 				t.Insert_Operation(op);
 				WriteOutput("Operation inserted into " + t_id);
 			}
@@ -309,7 +312,7 @@ public class TransactionManager
 			}
 			Transaction t = (Transaction)transactions.get(t_id);
 			
-			if(t.getAttribute()==Transaction.Attribute.ReadOnly)
+			if(t.getAttribute()==TransactionType.ReadOnly)
 			{
 				//read from multiversion
 				ReadOnly(t_id,xClassNum);
@@ -456,7 +459,7 @@ public class TransactionManager
 	 * 
 	 */
 	private void beginOnly(int transactionNum) {
-		this.CreateNewTransaction(transactionNum, intCurrentTimeStamp, Transaction.Attribute.ReadOnly);
+		this.CreateNewTransaction(transactionNum, intCurrentTimeStamp, TransactionType.ReadOnly);
 		
 	}
 
@@ -464,7 +467,7 @@ public class TransactionManager
 	 * 
 	 */
 	private void begin(int transactionNum) {
-		this.CreateNewTransaction(transactionNum,intCurrentTimeStamp,Transaction.Attribute.ReadWrite);		
+		this.CreateNewTransaction(transactionNum,intCurrentTimeStamp,TransactionType.ReadWrite);		
 	}
 
 
@@ -638,7 +641,7 @@ public class TransactionManager
 				//save this operation in waiting list
 				//insert the stuck operation into the waiting list
 				//time stamp = 0 because hasn't written to site yet
-				Operation op = new Operation(Operation.action_type.write,intValue,intX,0);
+				Operation op = new Operation(OperationType.write,intValue,intX,0);
 				InsertIntoWaitingList(op,t_id);
 				
 			}
@@ -702,7 +705,7 @@ public class TransactionManager
 				for(int i = 0 ;i < ops.size(); i++)
 				{
 					Operation op = ops.get(i);
-					if(op.getOperationType() == Operation.action_type.write)
+					if(op.getOperationType() == OperationType.write)
 					{
 						//get site id where this x belongs to
 						//calculate the site id
@@ -790,7 +793,7 @@ public class TransactionManager
 	/**
 	 * This method can create a new transaction
 	 */
-	private void CreateNewTransaction(int _id, int timestamp, Transaction.Attribute attri)
+	private void CreateNewTransaction(int _id, int timestamp, TransactionType attri)
 	{
 		
 		try
@@ -848,8 +851,8 @@ public class TransactionManager
 				Operation op = ops.get(i);
 				
 				
-				if((op.getOperationType() == Operation.action_type.write) ||
-						(op.getOperationType() == Operation.action_type.read))
+				if((op.getOperationType() == OperationType.write) ||
+						(op.getOperationType() == OperationType.read))
 				{
 					//roll back if is write operation only
 					int answer = (op.getTarget() % 10) + 1;
@@ -1201,7 +1204,7 @@ public class TransactionManager
 				//maybe this operation is invoke from waiting list
 				intCurrentTimeStamp++;
 				Transaction t = this.transactions.get(t_id);
-				Operation op = new Operation(Operation.action_type.read,0,intX,intCurrentTimeStamp);
+				Operation op = new Operation(OperationType.read,0,intX,intCurrentTimeStamp);
 				t.Insert_Operation(op);
 				WriteOutput("Operation input into " + t_id);
 			}
@@ -1248,7 +1251,7 @@ public class TransactionManager
 		{
 			//save the operation to waiting list
 			//time stamp = 0, because hasn't written to site yet
-			Operation op = new Operation(Operation.action_type.read,0,intX,0);
+			Operation op = new Operation(OperationType.read,0,intX,0);
 	    	InsertIntoWaitingList(op,t_id);
 		}
 	}
@@ -1389,7 +1392,7 @@ public class TransactionManager
 				//insert the current operation into the waiting list
 				//insert the stuck operation into the waiting list
 				//time stamp = 0, because hasn't written into site yet
-				Operation op = new Operation(Operation.action_type.read,0,intX,0);
+				Operation op = new Operation(OperationType.read,0,intX,0);
 				InsertIntoWaitingList(op,t_id);
 			}
 		}
@@ -1425,7 +1428,7 @@ public class TransactionManager
 		        	//insert the current operation into the waiting list
 					//insert the stuck operation into the waiting list
 					//time stamp = 0, because hasn't written into site yet
-					Operation op = new Operation(Operation.action_type.read,0,intX,0);
+					Operation op = new Operation(OperationType.read,0,intX,0);
 					InsertIntoWaitingList(op,t_id);
 		        }
 		        
@@ -1551,8 +1554,8 @@ public class TransactionManager
 				for(int i = 0 ;i < ops.size(); i++)
 				{
 					Operation op = ops.get(i);
-					if((op.getOperationType() == Operation.action_type.write)||
-							(op.getOperationType() == Operation.action_type.read))
+					if((op.getOperationType() == OperationType.write)||
+							(op.getOperationType() == OperationType.read))
 					{
 						//get site id where this x belongs to
 						//calculate the site id
@@ -1677,14 +1680,14 @@ public class TransactionManager
 			}
 			
 			Operation op = tempOps.get(i);
-			if(op.getOperationType()==Operation.action_type.commit)
+			if(op.getOperationType()==OperationType.commit)
 			{
 				//commit
 //				Do("end(" + t_id + ")");
 				this.end(Integer.parseInt(t_id));
 //				this.execute(cp)
 			}
-			else if(op.getOperationType()==Operation.action_type.write)
+			else if(op.getOperationType()==OperationType.write)
 			{
 				//write operation
 //				Do("w(" + t_id + ",x" + op.getTarget()+"," +op.getValue()+ ")");
