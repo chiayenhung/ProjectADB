@@ -35,22 +35,22 @@ public class TransactionManager
 	 * Transaction Manager object class constructor
 	 * @param ip 
 	 */
-	public TransactionManager(String output_Filename, List<List<String>> list)
-	{
-		//instantiate lists
-		this.sites = new HashMap<Integer, Site>();
-		this.transactions = new HashMap<String, Transaction>();
-		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
-		this.outFile = output_Filename;
-		this.SiteRecords = new HashMap<Integer, Integer>();
-		for(int i = 1 ; i < 11; i++){
-			this.sites.put(i, new Site(i));
-			this.SiteRecords.put(i, intCurrentTimeStamp);
-			this.WriteOutput("Added site " + i);
-		}
-		this.commandList = list;
-		this.run();
-	}
+//	public TransactionManager(String output_Filename, List<List<String>> list)
+//	{
+//		//instantiate lists
+//		this.sites = new HashMap<Integer, Site>();
+//		this.transactions = new HashMap<String, Transaction>();
+//		this.WaitingList = new HashMap<String, ArrayList<Operation>>();
+//		this.outFile = output_Filename;
+//		this.SiteRecords = new HashMap<Integer, Integer>();
+//		for(int i = 1 ; i < 11; i++){
+//			this.sites.put(i, new Site(i));
+//			this.SiteRecords.put(i, intCurrentTimeStamp);
+//			this.WriteOutput("Added site " + i);
+//		}
+//		this.commandList = list;
+//		this.run();
+//	}
 	
 	public TransactionManager(String output_Filename)
 	{
@@ -68,7 +68,11 @@ public class TransactionManager
 		
 	}
 	
-	private void run(){
+	public void setCommandList(List<List<String>> list){
+		this.commandList = list;
+	}
+	
+	public void run(){
 		CommandParser cp;
 		for(List<String> stringList: this.commandList){
 			for(String s: stringList){
@@ -135,9 +139,9 @@ public class TransactionManager
 				//get variable id
 				//extract variable id
 				
-				int intID = xClassNum;
+//				int intID = xClassNum;
 				
-				intID = (intID % 10) + 1;
+				int intID = (xClassNum % 10) + 1;
 				
 				Site s = (Site)sites.get(intID);
 				if(!s.isDown())
@@ -157,15 +161,15 @@ public class TransactionManager
 				//extract variable id
 				
 //				int intID = siteNum;
-				Site s = (Site)sites.get(siteNum);
+				Site s = this.sites.get(siteNum);
 				if(!s.isDown())
 				{
 					CommitSite(siteNum);
-					WriteOutput("Site" + siteNum + " " +s.ToString());
+					WriteOutput("Site " + siteNum + " " +s.ToString());
 				}
 				else
 				{
-					WriteOutput("Site" + siteNum + " is down");
+					WriteOutput("Site " + siteNum + " is down");
 				}
 			}
 		}
@@ -184,7 +188,7 @@ public class TransactionManager
 	private void write(int transactionNum, int xClassNum, int value) {
 		try
 		{
-			WriteOutput("Processing write(" + transactionNum + ", " + xClassNum + ", " + value + ")");
+			WriteOutput("Processing write(T" + transactionNum + ", X" + xClassNum + ", " + value + ")");
 			boolean blnInsertOp = false; //flag to insert the current operation into the transaction object
 			
 			Transaction t  = null;
@@ -228,19 +232,19 @@ public class TransactionManager
 			}
 			else
 			{
-				int temp = (xClassNum/2)*3;
+				int temp = (xClassNum / 2) * 3;
 				int answer = 0;
 				for (int i = (temp-2); i <= temp; i++){
-					if((i%10) == 0)
+					if((i % 10) == 0)
 					{
 						answer = 10;
 					}
 					else
 					{
-						int answerSite = (i%10);
+						int answerSite = (i % 10);
 						answer = answerSite;
 					}
-					Site s1 = (Site)sites.get(answer);
+					Site s1 = this.sites.get(answer);
 					evenSite.add(s1);		
 				}
 				
@@ -291,7 +295,7 @@ public class TransactionManager
 	 * @param xClassNum
 	 */
 	private void read(int transactionNum, int xClassNum) {
-		WriteOutput("Processing read(T" + transactionNum + ", " + xClassNum + ")");
+		WriteOutput("Processing read(T" + transactionNum + ", X" + xClassNum + ")");
 		try
 		{
 
@@ -352,7 +356,7 @@ public class TransactionManager
 			
 			//call a site to recovery
 			//get failed site
-			Site s_down = (Site)sites.get(siteNum);
+			Site s_down = this.sites.get(siteNum);
 			//look for backup site
 			if(siteNum==1)
 			{
@@ -360,13 +364,13 @@ public class TransactionManager
 				//but this site is a backup for another odd index site
 				//so need to do back up from that site
 				//one back up only
-				s_backup = (Site)sites.get(10);
+				s_backup = this.sites.get(10);
 				
 			}
 			else
 			{
 				//one back up only
-				s_backup = (Site)sites.get(siteNum-1);
+				s_backup = this.sites.get(siteNum-1);
 				
 				
 			}

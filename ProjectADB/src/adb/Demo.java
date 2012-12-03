@@ -25,13 +25,8 @@ public class Demo {
 			System.out.println("Please key in full output path and filename:");
 			String outputFile = in.next(); 
 			//create transaction manager object
-//			TransactionManager TM = new TransactionManager(outputFile);
-//			for(int i = 1;i<11;i++)
-//			{
-//				Site s = new Site(i);
-//				TM.addSite(s);
-//			}
-			TransactionManager tm;
+
+			TransactionManager tm = new TransactionManager(outputFile);
 			 while(true)
 			 {
 				String line;
@@ -42,16 +37,13 @@ public class Demo {
 				{
 					System.out.println("Please input the full source path and filename:");
 					line = in.next();
-//					FromFile(line,TM);
 					InputParser ip = new InputParser(line);
-					tm = new TransactionManager(outputFile, ip.getCommandList());
+					tm.setCommandList(ip.getCommandList());
+					tm.run();
 					
 				}
 				else if(line.compareToIgnoreCase("n")==0)
 				{
-					tm = new TransactionManager(outputFile);
-//					CommandParser cp = new CommandParser(line)
-//					InputParser ip = new InputParser();
 					System.out.println("Please input command or 'exit' to terminate the program:");
 					line = in.next();
 					//exit if the user type exit
@@ -59,7 +51,6 @@ public class Demo {
 					{
 						break;
 					}
-//					tm.Do(line);
 					tm.execute(new CommandParser(line));
 				}
 				else
