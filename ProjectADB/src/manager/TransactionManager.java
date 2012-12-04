@@ -955,6 +955,7 @@ public class TransactionManager
 			if(s!=null)
 			{
 				//read the value
+				System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
 				value = s.ReadOnly(intX, t_id, this.transactions.get(t_id).getTimeStamp());
 				System.out.println("wrong here" + value);
 				this.logger.log("x" + intX + " is " + value);
@@ -981,6 +982,7 @@ public class TransactionManager
 			s = this.sites.get(answer);
 			if(!s.isDown())
 			{
+				System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
 				value = s.ReadOnly(intX, t_id, this.transactions.get(t_id).getTimeStamp());
 				this.logger.log("x" + intX + " is " + value);
 			}
@@ -999,6 +1001,7 @@ public class TransactionManager
 				s = this.sites.get(backup);
 				if(!s.isDown())
 				{
+					System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
 					value = s.ReadOnly(intX,t_id,this.transactions.get(t_id).getTimeStamp());
 					this.logger.log("x" + intX + " is " + value);
 				}
@@ -1408,20 +1411,16 @@ public class TransactionManager
 			if(op.getOperationType()==OperationType.commit)
 			{
 				//commit
-//				Do("end(" + t_id + ")");
 				this.end(Integer.parseInt(t_id));
-//				this.execute(cp)
 			}
 			else if(op.getOperationType()==OperationType.write)
 			{
 				//write operation
-//				Do("w(" + t_id + ",x" + op.getTarget()+"," +op.getValue()+ ")");
 				this.write(Integer.parseInt(t_id), op.getTarget(), op.getValue());
 			}
 			else
 			{
 				//read
-//				Do("r(" + t_id + ",x" + op.getTarget() +")");
 				this.read(Integer.parseInt(t_id), op.getTarget());
 			}
 		}

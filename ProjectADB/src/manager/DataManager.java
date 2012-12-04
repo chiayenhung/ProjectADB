@@ -62,17 +62,16 @@ public class DataManager{
 //		for(TimeStamp ts: xclass.getValueList()){
 //			if(ts.getTimeStamp() > timeStamp)
 //		}
-//		for(int i = xclass.getValueList().size() -1 ; i > 0 ; i--){
-////			if(xclass.getValueList().get(i).getTimeStamp() > timeStamp)
-////				return xclass.getValueList().get(i - 1).getValue();
-//			if(xclass.getValueList().get(i).getTimeStamp() >= timeStamp)
-//				return xclass.getValueList().get(i).getValue();
-//		}
-//		return -1;
-		if(xclass.getValueList().size() >= 3)
-			return xclass.getValueList().get(xclass.getValueList().size() - 3).getValue();
-		else
-			return xclass.getValueList().get(xclass.getValueList().size() - 2).getValue();
+		System.out.println("list size: "+xclass.getValueList().size() + " timestamp: " + timeStamp);
+		for(int i = xclass.getValueList().size() -1 ; i >= 0 ; i--){
+			System.out.println("timeStamp: "+xclass.getValueList().get(i).getTimeStamp());
+			if(xclass.getValueList().get(i).getTimeStamp() == 0)
+				return xclass.getValueList().get(i).getValue();
+			if(xclass.getValueList().get(i).getTimeStamp() <= timeStamp)
+				return xclass.getValueList().get(i).getValue();
+		}
+		return xclass.getValueList().get(0).getValue();
+//		
 	}
 	
 	/**
