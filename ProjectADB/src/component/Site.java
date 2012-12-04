@@ -50,112 +50,72 @@ public class Site{
 	 */
 	public void Initial_Xclass()
 	{
-		//add even X variable into all sites
-		//for(int i = 1; i <= 10; i++)
-		//{
-		//	Xclass X = new Xclass(2*i); 
-		//	Insert_Xclass(X);
-		//}
 		//add odd X variable into target sites
 		for (int i = 1; i <= 10; i++) {
 			Xclass X = new Xclass(i * 2);
 			this.X_list.add(X);
-//			strbuilder.append("X" + i*2 + ", ");
 		}
-//		for (int i = 1; i < 20; i += 2) {
-//			int temp = ((1 + i) % 10 == 0) ? 10 : (1 + i) % 10;
-//			if (temp == this.site_ID+1) {
-//				Xclass X = new Xclass(i);
-//				this.X_list.add(X);
-////				strbuilder.append("X" + i + ", ");
-//			}
-//		}
-		
-//		Xclass X2 = new Xclass(2);
-//		Xclass X4 = new Xclass(4);
-//		Xclass X6 = new Xclass(6);
-//		Xclass X8 = new Xclass(8);
-//		Xclass X10 = new Xclass(10);
-//		Xclass X12 = new Xclass(12);
-//		Xclass X14 = new Xclass(14);
-//		Xclass X16 = new Xclass(16);
-//		Xclass X18 = new Xclass(18);
-//		Xclass X20 = new Xclass(20);
-//		
+
 		switch(site_ID)
 		{
 			//switch site id
-//			case 1:
-//				Insert_Xclass(X2);
-//				Insert_Xclass(X8);
-//				Insert_Xclass(X14);
-//				break;
 			case 2:
-				Xclass X1 = new Xclass(1); 
-				Insert_Xclass(X1);
-				Xclass X11 = new Xclass(11); 
-				Insert_Xclass(X11);
-//				Insert_Xclass(X2);
-//				Insert_Xclass(X8);
-//				Insert_Xclass(X16);
+				this.X_list.add(new Xclass(1));
+				this.X_list.add(new Xclass(11));
 				break;
-//			case 3:
-//				Insert_Xclass(X2);
-//				Insert_Xclass(X10);
-//				Insert_Xclass(X16);
-//				break;
 			case 4:
-				Xclass X3 = new Xclass(3); 
-				Insert_Xclass(X3);
-				Xclass X13 = new Xclass(13); 
-				Insert_Xclass(X13);
-//				Insert_Xclass(X4);
-//				Insert_Xclass(X10);
-//				Insert_Xclass(X16);
+				this.X_list.add(new Xclass(3));
+				this.X_list.add(new Xclass(13));
 				break;
-//			case 5:
-//				Insert_Xclass(X4);
-//				Insert_Xclass(X10);
-//				Insert_Xclass(X18);
-//				break;
 			case 6:
-				Xclass X5 = new Xclass(5); 
-				Insert_Xclass(X5);
-				Xclass X15 = new Xclass(15); 
-				Insert_Xclass(X15);
-//				Insert_Xclass(X4);
-//				Insert_Xclass(X12);
-//				Insert_Xclass(X18);
+				this.X_list.add(new Xclass(5));
+				this.X_list.add(new Xclass(15));
 				break;
-//			case 7:
-//				Insert_Xclass(X6);
-//				Insert_Xclass(X12);
-//				Insert_Xclass(X18);
-//				break;
 			case 8:
-				Xclass X7 = new Xclass(7); 
-				Insert_Xclass(X7);
-				Xclass X17 = new Xclass(17); 
-				Insert_Xclass(X17);
-//				Insert_Xclass(X6);
-//				Insert_Xclass(X12);
-//				Insert_Xclass(X20);
+				this.X_list.add(new Xclass(7));
+				this.X_list.add(new Xclass(17));
 				break;
-//			case 9:
-//				Insert_Xclass(X6);
-//				Insert_Xclass(X14);
-//				Insert_Xclass(X20);
-//				break;
 			case 10:
-				Xclass X9 = new Xclass(9); 
-				Insert_Xclass(X9);
-				Xclass X19 = new Xclass(19); 
-				Insert_Xclass(X19);
-//				Insert_Xclass(X8);
-//				Insert_Xclass(X14);
-//				Insert_Xclass(X20);
+				this.X_list.add(new Xclass(9));
+				this.X_list.add(new Xclass(19));
 				break;
 		}
+	}
+	
+	/**
+	 * @return the previous value in this site
+	 */
+	public String dump(){
+		StringBuilder sb =new StringBuilder();
+		if(this.fail)
+		{
+			sb.append("This site is down.\n");
+		}
+		else
+		{
+			sb.append("This site is up.\n");
+		}
+		for(Xclass x: this.X_list)
+			sb.append("X" + x.getID() + ": " + x.getPreviousValue() + " ");
+		return sb.toString();
+	}
+	
+	/**
+	 * @param xIndex
+	 * @return the indexed x previous value in this site
+	 */
+	public String dump(int xIndex){
+		StringBuilder sb =new StringBuilder();
+		if(this.fail)
+		{
+			sb.append("This site is down.\n");
+		}
+		else
+		{
+			sb.append("This site is up.\n");
+		}
+		String tmp = "X" + this.X_list.get(xIndex - 1).getID() + ": " + this.X_list.get(xIndex - 1).getPreviousValue() + " ";
+		return sb.append(tmp).toString();
 	}
 	
 	/**
@@ -171,17 +131,9 @@ public class Site{
 	 * return a array list of x
 	 * @return
 	 */
-	public ArrayList<Xclass> getX_q()
+	public ArrayList<Xclass> getX_list()
 	{
 		return X_list;
-	}
-	
-	/**
-	 * insert a new X
-	 */
-	public void Insert_Xclass(Xclass _X)
-	{
-		X_list.add(_X);
 	}
 	
 	/**
@@ -263,7 +215,7 @@ public class Site{
 			if(X_list.get(i).getID() == _XID)
 			{
 				//x is not locked
-				if(!X_list.get(i).IsLock())
+				if(!X_list.get(i).isLock())
 				{
 					
 					DM.Ask_LM_setRead_Lock(LM, X_list.get(i), tid);
@@ -274,7 +226,6 @@ public class Site{
 				else if(X_list.get(i).getLockID().contains(tid))
 				{
 					this.resetLockMsg();
-//					return DM.ReadData(X_q.get(i));
 					return DM.ReadPreData(this.X_list.get(i));
 				}
 				//x is locked by others
@@ -311,7 +262,7 @@ public class Site{
 			if(X_list.get(i).getID() == _XID)
 			{
 				//x is not locked
-				if(!X_list.get(i).IsLock())
+				if(!X_list.get(i).isLock())
 				{
 					DM.Ask_LM_setWrite_Lock(LM, X_list.get(i), tid);
 					DM.WriteData(X_list.get(i), _Value);
@@ -366,7 +317,7 @@ public class Site{
 		if(!backup.isDown())
 		{
 			backupID = backup.getID();
-			DM.Backup(X_list, backup.getX_q());
+			DM.Backup(X_list, backup.getX_list());
 		}
 	}
 	
@@ -383,7 +334,7 @@ public class Site{
 		
 		if(backupID == target.getID() && !target.isDown())
 		{
-			return DM.Recovery(X_list, target.getX_q());
+			return DM.Recovery(X_list, target.getX_list());
 		}
 		else if(target.isDown())
 		{
@@ -497,25 +448,6 @@ public class Site{
 			}
 		}
 		return s;
-	}
-	
-	public String dump(){
-		StringBuilder sb =new StringBuilder();
-		if(this.fail)
-		{
-			sb.append("This site is down.\n");
-		}
-		else
-		{
-			sb.append("This site is up.\n");
-		}
-		for(Xclass x: this.X_list)
-			sb.append("X" + x.getID() + ": " + x.getPreviousValue() + " ");
-		return sb.toString();
-	}
-	
-	public Xclass dump(int xClassNum){
-		return this.X_list.get(xClassNum - 1);
 	}
 	
 }

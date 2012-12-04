@@ -14,8 +14,6 @@ public class Xclass{
 	private boolean Lock;
 	private String LockType;
 	private String LockID;
-//	private int Value;
-//	private int PreviousValue;
 	private List<TimeStamp> valueList;
 	private boolean Copy;
 	
@@ -29,8 +27,6 @@ public class Xclass{
 		this.Lock = false;
 		this.LockType = "NULL";
 		this.LockID = "NULL";
-//		this.Value = ID * 10;
-//		this.PreviousValue = ID * 10;
 		this.Copy = false;
 		this.valueList = new ArrayList<TimeStamp>();
 		this.valueList.add(new TimeStamp(ID * 10, 0));
@@ -50,7 +46,7 @@ public class Xclass{
 	 * check is Xclass locked
 	 * @return
 	 */
-	public boolean IsLock()
+	public boolean isLock()
 	{
 		return Lock;
 	}
@@ -186,7 +182,7 @@ public class Xclass{
 	 */
 	public void doCopy(Xclass _x){
 		ID = _x.getID();
-		if(_x.IsLock())
+		if(_x.isLock())
 			Lock = true;
 		else
 			Lock = false;

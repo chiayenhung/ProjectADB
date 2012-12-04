@@ -154,8 +154,8 @@ public class TransactionManager
 				if(!s.isDown())
 				{
 //					CommitVariable(xClassNum);
-//					for(Site ss: this.sites.values())
-//						this.logger.log("" + ss.getX_q().get(xClassNum - 1));
+					for(Site ss: this.sites.values())
+						this.logger.log(ss.dump(xClassNum));
 //					this.logger.log("Site" + xClassNum + " " +s.ToString());
 				}
 				else
@@ -172,7 +172,7 @@ public class TransactionManager
 				Site s = this.sites.get(siteNum);
 				if(!s.isDown())
 				{
-					this.logger.log("Site " + siteNum + " " +s.ToString());
+//					this.logger.log("Site " + siteNum + " " +s.ToString());
 					this.logger.log(s.dump());
 				}
 				else
@@ -234,7 +234,7 @@ public class TransactionManager
 					//insert the stuck operation into the waiting list
 					//time stamp = 0 because hasn't written to site yet
 					Operation op = new Operation(OperationType.write,value,xClassNum,0);
-					InsertIntoWaitingList(op,t_id);
+					this.insertIntoWaitingList(op,t_id);
 				}
 			}
 			else
@@ -249,7 +249,7 @@ public class TransactionManager
 				}
 				if(!writeFlag){
 					Operation op = new Operation(OperationType.write,value,xClassNum,0);
-					InsertIntoWaitingList(op,t_id);
+					this.insertIntoWaitingList(op,t_id);
 				}
 			}
 			//insert the new operation into the record
@@ -283,13 +283,7 @@ public class TransactionManager
 		{
 
 			String t_id = "" + transactionNum;
-			
-			//check for valid transaction id
-//			if(!transactions.containsKey(t_id))
-//			{
-//				this.logger.log("Transaction " + t_id + " not found.");
-//				return;
-//			}
+
 			//get transaction object
 			
 			if(!transactions.containsKey(t_id))
@@ -301,14 +295,12 @@ public class TransactionManager
 			
 			if(t.getAttribute()==TransactionType.ReadOnly)
 			{
-//				System.out.println("readonly");
 				//read from multiversion
 				ReadOnly(t_id,xClassNum);
 			}
 			else
 			{
 				//set read lock
-//				System.out.println("readLock");
 				ReadWithLock(xClassNum,t_id);
 			}
 			
@@ -323,6 +315,8 @@ public class TransactionManager
 
 	/**
 	 * @param siteNum
+	 * @description recovery choose from first to last for even X class
+	 * 				and recovery from last committed value for odd class
 	 */
 	private void recover(int siteNum) {
 		try
@@ -338,34 +332,7 @@ public class TransactionManager
 				this.logger.log("Site " + siteNum + " not found.");
 				return;
 			}
-			
-			
-			//call a site to recovery
-			//get failed site
-//			Site s_down = this.sites.get(siteNum);
-			//look for backup site
-//			if(siteNum==1)
-//			{
-				//available at all 
-				//but this site is a backup for another odd index site
-				//so need to do back up from that site
-				//one back up only
-//				s_backup = this.sites.get(10);
-				
-//			}
-//			else
-//			{
-				//one back up only
-//				s_backup = this.sites.get(siteNum-1);
-				
-				
-//			}
-			//check whether backup is down also
-			
-//			if(s_backup.isDown())
-//			{
-//				this.logger.log("Operation failed because backup site is down currently");
-//			}
+
 			else
 			{
 				for(Site s: this.sites.values()){
@@ -398,13 +365,13 @@ public class TransactionManager
 	 * @param transactionNum
 	 */
 	private void end(int transactionNum) {
-		//extract transaction id ;譬如 end(T1)，要把T1拿出來
+		//extract transaction id ;
 		//commit and end a particular transaction
 		//test whether this Transaction can commit or not
-		if(CanCommit(transactionNum))
+		if(askCommit(transactionNum))
 		{
 			
-			Commit(transactionNum);
+			this.commit(transactionNum);
 		}
 		else
 		{
@@ -419,7 +386,6 @@ public class TransactionManager
 		try
 		{
 			this.logger.log("Processing fail(" + siteNum + ")");
-//			Site s_backup = null;
 			//check for valid site id
 			if(!sites.containsKey(siteNum))
 			{
@@ -427,21 +393,10 @@ public class TransactionManager
 				return;
 			}
 			
-			//call backup before fail
-//			if(siteNum==1)
-//			{
-//				s_backup = this.sites.get(10);
-//			}
-//			else
-//			{
-//				s_backup = this.sites.get(siteNum-1);
-//			}
+
 			//call a site to fail
 			Site s = this.sites.get(siteNum);
-//			s.Backup(s_backup);
 			s.Fail();
-			//String record = (String)SiteRecords.get(s.getID()); 
-			//record = Integer.toString(intCurrentTimeStamp) + ";0";//reset recovery time
 			
 			SiteRecords.put(s.getID(),intCurrentTimeStamp);
 		}
@@ -451,8 +406,10 @@ public class TransactionManager
 		}
 	}
 
+
 	/**
-	 * 
+	 * @param transactionNum
+	 * @description create a read only transaction
 	 */
 	private void beginOnly(int transactionNum) {
 		this.CreateNewTransaction(transactionNum, intCurrentTimeStamp, TransactionType.ReadOnly);
@@ -460,16 +417,20 @@ public class TransactionManager
 	}
 
 	/**
-	 * 
+	 * @param transactionNum
+	 * @description create a read transaction
 	 */
 	private void begin(int transactionNum) {
-		this.CreateNewTransaction(transactionNum,intCurrentTimeStamp,TransactionType.ReadWrite);		
+		this.CreateNewTransaction(transactionNum,intCurrentTimeStamp,TransactionType.ReadWrite);
 	}
 
-
-	
 	/**
-	 * write the value to variable that is on target site and back up site(id+1)
+	 * @param intX
+	 * @param intValue
+	 * @param t_id
+	 * @param targetSite
+	 * @return
+	 * @description write the value to variable that is on target site and back up site(id+1)
 	 */
 	private boolean WriteToSingle(int intX,int intValue,String t_id,int targetSite)
 	{
@@ -477,17 +438,17 @@ public class TransactionManager
 		boolean blnWriteOnce= false;
 		//target + backup
 		Site s_target = this.sites.get(targetSite);
-		int backup=0;
-		if(targetSite==1)			
-		{
-			backup = 10;
-		}
-		else						
-		{
-			backup = targetSite-1;
-		}
+//		int backup=0;
+//		if(targetSite==1)			
+//		{
+//			backup = 10;
+//		}
+//		else						
+//		{
+//			backup = targetSite-1;
+//		}
 		
-		Site s_backup = this.sites.get(backup);
+//		Site s_backup = this.sites.get(backup);
 		
 		s_target.WriteData(intX, intValue, t_id);
 		
@@ -512,7 +473,7 @@ public class TransactionManager
 				//insert the stuck operation into the waiting list
 				//time stamp = 0 because hasn't written to site yet
 				Operation op = new Operation(OperationType.write,intValue,intX,0);
-				InsertIntoWaitingList(op,t_id);
+				this.insertIntoWaitingList(op,t_id);
 				
 			}
 			else
@@ -530,25 +491,25 @@ public class TransactionManager
 		}
 	
 		//update backup site also
-		if(!s_backup.isDown())
-		{
-			if(blnWriteOnce)
-			{
-				//do backup
-				s_target.Backup(s_backup);
-				/*
-				//set lock
-				s_backup.WriteData(intX, intValue, t_id);
-				//try to write again if is self lock
-				if(s_backup.getLockMsg().compareToIgnoreCase(t_id)==0)
-				{
-					s_backup.WriteData(intX, intValue, t_id);
-				}
-				*/
-			}
-			
-		
-		}//back up
+//		if(!s_backup.isDown())
+//		{
+//			if(blnWriteOnce)
+//			{
+//				//do backup
+//				s_target.Backup(s_backup);
+//				/*
+//				//set lock
+//				s_backup.WriteData(intX, intValue, t_id);
+//				//try to write again if is self lock
+//				if(s_backup.getLockMsg().compareToIgnoreCase(t_id)==0)
+//				{
+//					s_backup.WriteData(intX, intValue, t_id);
+//				}
+//				*/
+//			}
+//			
+//		
+//		}//back up
 		
 	
 		return blnWriteOnce;
@@ -556,13 +517,14 @@ public class TransactionManager
 	}
 	
 	/**
-	 * Commit method can commit each operation under the transaction
+	 * @param transactionNum
+	 * @decription commit the transaction and save the value
 	 */
-	private void Commit(int transactionNum)
+	private void commit(int transactionNum)
 	{
 		try
 		{
-			this.logger.log("Processing Commit(" + transactionNum + ")");
+			this.logger.log("Processing Commit(T" + transactionNum + ")");
 			
 			//extract transaction id
 			String id = "" + transactionNum;
@@ -587,13 +549,15 @@ public class TransactionManager
 							//all sites
 							
 							//get iterator if not site is down
-							Iterator<Site> k = sites.values().iterator();
-						    while (k.hasNext()) 
-						    {
-						    	Site _site = (Site)k.next();
-								_site.Dump(op.getTarget(), this.intCurrentTimeStamp); //op.getTarget()是得到 X1'2'3 ..... etc
-								
-						    }
+//							Iterator<Site> k = sites.values().iterator();
+//						    while (k.hasNext()) 
+//						    {
+//						    	Site _site = (Site)k.next();
+//								_site.Dump(op.getTarget(), this.intCurrentTimeStamp); //op.getTarget()是得到 X1'2'3 ..... etc
+//								
+//						    }
+						    for(Site s: this.sites.values())
+						    	s.Dump(op.getTarget(), this.intCurrentTimeStamp);
 						}
 						else
 						{
@@ -601,14 +565,12 @@ public class TransactionManager
 							//check for site down
 							Site _site = this.sites.get(answer);
 							_site.Dump(op.getTarget(), this.intCurrentTimeStamp);
-							//_site = (Site)sites.get(answer+1);
-							//_site.Dump(op.getTarget());
 							
 						}
 					}
 				}
 				this.logger.log("Transaction " + id + " commited.");
-				EndTransaction("end("+ id + ")");
+				this.endTransaction(id);
 			}
 			else
 			{
@@ -623,34 +585,32 @@ public class TransactionManager
 		}
 	}
 	
-	
 	/**
-	 * This method can end a transaction by the transaction ID 
+	 * @param _id
+	 * @description This method can end a transaction by the transaction ID
 	 */
-	private void EndTransaction(String _id)
+	private void endTransaction(String transactionID)
 	{
 		try
 		{
 			
 			//extract transaction id
-			int index = _id.indexOf("(");
-			String id = _id.substring(index+1,_id.length()-1);
-			if(transactions.containsKey(id))
+			if(transactions.containsKey(transactionID))
 			{
 				//remove the transaction from the map
-				transactions.remove(id);
-				this.logger.log("Transaction " + id + " removed from the list.");
+				transactions.remove(transactionID);
+				this.logger.log("Transaction " + transactionID + " removed from the list.");
 				
 				//pending operation will be removed as well
 				//impossible to have pending operation if the caller is commit()
 				//and is ok to remove if the caller is abort()
-				WaitingList.remove(id);
+				WaitingList.remove(transactionID);
 				//process waiting list
-				ProcessWaitingList();
+				this.processWaitingList();
 			}
 			else
 			{
-				this.logger.log("Cannot end transaction " + id + " , not found.");
+				this.logger.log("Cannot end transaction " + transactionID + " , not found.");
 			}
 		}
 		catch(Exception e)
@@ -661,7 +621,10 @@ public class TransactionManager
 	}
 	
 	/**
-	 * This method can create a new transaction
+	 * @param _id
+	 * @param timestamp
+	 * @param attri
+	 * @description create a new transaction if not exist
 	 */
 	private void CreateNewTransaction(int _id, int timestamp, TransactionType attri)
 	{
@@ -693,7 +656,8 @@ public class TransactionManager
 	}
 	
 	/**
-	 * This method can be used to abort a transaction and roll back
+	 * @param transactionId
+	 * @description This method can be used to abort a transaction and roll back
 	 */
 	private  void abort(String transactionId)
 	{
@@ -712,10 +676,10 @@ public class TransactionManager
 			//get a list of operation belongs to this transaction id
 			ArrayList<Operation> ops = (ArrayList<Operation>)t.getOperations();
 			//loop through every operation
-			for(int i = 0 ; i<ops.size();i++)
-			{
-				Operation op = ops.get(i);
-				
+//			for(int i = 0 ; i<ops.size();i++)
+//			{
+//				Operation op = ops.get(i);
+			for(Operation op: ops){	
 				
 				if((op.getOperationType() == OperationType.write) ||
 						(op.getOperationType() == OperationType.read))
@@ -749,7 +713,7 @@ public class TransactionManager
 			}
 			
 			//end the transaction
-			EndTransaction("end("+ transactionId +")");
+			this.endTransaction("end("+ transactionId +")");
 		}
 		catch(Exception e)
 		{
@@ -759,8 +723,11 @@ public class TransactionManager
 	}
 	
 	/**
-	 * This method can be used to compare their time stamp so that:
-	 * to aborted the request transaction or keep in the waiting list
+	 * @param LockByID
+	 * @param RequestID
+	 * @return
+	 * @description This method can be used to compare their time stamp so that:
+	 * 				to aborted the request transaction or keep in the waiting list
 	 */
 	private boolean MakeDecision(String LockByID,String RequestID)
 	{
@@ -774,8 +741,8 @@ public class TransactionManager
 				//t_request is younger or equal than the t_locked
 				//keep t_locked 
 				//abort request id
-				System.out.println(LockByID + " " + RequestID);
-				System.out.println("wrong here! in make decision method");
+//				System.out.println(LockByID + " " + RequestID);
+//				System.out.println("wrong here! in make decision method");
 				this.abort(RequestID);
 				
 			}
@@ -795,10 +762,12 @@ public class TransactionManager
 	}
 	
 	/**
-	 * This method can be used to insert the stuck operation into the waiting list
-	 * , Update and commit/end operations
+	 * @param op
+	 * @param t_id
+	 * @description This method can be used to insert the stuck operation into the waiting list
+	 * 				, Update and commit/end operations
 	 */
-	private void InsertIntoWaitingList(Operation op,String t_id)
+	private void insertIntoWaitingList(Operation op,String t_id)
 	{
 		ArrayList<Operation> ops;
 		
@@ -818,50 +787,53 @@ public class TransactionManager
 		this.logger.log("Operation inserted into waiting list.");
 	}
 
-	/**
-	 * this method can be used to commit a particular variable at all sites
-	 */
-	private void CommitVariable(int xClassNum)
-	{
-		try
-		{
-			//get variable id
-			//extract variable id
-	
-			int intX = xClassNum;
-			//calculate the site id
-			int answer = (intX % 10) +1;
-			
-			//determine whether is at all sites or just one single + backup
-			if(intX % 2 == 0)
-			{
-				//at all sites
-				Iterator<Site> it = sites.values().iterator();
-				while(it.hasNext())
-				{
-					Site s = (Site)it.next();
-					s.Dump(intX, this.intCurrentTimeStamp);
-				}
-			}
-			else
-			{
-				//at particular site + backup
-				//check for valid site id
-				if(!sites.containsKey(answer))
-				{
-					this.logger.log("Site " + answer + " not found.");
-					return;
-				}
-				Site s = this.sites.get(answer);
-				s.Dump(intX, this.intCurrentTimeStamp);
-			}
-		}
-		catch(Exception e)
-		{
-			System.out.println("Error in CommitVariable-"+ e.getMessage());
-		}
-		
-	}
+//	/**
+//	 * 
+//	 */
+//	/**
+//	 * @param xClassNum
+//	 */
+//	private void CommitVariable(int xClassNum)
+//	{
+//		try
+//		{
+//			//get variable id
+//			//extract variable id
+//	
+//			int intX = xClassNum;
+//			//calculate the site id
+//			int answer = (intX % 10) +1;
+//			
+//			//determine whether is at all sites or just one single + backup
+//			if(intX % 2 == 0)
+//			{
+//				//at all sites
+//				Iterator<Site> it = sites.values().iterator();
+//				while(it.hasNext())
+//				{
+//					Site s = (Site)it.next();
+//					s.Dump(intX, this.intCurrentTimeStamp);
+//				}
+//			}
+//			else
+//			{
+//				//at particular site + backup
+//				//check for valid site id
+//				if(!sites.containsKey(answer))
+//				{
+//					this.logger.log("Site " + answer + " not found.");
+//					return;
+//				}
+//				Site s = this.sites.get(answer);
+//				s.Dump(intX, this.intCurrentTimeStamp);
+//			}
+//		}
+//		catch(Exception e)
+//		{
+//			System.out.println("Error in CommitVariable-"+ e.getMessage());
+//		}
+//		
+//	}
 
 //	/**
 //	 * this method can be used to commit a site
@@ -934,9 +906,10 @@ public class TransactionManager
 //		}
 //	}
 
-
 	/**
-	 * this method can call the site to use multiversion method to read
+	 * @param t_id
+	 * @param intX
+	 * @description this method can call the site to use multiversion method to read
 	 */
 	private void ReadOnly(String t_id,int intX)
 	{
@@ -949,23 +922,29 @@ public class TransactionManager
 			
 			//at all site
 			//simply pick one, must be up and running
-			Iterator<Site> k = sites.values().iterator();
-		    while (k.hasNext()) 
-		    {
-		    	s = (Site)k.next();
-				if( !s.isDown())
-				{
-					break;//break the loop immediately after you have one site is up
-				}
-				
+//			Iterator<Site> k = sites.values().iterator();
+//		    while (k.hasNext()) 
+//		    {
+//		    	s = (Site)k.next();
+//				if( !s.isDown())
+//				{
+//					break;//break the loop immediately after you have one site is up
+//				}
+//				
+//		    }
+		    for(Site ss: this.sites.values()){
+		    	if(!ss.isDown()){
+		    		s = ss;
+		    		break;
+		    	}
 		    }
 		    
 			if(s!=null)
 			{
 				//read the value
-				System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
+//				System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
 				value = s.ReadOnly(intX, t_id, this.transactions.get(t_id).getTimeStamp());
-				System.out.println("wrong here" + value);
+//				System.out.println("wrong here" + value);
 				this.logger.log("x" + intX + " is " + value);
 			}
 			else
@@ -990,7 +969,7 @@ public class TransactionManager
 			s = this.sites.get(answer);
 			if(!s.isDown())
 			{
-				System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
+//				System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
 				value = s.ReadOnly(intX, t_id, this.transactions.get(t_id).getTimeStamp());
 				this.logger.log("x" + intX + " is " + value);
 			}
@@ -1009,7 +988,7 @@ public class TransactionManager
 				s = this.sites.get(backup);
 				if(!s.isDown())
 				{
-					System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
+//					System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());
 					value = s.ReadOnly(intX,t_id,this.transactions.get(t_id).getTimeStamp());
 					this.logger.log("x" + intX + " is " + value);
 				}
@@ -1023,8 +1002,12 @@ public class TransactionManager
 			
 		}
 	}
+
 	/**
-	 * this method can read the variable is at target + backup
+	 * @param TargetSite
+	 * @param intX
+	 * @param t_id
+	 * @description this method can read the variable is at target + backup
 	 */
 	private void ReadSingle(int TargetSite,int intX,String t_id)
 	{
@@ -1032,7 +1015,7 @@ public class TransactionManager
 		boolean blnSuccess = false;
 	
 		//at one particular site
-		if(!sites.containsKey(TargetSite))
+		if(!this.sites.containsKey(TargetSite))
 		{
 			this.logger.log("Site " + TargetSite + " doesn't contained variable x" + intX + ".");
 			//impossible will be at backup site, so won't check
@@ -1110,7 +1093,7 @@ public class TransactionManager
 				{
 					//current transaction is gone
 					//reset message
-					System.out.println("lock release! in readsingle method");
+//					System.out.println("lock release! in readsingle method");
 					s.resetLockMsg();
 					return;//exit method
 				}
@@ -1123,7 +1106,7 @@ public class TransactionManager
 			//save the operation to waiting list
 			//time stamp = 0, because hasn't written to site yet
 			Operation op = new Operation(OperationType.read,0,intX,0);
-	    	InsertIntoWaitingList(op,t_id);
+	    	this.insertIntoWaitingList(op,t_id);
 		}
 	}
 
@@ -1133,7 +1116,7 @@ public class TransactionManager
 		
 		//get target site
 		int answer = 0;
-		ArrayList<Site> evenSite = new ArrayList<Site>();
+//		ArrayList<Site> evenSite = new ArrayList<Site>();
 		
 		if( (intX%2) == 1)
 		{
@@ -1149,7 +1132,7 @@ public class TransactionManager
 				//insert the stuck operation into the waiting list
 				//time stamp = 0, because hasn't written into site yet
 				Operation op = new Operation(OperationType.read,0,intX,0);
-				InsertIntoWaitingList(op,t_id);
+				this.insertIntoWaitingList(op,t_id);
 			}
 		}
 		else
@@ -1165,7 +1148,7 @@ public class TransactionManager
 			}
 			if(!blnReadSingle){
 				Operation op = new Operation(OperationType.read,0,intX,0);
-				InsertIntoWaitingList(op,t_id);
+				this.insertIntoWaitingList(op,t_id);
 			}
 				
 			
@@ -1200,8 +1183,10 @@ public class TransactionManager
 	}
 	
 	/**
-	 * to determine whether a site was down before
-	 * will lost all the lock info if so
+	 * @param ops
+	 * @return
+	 * @description to determine whether a site was down before
+	 * 				will lost all the lock info if so
 	 */
 	private boolean TargetSiteWasDown(ArrayList<Operation>ops)
 	{
@@ -1250,9 +1235,11 @@ public class TransactionManager
 	}
 	
 	/**
-	 * this method is to make sure that is at least a site up and running to perform commit operation
+	 * @param transactionNum
+	 * @return
+	 * @description this method is to make sure that is at least a site up and running to perform commit operation
 	 */
-	private boolean CanCommit(int transactionNum)
+	private boolean askCommit(int transactionNum)
 	{
 		
 		try
@@ -1299,7 +1286,7 @@ public class TransactionManager
 						
 						//abort if target site is down
 						//or down previously
-						Site s = (Site)sites.get(answer);
+						Site s = this.sites.get(answer);
 						if(s.isDown())
 						{
 							this.logger.log("target site is down");
@@ -1350,18 +1337,21 @@ public class TransactionManager
 	/**
 	 * this method is used to try to process operations in waiting list
 	 */
-	private void ProcessWaitingList()
+	private void processWaitingList()
 	{
 		ArrayList<String> trans = new ArrayList<String>();
 		Transaction t;
 		int index =0;
 		//process older transaction 1st
 		//move all the transaction id into array list
-		Iterator<String> it =WaitingList.keySet().iterator();
-		while(it.hasNext())
-		{
-			trans.add((String)it.next());
-		}
+//		Iterator<String> it =WaitingList.keySet().iterator();
+//		while(it.hasNext())
+//		{
+//			trans.add((String)it.next());
+//		}
+//		trans = this.WaitingList;
+		for(String s: this.WaitingList.keySet())
+			trans.add(s);
 		
 		//get the oldest transaction 1st
 		//do for all transactions
@@ -1389,7 +1379,8 @@ public class TransactionManager
 	}
 
 	/**
-	 * process all the pending operation under this transaction
+	 * @param t_id
+	 * @description process all the pending operation under this transaction
 	 */
 	private void processWaitingOperations(String t_id)
 	{
@@ -1435,7 +1426,9 @@ public class TransactionManager
 	}
 
 	/**
-	 * this method return the oldest transaction index in array list 
+	 * @param trans
+	 * @return
+	 * @description this method return the oldest transaction index in array list
 	 */
 	private int getNext(ArrayList<String> trans)
 	{

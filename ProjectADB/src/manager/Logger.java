@@ -48,6 +48,7 @@ public class Logger {
 			{
 				System.out.println("Failed to create output file");
 			}
+			
 	    } 
 		catch (IOException e) 
 	    {

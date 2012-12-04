@@ -16,10 +16,16 @@ public class CommandParser {
 	private int XclassNum;
 	private int value;
 	
+	/**
+	 * @param line
+	 */
 	public CommandParser(String line){
 		this.run(line.toLowerCase());
 	}
 	
+	/**
+	 * @param line
+	 */
 	private void run(String line){
 		if(line.startsWith("beginro")){
 			this.commandtype = CommandType.beginReadOnly;
@@ -101,22 +107,37 @@ public class CommandParser {
 		}
 	}
 	
+	/**
+	 * @return
+	 */
 	public CommandType getCommandType(){
 		return this.commandtype;
 	}
 	
+	/**
+	 * @return
+	 */
 	public int getTransactionNum(){
 		return this.transactionNum;
 	}
 	
+	/**
+	 * @return 
+	 */
 	public int getXClassNum(){
 		return this.XclassNum;
 	}
 	
+	/**
+	 * @return site Number
+	 */
 	public int getSiteNum(){
 		return this.siteNum;
 	}
 	
+	/**
+	 * @return value
+	 */
 	public int getValue(){
 		return this.value;
 	}
