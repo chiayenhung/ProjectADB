@@ -173,6 +173,7 @@ public class TransactionManager
 				if(!s.isDown())
 				{
 					this.logger.log("Site " + siteNum + " " +s.ToString());
+					this.logger.log(s.dump());
 				}
 				else
 				{
@@ -260,7 +261,7 @@ public class TransactionManager
 				intCurrentTimeStamp++;
 				Operation op = new Operation(OperationType.write, value,xClassNum,intCurrentTimeStamp);
 				t.Insert_Operation(op);
-				this.logger.log("Operation inserted into " + t_id);
+				this.logger.log("Operation inserted into T" + t_id);
 			}
 			
 		}
@@ -300,14 +301,14 @@ public class TransactionManager
 			
 			if(t.getAttribute()==TransactionType.ReadOnly)
 			{
-				System.out.println("readonly");
+//				System.out.println("readonly");
 				//read from multiversion
 				ReadOnly(t_id,xClassNum);
 			}
 			else
 			{
 				//set read lock
-				System.out.println("readLock");
+//				System.out.println("readLock");
 				ReadWithLock(xClassNum,t_id);
 			}
 			
@@ -338,35 +339,42 @@ public class TransactionManager
 				return;
 			}
 			
+			
 			//call a site to recovery
 			//get failed site
-			Site s_down = this.sites.get(siteNum);
+//			Site s_down = this.sites.get(siteNum);
 			//look for backup site
-			if(siteNum==1)
-			{
+//			if(siteNum==1)
+//			{
 				//available at all 
 				//but this site is a backup for another odd index site
 				//so need to do back up from that site
 				//one back up only
-				s_backup = this.sites.get(10);
+//				s_backup = this.sites.get(10);
 				
-			}
-			else
-			{
+//			}
+//			else
+//			{
 				//one back up only
-				s_backup = this.sites.get(siteNum-1);
+//				s_backup = this.sites.get(siteNum-1);
 				
 				
-			}
+//			}
 			//check whether backup is down also
 			
-			if(s_backup.isDown())
-			{
-				this.logger.log("Operation failed because backup site is down currently");
-			}
+//			if(s_backup.isDown())
+//			{
+//				this.logger.log("Operation failed because backup site is down currently");
+//			}
 			else
 			{
-				
+				for(Site s: this.sites.values()){
+					if(!s.isDown()){
+						s_backup = s;
+						break;
+					}
+				}
+				Site s_down = this.sites.get(siteNum);
 				s_down.Recovery(s_backup);
 				/*
 				//update timestamp
@@ -411,7 +419,7 @@ public class TransactionManager
 		try
 		{
 			this.logger.log("Processing fail(" + siteNum + ")");
-			Site s_backup = null;
+//			Site s_backup = null;
 			//check for valid site id
 			if(!sites.containsKey(siteNum))
 			{
@@ -420,17 +428,17 @@ public class TransactionManager
 			}
 			
 			//call backup before fail
-			if(siteNum==1)
-			{
-				s_backup = this.sites.get(10);
-			}
-			else
-			{
-				s_backup = this.sites.get(siteNum-1);
-			}
+//			if(siteNum==1)
+//			{
+//				s_backup = this.sites.get(10);
+//			}
+//			else
+//			{
+//				s_backup = this.sites.get(siteNum-1);
+//			}
 			//call a site to fail
 			Site s = this.sites.get(siteNum);
-			s.Backup(s_backup);
+//			s.Backup(s_backup);
 			s.Fail();
 			//String record = (String)SiteRecords.get(s.getID()); 
 			//record = Integer.toString(intCurrentTimeStamp) + ";0";//reset recovery time

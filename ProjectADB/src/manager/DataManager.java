@@ -59,11 +59,8 @@ public class DataManager{
 	 * @return
 	 */
 	public int readOnlyData(Xclass xclass, int timeStamp) {
-//		for(TimeStamp ts: xclass.getValueList()){
-//			if(ts.getTimeStamp() > timeStamp)
-//		}
 		System.out.println("list size: "+xclass.getValueList().size() + " timestamp: " + timeStamp);
-		for(int i = xclass.getValueList().size() -1 ; i >= 0 ; i--){
+		for(int i = xclass.getValueList().size() -2 ; i >= 0 ; i--){
 			System.out.println("timeStamp: "+xclass.getValueList().get(i).getTimeStamp());
 			if(xclass.getValueList().get(i).getTimeStamp() == 0)
 				return xclass.getValueList().get(i).getValue();
@@ -158,6 +155,9 @@ public class DataManager{
 					_X_q.get(i).doCopy(t_X_q.get(j));
 					_X_q.get(i).unCopy();
 					_X_q.get(i).unLock();
+				}
+				if(_X_q.get(i).getID() % 2 == 1){
+					_X_q.get(i).setValue(_X_q.get(i).getPreviousValue());
 				}
 			}
 		}
