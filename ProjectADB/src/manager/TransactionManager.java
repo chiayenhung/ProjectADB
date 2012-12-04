@@ -13,6 +13,7 @@ import component.Site;
 import component.Transaction;
 //import component.Operation.action_type;
 //import component.Transaction.Attribute;
+import component.Xclass;
 
 
 /**
@@ -25,9 +26,8 @@ public class TransactionManager
 	//class variable
 	private Map<String, Transaction> transactions; //list of transaction
 	private Map<Integer, Site> sites;//list of site
-//	private String outFile = "";
 //	private CommandType current_state = CommandType.unkown;
-	private int intCurrentTimeStamp =0;
+	private int intCurrentTimeStamp = 0;
 	private Map<String, ArrayList<Operation>> WaitingList;//a map structure to hold all kind of waiting operation from all transactions
 	private Map<Integer, Integer> SiteRecords;//a map structure to hold all the down/recovery record
 	private List<List<String>> commandList = null;		//List of command from file
@@ -68,14 +68,24 @@ public class TransactionManager
 		CommandParser cp;
 		for(List<String> stringList: this.commandList){
 			for(String s: stringList){
-				cp = new CommandParser(s);
+				cp = new CommandParser(s.trim());
 				this.execute(cp);
 			}
-//			intCurrentTimeStamp++;
+			intCurrentTimeStamp++;
 		}
 	}
 	
-	public void execute(CommandParser cp){
+	public void run(String commands){
+		CommandParser cp;
+		String[] tmp = commands.trim().split(";");
+		for(String s: tmp){
+			cp = new CommandParser(s.trim());
+			this.execute(cp);
+		}
+		intCurrentTimeStamp++;
+	}
+	
+	private void execute(CommandParser cp){
 		switch (cp.getCommandType()){
 		case begin:
 			this.begin(cp.getTransactionNum());
@@ -107,7 +117,7 @@ public class TransactionManager
 		}
 //		current_state = cp.getCommandType();
 		//increase the timestamp value
-		intCurrentTimeStamp++;
+//		intCurrentTimeStamp++;
 	}
 
 	/**
@@ -123,7 +133,11 @@ public class TransactionManager
 			if(siteNum == -1 && xClassNum == -1)
 			{
 				//commit everything
-				CommitALL();
+//				CommitALL();
+				for(Site s: this.sites.values())
+					this.logger.log(s.dump());
+//					for(Xclass x: s.getX_q())
+//						this.logger.log("" + x.getPreviousValue());
 			}
 			else if(siteNum == -1)
 			{
@@ -139,8 +153,10 @@ public class TransactionManager
 				Site s = this.sites.get(intID);
 				if(!s.isDown())
 				{
-					CommitVariable(xClassNum);
-					this.logger.log("Site" + xClassNum + " " +s.ToString());
+//					CommitVariable(xClassNum);
+//					for(Site ss: this.sites.values())
+//						this.logger.log("" + ss.getX_q().get(xClassNum - 1));
+//					this.logger.log("Site" + xClassNum + " " +s.ToString());
 				}
 				else
 				{
@@ -157,7 +173,8 @@ public class TransactionManager
 				Site s = this.sites.get(siteNum);
 				if(!s.isDown())
 				{
-					CommitSite(siteNum);
+//					CommitSite(siteNum);
+//					this.logger.log("" + this.sites.get(siteNum).dump());
 					this.logger.log("Site " + siteNum + " " +s.ToString());
 				}
 				else
@@ -205,7 +222,7 @@ public class TransactionManager
 				return;
 			}
 			
-			ArrayList<Site> evenSite = new ArrayList<Site>();
+//			ArrayList<Site> evenSite = new ArrayList<Site>();
 			
 			if( (xClassNum % 2) == 1)
 			{
@@ -225,41 +242,52 @@ public class TransactionManager
 			}
 			else
 			{
-				int temp = (xClassNum / 2) * 3;
-				int answer = 0;
-				for (int i = (temp-2); i <= temp; i++){
-					if((i % 10) == 0)
-					{
-						answer = 10;
-					}
-					else
-					{
-						int answerSite = (i % 10);
-						answer = answerSite;
-					}
-					Site s1 = this.sites.get(answer);
-					evenSite.add(s1);		
-				}
-				
-				Iterator<Site> iteratorSite = evenSite.iterator();
-				
+//				int temp = (xClassNum / 2) * 3;
+//				int answer = 0;
+//				for (int i = (temp-2); i <= temp; i++){
+//					if((i % 10) == 0)
+//					{
+//						answer = 10;
+//					}
+//					else
+//					{
+//						int answerSite = (i % 10);
+//						answer = answerSite;
+//					}
+//					Site s1 = this.sites.get(answer);
+//					evenSite.add(s1);		
+//				}
+//				
+//				Iterator<Site> iteratorSite = evenSite.iterator();
+//				
+//				boolean writeFlag = false;
+//				while(iteratorSite.hasNext()){
+//					Site s = (Site)iteratorSite.next();
+//			        if(!s.isDown())
+//			        {
+//			        	//ReadSingle(s.getID(),intX,t_id);
+//			        	blnInsertOp=WriteToSingle(xClassNum,value,t_id,s.getID());
+//			        	//break;
+//			        	writeFlag = true;
+//			        }
+//			        if( (!iteratorSite.hasNext()) && (writeFlag == false) )
+//			        {
+//			        	//insert the stuck operation into the waiting list
+//						//time stamp = 0 because hasn't written to site yet
+//						Operation op = new Operation(OperationType.write,value,xClassNum,0);
+//						InsertIntoWaitingList(op,t_id);
+//			        }   
+//				}
 				boolean writeFlag = false;
-				while(iteratorSite.hasNext()){
-					Site s = (Site)iteratorSite.next();
-			        if(!s.isDown())
-			        {
-			        	//ReadSingle(s.getID(),intX,t_id);
-			        	blnInsertOp=WriteToSingle(xClassNum,value,t_id,s.getID());
-			        	//break;
-			        	writeFlag = true;
-			        }
-			        if( (!iteratorSite.hasNext()) && (writeFlag == false) )
-			        {
-			        	//insert the stuck operation into the waiting list
-						//time stamp = 0 because hasn't written to site yet
-						Operation op = new Operation(OperationType.write,value,xClassNum,0);
-						InsertIntoWaitingList(op,t_id);
-			        }   
+				for(Site s: this.sites.values()){
+					if(!s.isDown()){
+						blnInsertOp=WriteToSingle(xClassNum,value,t_id,s.getID());
+						writeFlag = true;
+					}
+				}
+				if(!writeFlag){
+					Operation op = new Operation(OperationType.write,value,xClassNum,0);
+					InsertIntoWaitingList(op,t_id);
 				}
 			}
 			//insert the new operation into the record
@@ -295,11 +323,11 @@ public class TransactionManager
 			String t_id = "" + transactionNum;
 			
 			//check for valid transaction id
-			if(!transactions.containsKey(t_id))
-			{
-				this.logger.log("Transaction " + t_id + " not found.");
-				return;
-			}
+//			if(!transactions.containsKey(t_id))
+//			{
+//				this.logger.log("Transaction " + t_id + " not found.");
+//				return;
+//			}
 			//get transaction object
 			
 			if(!transactions.containsKey(t_id))
@@ -307,7 +335,7 @@ public class TransactionManager
 				this.logger.log("Transaction " + t_id + " not found.");
 				return;
 			}
-			Transaction t = (Transaction)transactions.get(t_id);
+			Transaction t = this.transactions.get(t_id);
 			
 			if(t.getAttribute()==TransactionType.ReadOnly)
 			{
@@ -827,7 +855,7 @@ public class TransactionManager
 	{
 		try
 		{
-			this.logger.log("Processing abort(" + transactionId + ")");
+			this.logger.log("Processing abort(T" + transactionId + ")");
 			//extract transaction id
 //			int index = info.indexOf("(");
 //			String id = info.substring(index+1, info.length()-1);
@@ -905,6 +933,8 @@ public class TransactionManager
 				//t_request is younger or equal than the t_locked
 				//keep t_locked 
 				//abort request id
+				System.out.println(LockByID + " " + RequestID);
+				System.out.println("wrong here! in make decision method");
 				this.abort(RequestID);
 				
 			}
@@ -1237,6 +1267,7 @@ public class TransactionManager
 				{
 					//current transaction is gone
 					//reset message
+					System.out.println("lock release! in readsingle method");
 					s.resetLockMsg();
 					return;//exit method
 				}
@@ -1395,41 +1426,55 @@ public class TransactionManager
 		}
 		else
 		{
-			int temp = (intX/2)*3;
-			for (int i = (temp-2); i <= temp; i++){
-				if((i%10) == 0)
-				{
-					answer = 10;
+//			int temp = (intX/2)*3;
+//			for (int i = (temp-2); i <= temp; i++){
+//				if((i%10) == 0)
+//				{
+//					answer = 10;
+//				}
+//				else
+//				{
+//					int answerSite = (i%10);
+//					answer = answerSite;
+//				}
+//				Site s1 = this.sites.get(answer);
+//				evenSite.add(s1);		
+//			}
+//			
+//			Iterator<Site> iteratorSite = evenSite.iterator();
+//			
+//			
+//			while(iteratorSite.hasNext()){
+//				Site s = (Site)iteratorSite.next();
+//		        if(!s.isDown())
+//		        {
+//		        	ReadSingle(s.getID(),intX,t_id);
+//		        	break;
+//		        }
+//		        if(!(iteratorSite.hasNext()))
+//		        {
+//		        	//insert the current operation into the waiting list
+//					//insert the stuck operation into the waiting list
+//					//time stamp = 0, because hasn't written into site yet
+//					Operation op = new Operation(OperationType.read,0,intX,0);
+//					InsertIntoWaitingList(op,t_id);
+//		        }
+//		        
+//			}
+			boolean blnReadSingle = false;
+			for(Site s: this.sites.values()){
+				if(!s.isDown()){
+					this.ReadSingle(s.getID(), intX, t_id);
+					blnReadSingle = true;
+					break;
 				}
-				else
-				{
-					int answerSite = (i%10);
-					answer = answerSite;
-				}
-				Site s1 = this.sites.get(answer);
-				evenSite.add(s1);		
 			}
-			
-			Iterator<Site> iteratorSite = evenSite.iterator();
-			
-			
-			while(iteratorSite.hasNext()){
-				Site s = (Site)iteratorSite.next();
-		        if(!s.isDown())
-		        {
-		        	ReadSingle(s.getID(),intX,t_id);
-		        	break;
-		        }
-		        if(!(iteratorSite.hasNext()))
-		        {
-		        	//insert the current operation into the waiting list
-					//insert the stuck operation into the waiting list
-					//time stamp = 0, because hasn't written into site yet
-					Operation op = new Operation(OperationType.read,0,intX,0);
-					InsertIntoWaitingList(op,t_id);
-		        }
-		        
+			if(!blnReadSingle){
+				Operation op = new Operation(OperationType.read,0,intX,0);
+				InsertIntoWaitingList(op,t_id);
 			}
+				
+			
 			
 			
 			

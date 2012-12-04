@@ -272,7 +272,8 @@ public class Site{
 				else if(X_q.get(i).getLockID().contains(tid))
 				{
 					this.resetLockMsg();
-					return DM.ReadData(X_q.get(i));
+//					return DM.ReadData(X_q.get(i));
+					return DM.ReadPreData(X_q.get(i));
 				}
 				//x is locked by others
 				else
@@ -493,4 +494,24 @@ public class Site{
 		}
 		return s;
 	}
+	
+	public String dump(){
+		StringBuilder sb =new StringBuilder();
+		if(this.Failed)
+		{
+			sb.append("This site is down.\n");
+		}
+		else
+		{
+			sb.append("This site is up.\n");
+		}
+		for(Xclass x: this.X_q)
+			sb.append("X" + x.getID() + ": " + x.getPreviousValue() + " ");
+		return sb.toString();
+	}
+	
+	public Xclass dump(int xClassNum){
+		return this.X_q.get(xClassNum - 1);
+	}
+	
 }

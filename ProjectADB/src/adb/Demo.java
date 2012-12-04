@@ -50,7 +50,7 @@ public class Demo {
 					{
 						break;
 					}
-					tm.execute(new CommandParser(line));
+					tm.run(line);
 				}
 				else
 				{
