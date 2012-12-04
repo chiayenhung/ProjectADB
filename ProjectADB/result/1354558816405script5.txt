@@ -1,0 +1,34 @@
+Mon Dec 03 13:20:16 EST 2012: Added site 1
+Mon Dec 03 13:20:16 EST 2012: Added site 2
+Mon Dec 03 13:20:16 EST 2012: Added site 3
+Mon Dec 03 13:20:16 EST 2012: Added site 4
+Mon Dec 03 13:20:16 EST 2012: Added site 5
+Mon Dec 03 13:20:16 EST 2012: Added site 6
+Mon Dec 03 13:20:16 EST 2012: Added site 7
+Mon Dec 03 13:20:16 EST 2012: Added site 8
+Mon Dec 03 13:20:16 EST 2012: Added site 9
+Mon Dec 03 13:20:16 EST 2012: Added site 10
+Mon Dec 03 13:20:21 EST 2012: Transaction 1 has been created.
+Mon Dec 03 13:20:21 EST 2012: Transaction 2 has been created.
+Mon Dec 03 13:20:21 EST 2012: Processing write(T1, X6, 66)
+Mon Dec 03 13:20:21 EST 2012: Operation inserted into 1
+Mon Dec 03 13:20:21 EST 2012: Processing fail(2)
+Mon Dec 03 13:20:21 EST 2012: Processing write(T2, X8, 88)
+Mon Dec 03 13:20:21 EST 2012: Operation inserted into 2
+Mon Dec 03 13:20:21 EST 2012: Processing read(T2, X3)
+Mon Dec 03 13:20:21 EST 2012: target site 4
+Mon Dec 03 13:20:21 EST 2012: x3 is 30
+Mon Dec 03 13:20:21 EST 2012: Operation input into 2
+Mon Dec 03 13:20:21 EST 2012: Processing read(T1, X5)
+Mon Dec 03 13:20:21 EST 2012: target site 6
+Mon Dec 03 13:20:21 EST 2012: x5 is 50
+Mon Dec 03 13:20:21 EST 2012: Operation input into 1
+Mon Dec 03 13:20:21 EST 2012: Test commit for transaction 2
+Mon Dec 03 13:20:21 EST 2012: Processing Commit(2)
+Mon Dec 03 13:20:21 EST 2012: Transaction 2 commited.
+Mon Dec 03 13:20:21 EST 2012: Transaction 2 removed from the list.
+Mon Dec 03 13:20:21 EST 2012: Processing recover(2)
+Mon Dec 03 13:20:21 EST 2012: Test commit for transaction 1
+Mon Dec 03 13:20:21 EST 2012: target site was down before, lost local lock info
+Mon Dec 03 13:20:21 EST 2012: Processing abort(1)
+Mon Dec 03 13:20:21 EST 2012: Transaction 1 removed from the list.

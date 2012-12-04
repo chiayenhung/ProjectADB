@@ -1,0 +1,1724 @@
+Fri Nov 30 20:45:37 EST 2012: Added site 1
+Fri Nov 30 20:45:37 EST 2012: Added site 2
+Fri Nov 30 20:45:37 EST 2012: Added site 3
+Fri Nov 30 20:45:37 EST 2012: Added site 4
+Fri Nov 30 20:45:37 EST 2012: Added site 5
+Fri Nov 30 20:45:37 EST 2012: Added site 6
+Fri Nov 30 20:45:37 EST 2012: Added site 7
+Fri Nov 30 20:45:37 EST 2012: Added site 8
+Fri Nov 30 20:45:37 EST 2012: Added site 9
+Fri Nov 30 20:45:37 EST 2012: Added site 10
+Fri Nov 30 20:45:43 EST 2012: Transaction t1 has been created.
+Fri Nov 30 20:45:43 EST 2012: Transaction t2 has been created.
+Fri Nov 30 20:45:43 EST 2012: Processing dump()
+Fri Nov 30 20:45:43 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 20:45:43 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 40
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site5 This site is up.
+Current X4 = 40
+Current X10 = 100
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 40
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Site10 This site is up.
+Current X9 = 90
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Processing fail(1)
+Fri Nov 30 20:45:43 EST 2012: Processing fail(2)
+Fri Nov 30 20:45:43 EST 2012: Processing fail(3)
+Fri Nov 30 20:45:43 EST 2012: Processing r(t1,x2)
+Fri Nov 30 20:45:43 EST 2012: Operation inserted into waiting list.
+Fri Nov 30 20:45:43 EST 2012: Processing r(t2,x9)
+Fri Nov 30 20:45:43 EST 2012: target site 10
+Fri Nov 30 20:45:43 EST 2012: x9 is 90
+Fri Nov 30 20:45:43 EST 2012: Operation input into t2
+Fri Nov 30 20:45:43 EST 2012: Processing r(t2,x4)
+Fri Nov 30 20:45:43 EST 2012: target site 4
+Fri Nov 30 20:45:43 EST 2012: x4 is 40
+Fri Nov 30 20:45:43 EST 2012: Operation input into t2
+Fri Nov 30 20:45:43 EST 2012: Processing w(t2,x9,9)
+Fri Nov 30 20:45:43 EST 2012: Operation inserted into t2
+Fri Nov 30 20:45:43 EST 2012: Processing w(t2,x4,4)
+Fri Nov 30 20:45:43 EST 2012: Operation inserted into t2
+Fri Nov 30 20:45:43 EST 2012: Processing dump()
+Fri Nov 30 20:45:43 EST 2012: Site1 This site is down.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 20:45:43 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 20:45:43 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 20:45:43 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Processing recover(1)
+Fri Nov 30 20:45:43 EST 2012: Processing dump()
+Fri Nov 30 20:45:43 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 20:45:43 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 20:45:43 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:43 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 20:45:43 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 20:45:43 EST 2012: Test commit for transaction t1
+Fri Nov 30 20:45:43 EST 2012: There is still operation pending for this transaction t1
+Fri Nov 30 20:45:43 EST 2012: Processing abort(t1)
+Fri Nov 30 20:45:43 EST 2012: Transaction t1 removed from the list.
+Fri Nov 30 20:45:43 EST 2012: Processing recover(2)
+Fri Nov 30 20:45:43 EST 2012: Processing dump()
+Fri Nov 30 20:45:43 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 20:45:43 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:43 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 20:45:44 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:44 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:44 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 20:45:44 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 20:45:44 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 20:45:44 EST 2012: Test commit for transaction t2
+Fri Nov 30 20:45:44 EST 2012: Processing commit(t2)
+Fri Nov 30 20:45:44 EST 2012: Transaction t2 commited.
+Fri Nov 30 20:45:44 EST 2012: Transaction t2 removed from the list.
+Fri Nov 30 20:45:44 EST 2012: Processing recover(3)
+Fri Nov 30 20:45:44 EST 2012: Processing dump()
+Fri Nov 30 20:45:44 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 20:45:44 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 20:45:44 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:44 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:44 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 20:45:44 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:44 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:44 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 20:45:44 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 20:45:44 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 20:45:44 EST 2012: Transaction t3 has been created.
+Fri Nov 30 20:45:44 EST 2012: Processing w(t3,x2,22)
+Fri Nov 30 20:45:44 EST 2012: Operation inserted into t3
+Fri Nov 30 20:45:44 EST 2012: Test commit for transaction t3
+Fri Nov 30 20:45:44 EST 2012: Processing commit(t3)
+Fri Nov 30 20:45:44 EST 2012: Transaction t3 commited.
+Fri Nov 30 20:45:44 EST 2012: Transaction t3 removed from the list.
+Fri Nov 30 20:45:44 EST 2012: Processing dump()
+Fri Nov 30 20:45:44 EST 2012: Site1 This site is up.
+Current X2 = 22
+Current X8 = 80
+Current X14 = 140
+Current copy X1 = 10
+Current copy X11 = 110
+
+Fri Nov 30 20:45:44 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 22
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 20:45:44 EST 2012: Site3 This site is up.
+Current X2 = 22
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:44 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 20:45:44 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 20:45:44 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:44 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 20:45:44 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 20:45:44 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 20:45:44 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Transaction t1 has been created.
+Fri Nov 30 21:19:23 EST 2012: Transaction t2 has been created.
+Fri Nov 30 21:19:23 EST 2012: Processing dump()
+Fri Nov 30 21:19:23 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:19:23 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 40
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site5 This site is up.
+Current X4 = 40
+Current X10 = 100
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 40
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site10 This site is up.
+Current X9 = 90
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Processing fail(1)
+Fri Nov 30 21:19:23 EST 2012: Processing fail(2)
+Fri Nov 30 21:19:23 EST 2012: Processing fail(3)
+Fri Nov 30 21:19:23 EST 2012: Processing r(t1,x2)
+Fri Nov 30 21:19:23 EST 2012: Operation inserted into waiting list.
+Fri Nov 30 21:19:23 EST 2012: Processing r(t2,x9)
+Fri Nov 30 21:19:23 EST 2012: target site 10
+Fri Nov 30 21:19:23 EST 2012: x9 is 90
+Fri Nov 30 21:19:23 EST 2012: Operation input into t2
+Fri Nov 30 21:19:23 EST 2012: Processing r(t2,x4)
+Fri Nov 30 21:19:23 EST 2012: target site 4
+Fri Nov 30 21:19:23 EST 2012: x4 is 40
+Fri Nov 30 21:19:23 EST 2012: Operation input into t2
+Fri Nov 30 21:19:23 EST 2012: Processing w(t2,x9,9)
+Fri Nov 30 21:19:23 EST 2012: Operation inserted into t2
+Fri Nov 30 21:19:23 EST 2012: Processing w(t2,x4,4)
+Fri Nov 30 21:19:23 EST 2012: Operation inserted into t2
+Fri Nov 30 21:19:23 EST 2012: Processing dump()
+Fri Nov 30 21:19:23 EST 2012: Site1 This site is down.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:19:23 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:19:23 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:19:23 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Processing recover(1)
+Fri Nov 30 21:19:23 EST 2012: Processing dump()
+Fri Nov 30 21:19:23 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:19:23 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:19:23 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:19:23 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Test commit for transaction t1
+Fri Nov 30 21:19:23 EST 2012: There is still operation pending for this transaction t1
+Fri Nov 30 21:19:23 EST 2012: Processing abort(t1)
+Fri Nov 30 21:19:23 EST 2012: Transaction t1 removed from the list.
+Fri Nov 30 21:19:23 EST 2012: Processing recover(2)
+Fri Nov 30 21:19:23 EST 2012: Processing dump()
+Fri Nov 30 21:19:23 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:19:23 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:19:23 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:19:23 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Test commit for transaction t2
+Fri Nov 30 21:19:23 EST 2012: Processing recover(3)
+Fri Nov 30 21:19:23 EST 2012: Processing dump()
+Fri Nov 30 21:19:23 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:19:23 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:19:23 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:19:23 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Transaction t3 has been created.
+Fri Nov 30 21:19:23 EST 2012: Processing w(t3,x2,22)
+Fri Nov 30 21:19:23 EST 2012: Operation inserted into t3
+Fri Nov 30 21:19:23 EST 2012: Test commit for transaction t3
+Fri Nov 30 21:19:23 EST 2012: Processing dump()
+Fri Nov 30 21:19:23 EST 2012: Site1 This site is up.
+Current X2 = 22
+Current X8 = 80
+Current X14 = 140
+Current copy X1 = 10
+Current copy X11 = 110
+
+Fri Nov 30 21:19:23 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 22
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site3 This site is up.
+Current X2 = 22
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:19:23 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:19:23 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:19:23 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:19:23 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:19:23 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:31 EST 2012: Added site 1
+Fri Nov 30 21:32:31 EST 2012: Added site 2
+Fri Nov 30 21:32:31 EST 2012: Added site 3
+Fri Nov 30 21:32:31 EST 2012: Added site 4
+Fri Nov 30 21:32:31 EST 2012: Added site 5
+Fri Nov 30 21:32:31 EST 2012: Added site 6
+Fri Nov 30 21:32:31 EST 2012: Added site 7
+Fri Nov 30 21:32:31 EST 2012: Added site 8
+Fri Nov 30 21:32:31 EST 2012: Added site 9
+Fri Nov 30 21:32:32 EST 2012: Added site 10
+Fri Nov 30 21:32:40 EST 2012: Transaction t1 has been created.
+Fri Nov 30 21:32:40 EST 2012: Transaction t2 has been created.
+Fri Nov 30 21:32:40 EST 2012: Processing dump()
+Fri Nov 30 21:32:40 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:32:40 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 40
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site5 This site is up.
+Current X4 = 40
+Current X10 = 100
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 40
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site10 This site is up.
+Current X9 = 90
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Processing fail(1)
+Fri Nov 30 21:32:40 EST 2012: Processing fail(2)
+Fri Nov 30 21:32:40 EST 2012: Processing fail(3)
+Fri Nov 30 21:32:40 EST 2012: Processing r(t1,x2)
+Fri Nov 30 21:32:40 EST 2012: Operation inserted into waiting list.
+Fri Nov 30 21:32:40 EST 2012: Processing r(t2,x9)
+Fri Nov 30 21:32:40 EST 2012: target site 10
+Fri Nov 30 21:32:40 EST 2012: x9 is 90
+Fri Nov 30 21:32:40 EST 2012: Operation input into t2
+Fri Nov 30 21:32:40 EST 2012: Processing r(t2,x4)
+Fri Nov 30 21:32:40 EST 2012: target site 4
+Fri Nov 30 21:32:40 EST 2012: x4 is 40
+Fri Nov 30 21:32:40 EST 2012: Operation input into t2
+Fri Nov 30 21:32:40 EST 2012: Processing w(t2,x9,9)
+Fri Nov 30 21:32:40 EST 2012: Operation inserted into t2
+Fri Nov 30 21:32:40 EST 2012: Processing w(t2,x4,4)
+Fri Nov 30 21:32:40 EST 2012: Operation inserted into t2
+Fri Nov 30 21:32:40 EST 2012: Processing dump()
+Fri Nov 30 21:32:40 EST 2012: Site1 This site is down.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:32:40 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:32:40 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:32:40 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Processing recover(1)
+Fri Nov 30 21:32:40 EST 2012: Processing dump()
+Fri Nov 30 21:32:40 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:32:40 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:32:40 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:32:40 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Test commit for transaction t1
+Fri Nov 30 21:32:40 EST 2012: There is still operation pending for this transaction t1
+Fri Nov 30 21:32:40 EST 2012: Processing abort(t1)
+Fri Nov 30 21:32:40 EST 2012: Transaction t1 removed from the list.
+Fri Nov 30 21:32:40 EST 2012: Processing recover(2)
+Fri Nov 30 21:32:40 EST 2012: Processing dump()
+Fri Nov 30 21:32:40 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:32:40 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:32:40 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:32:40 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Test commit for transaction t2
+Fri Nov 30 21:32:40 EST 2012: Processing commit(t2)
+Fri Nov 30 21:32:40 EST 2012: Transaction t2 commited.
+Fri Nov 30 21:32:40 EST 2012: Transaction t2 removed from the list.
+Fri Nov 30 21:32:40 EST 2012: Processing recover(3)
+Fri Nov 30 21:32:40 EST 2012: Processing dump()
+Fri Nov 30 21:32:40 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Fri Nov 30 21:32:40 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:32:40 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:32:40 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Transaction t3 has been created.
+Fri Nov 30 21:32:40 EST 2012: Processing w(t3,x2,22)
+Fri Nov 30 21:32:40 EST 2012: Operation inserted into t3
+Fri Nov 30 21:32:40 EST 2012: Test commit for transaction t3
+Fri Nov 30 21:32:40 EST 2012: Processing commit(t3)
+Fri Nov 30 21:32:40 EST 2012: Transaction t3 commited.
+Fri Nov 30 21:32:40 EST 2012: Transaction t3 removed from the list.
+Fri Nov 30 21:32:40 EST 2012: Processing dump()
+Fri Nov 30 21:32:40 EST 2012: Site1 This site is up.
+Current X2 = 22
+Current X8 = 80
+Current X14 = 140
+Current copy X1 = 10
+Current copy X11 = 110
+
+Fri Nov 30 21:32:40 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 22
+Current X8 = 80
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site3 This site is up.
+Current X2 = 22
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Fri Nov 30 21:32:40 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Fri Nov 30 21:32:40 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Fri Nov 30 21:32:40 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Fri Nov 30 21:32:40 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Fri Nov 30 21:32:40 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Added site 1
+Sat Dec 01 01:47:59 EST 2012: Added site 2
+Sat Dec 01 01:47:59 EST 2012: Added site 3
+Sat Dec 01 01:47:59 EST 2012: Added site 4
+Sat Dec 01 01:47:59 EST 2012: Added site 5
+Sat Dec 01 01:47:59 EST 2012: Added site 6
+Sat Dec 01 01:47:59 EST 2012: Added site 7
+Sat Dec 01 01:47:59 EST 2012: Added site 8
+Sat Dec 01 01:47:59 EST 2012: Added site 9
+Sat Dec 01 01:47:59 EST 2012: Added site 10
+Sat Dec 01 01:47:59 EST 2012: Transaction t1 has been created.
+Sat Dec 01 01:47:59 EST 2012: Transaction t2 has been created.
+Sat Dec 01 01:47:59 EST 2012: Processing dump()
+Sat Dec 01 01:47:59 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Sat Dec 01 01:47:59 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 40
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site5 This site is up.
+Current X4 = 40
+Current X10 = 100
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 40
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site10 This site is up.
+Current X9 = 90
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Processing fail(1)
+Sat Dec 01 01:47:59 EST 2012: Processing fail(2)
+Sat Dec 01 01:47:59 EST 2012: Processing fail(3)
+Sat Dec 01 01:47:59 EST 2012: Processing r(t1,x2)
+Sat Dec 01 01:47:59 EST 2012: Operation inserted into waiting list.
+Sat Dec 01 01:47:59 EST 2012: Processing r(t2,x9)
+Sat Dec 01 01:47:59 EST 2012: target site 10
+Sat Dec 01 01:47:59 EST 2012: x9 is 90
+Sat Dec 01 01:47:59 EST 2012: Operation input into t2
+Sat Dec 01 01:47:59 EST 2012: Processing r(t2,x4)
+Sat Dec 01 01:47:59 EST 2012: target site 4
+Sat Dec 01 01:47:59 EST 2012: x4 is 40
+Sat Dec 01 01:47:59 EST 2012: Operation input into t2
+Sat Dec 01 01:47:59 EST 2012: Processing w(t2,x9,9)
+Sat Dec 01 01:47:59 EST 2012: Operation inserted into t2
+Sat Dec 01 01:47:59 EST 2012: Processing w(t2,x4,4)
+Sat Dec 01 01:47:59 EST 2012: Operation inserted into t2
+Sat Dec 01 01:47:59 EST 2012: Processing dump()
+Sat Dec 01 01:47:59 EST 2012: Site1 This site is down.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Sat Dec 01 01:47:59 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Sat Dec 01 01:47:59 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Sat Dec 01 01:47:59 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Processing recover(1)
+Sat Dec 01 01:47:59 EST 2012: Processing dump()
+Sat Dec 01 01:47:59 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Sat Dec 01 01:47:59 EST 2012: Site2 This site is down.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Sat Dec 01 01:47:59 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Sat Dec 01 01:47:59 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Test commit for transaction t1
+Sat Dec 01 01:47:59 EST 2012: There is still operation pending for this transaction t1
+Sat Dec 01 01:47:59 EST 2012: Processing abort(t1)
+Sat Dec 01 01:47:59 EST 2012: Transaction t1 removed from the list.
+Sat Dec 01 01:47:59 EST 2012: Processing recover(2)
+Sat Dec 01 01:47:59 EST 2012: Processing dump()
+Sat Dec 01 01:47:59 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Sat Dec 01 01:47:59 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site3 This site is down.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Sat Dec 01 01:47:59 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Sat Dec 01 01:47:59 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Test commit for transaction t2
+Sat Dec 01 01:47:59 EST 2012: Processing commit(t2)
+Sat Dec 01 01:47:59 EST 2012: Transaction t2 commited.
+Sat Dec 01 01:47:59 EST 2012: Transaction t2 removed from the list.
+Sat Dec 01 01:47:59 EST 2012: Processing recover(3)
+Sat Dec 01 01:47:59 EST 2012: Processing dump()
+Sat Dec 01 01:47:59 EST 2012: Site1 This site is up.
+Current X2 = 20
+Current X8 = 80
+Current X14 = 140
+
+Sat Dec 01 01:47:59 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 20
+Current X8 = 80
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site3 This site is up.
+Current X2 = 20
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Sat Dec 01 01:47:59 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Sat Dec 01 01:47:59 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Transaction t3 has been created.
+Sat Dec 01 01:47:59 EST 2012: Processing w(t3,x2,22)
+Sat Dec 01 01:47:59 EST 2012: Operation inserted into t3
+Sat Dec 01 01:47:59 EST 2012: Test commit for transaction t3
+Sat Dec 01 01:47:59 EST 2012: Processing commit(t3)
+Sat Dec 01 01:47:59 EST 2012: Transaction t3 commited.
+Sat Dec 01 01:47:59 EST 2012: Transaction t3 removed from the list.
+Sat Dec 01 01:47:59 EST 2012: Processing dump()
+Sat Dec 01 01:47:59 EST 2012: Site1 This site is up.
+Current X2 = 22
+Current X8 = 80
+Current X14 = 140
+Current copy X1 = 10
+Current copy X11 = 110
+
+Sat Dec 01 01:47:59 EST 2012: Site2 This site is up.
+Current X1 = 10
+Current X11 = 110
+Current X2 = 22
+Current X8 = 80
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site3 This site is up.
+Current X2 = 22
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site4 This site is up.
+Current X3 = 30
+Current X13 = 130
+Current X4 = 4
+Current X10 = 100
+Current X16 = 160
+
+Sat Dec 01 01:47:59 EST 2012: Site5 This site is up.
+Current X4 = 4
+Current X10 = 100
+Current X18 = 180
+Current copy X5 = 50
+Current copy X15 = 150
+
+Sat Dec 01 01:47:59 EST 2012: Site6 This site is up.
+Current X5 = 50
+Current X15 = 150
+Current X4 = 4
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site7 This site is up.
+Current X6 = 60
+Current X12 = 120
+Current X18 = 180
+
+Sat Dec 01 01:47:59 EST 2012: Site8 This site is up.
+Current X7 = 70
+Current X17 = 170
+Current X6 = 60
+Current X12 = 120
+Current X20 = 200
+
+Sat Dec 01 01:47:59 EST 2012: Site9 This site is up.
+Current X6 = 60
+Current X14 = 140
+Current X20 = 200
+Current copy X9 = 9
+Current copy X19 = 190
+
+Sat Dec 01 01:47:59 EST 2012: Site10 This site is up.
+Current X9 = 9
+Current X19 = 190
+Current X8 = 80
+Current X14 = 140
+Current X20 = 200
+

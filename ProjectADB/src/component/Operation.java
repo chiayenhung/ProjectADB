@@ -12,7 +12,7 @@ public class Operation
 	//class variable
 	private OperationType op_type = OperationType.read;
 	private int value = -1;
-	private int target = -1;
+	private int target_loc = -1;
 	private int timeStamp = 0;
 	
 	/**
@@ -26,7 +26,7 @@ public class Operation
 	{
 		op_type = type;
 		value = _value;
-		target = location;
+		target_loc = location;
 		timeStamp = ts;
 	}
 	/**
@@ -67,7 +67,7 @@ public class Operation
 	 */
 	public void setTarget(int new_target)
 	{
-		target = new_target;
+		target_loc = new_target;
 	}
 	/**
 	 * return the target location for this operation to be performed
@@ -75,10 +75,10 @@ public class Operation
 	 */
 	public int getTarget()
 	{
-		return target;
+		return target_loc;
 	}
 	/**
-	 * set the new target location for this object
+	 * set the timestamp for this object
 	 * @param ts
 	 */
 	public void setTimeStamp(int ts)
@@ -86,7 +86,7 @@ public class Operation
 		timeStamp = ts;
 	}
 	/**
-	 * return the target location for this operation to be performed
+	 * return the timestamp for this operation
 	 * @return
 	 */
 	public int getTimeStamp()

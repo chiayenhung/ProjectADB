@@ -13,7 +13,7 @@ public class Transaction
 	//class variable
 	private int timestamp = 0;
 	private String ID = "";
-	private ArrayList<Operation> op_q;
+	private ArrayList<Operation> op_list;
 	private TransactionType attribute;
 	/**
 	 * class constructor
@@ -23,8 +23,8 @@ public class Transaction
 	 */
 	public Transaction(String _ID,int _timestamp,TransactionType att)
 	{
-		op_q =new ArrayList<Operation>();
-		//op_q.add(_op);
+		op_list =new ArrayList<Operation>();
+		//op_list.add(_op);
 		ID = _ID;//assign transaction id
 		timestamp = _timestamp; //assign timestamp, line # in this case
 		attribute = att;
@@ -59,7 +59,7 @@ public class Transaction
 	 */
 	public Collection<Operation> getOperations()
 	{
-		return op_q;
+		return op_list;
 	}
 	/**
 	 * insert new operation
@@ -67,7 +67,7 @@ public class Transaction
 	 */
 	public void Insert_Operation(Operation op)
 	{
-		op_q.add(op);
+		op_list.add(op);
 	}
 	/**
 	 * remove item
@@ -75,8 +75,8 @@ public class Transaction
 	 */
 	public void Remove_Operation(int location)
 	{
-		if(location>op_q.size()){return;}//exit if the size is larger than the list length
-		op_q.remove(location);
+		if(location>op_list.size()) { return; }//exit if the size is larger than the list length
+		op_list.remove(location);
 	}
 	/**
 	 * overwrite the list
@@ -84,7 +84,7 @@ public class Transaction
 	 */
 	public void Replace(ArrayList<Operation> new_list)
 	{
-		op_q = new_list;
+		op_list = new_list;
 	}
 
 }

@@ -13,11 +13,11 @@ import manager.LockManager;
  */
 public class Site{
 	//class variable
-	private int ID;
-	private ArrayList<Xclass> X_q;
+	private int site_ID;
+	private ArrayList<Xclass> X_list;
 	private LockManager LM;
 	private DataManager DM;
-	private boolean Failed;
+	private boolean fail;
 	private String lockmsg;
 	private int backupID;
 	
@@ -27,11 +27,11 @@ public class Site{
 	 */
 	public Site(int _ID)
 	{
-		ID = _ID;//assign site id
-		X_q = new ArrayList<Xclass>();
+		site_ID = _ID;//assign site id
+		X_list = new ArrayList<Xclass>();
 		LM = new LockManager();
 		DM = new DataManager();
-		Failed = false;
+		fail = false;
 		Initial_Xclass();
 		lockmsg = "NULL";
 		backupID = -1;
@@ -43,7 +43,7 @@ public class Site{
 	 */
 	public boolean isDown()
 	{
-		return Failed;
+		return fail;
 	}
 	/**
 	 * Initialize Xclass
@@ -59,14 +59,14 @@ public class Site{
 		//add odd X variable into target sites
 		for (int i = 1; i <= 10; i++) {
 			Xclass X = new Xclass(i * 2);
-			this.X_q.add(X);
+			this.X_list.add(X);
 //			strbuilder.append("X" + i*2 + ", ");
 		}
 //		for (int i = 1; i < 20; i += 2) {
 //			int temp = ((1 + i) % 10 == 0) ? 10 : (1 + i) % 10;
-//			if (temp == this.ID+1) {
+//			if (temp == this.site_ID+1) {
 //				Xclass X = new Xclass(i);
-//				this.X_q.add(X);
+//				this.X_list.add(X);
 ////				strbuilder.append("X" + i + ", ");
 //			}
 //		}
@@ -82,7 +82,7 @@ public class Site{
 //		Xclass X18 = new Xclass(18);
 //		Xclass X20 = new Xclass(20);
 //		
-		switch(ID)
+		switch(site_ID)
 		{
 			//switch site id
 //			case 1:
@@ -164,7 +164,7 @@ public class Site{
 	 */
 	public int getID()
 	{
-		return ID;
+		return site_ID;
 	}
 	
 	/**
@@ -173,7 +173,7 @@ public class Site{
 	 */
 	public ArrayList<Xclass> getX_q()
 	{
-		return X_q;
+		return X_list;
 	}
 	
 	/**
@@ -181,7 +181,7 @@ public class Site{
 	 */
 	public void Insert_Xclass(Xclass _X)
 	{
-		X_q.add(_X);
+		X_list.add(_X);
 	}
 	
 	/**
@@ -191,8 +191,8 @@ public class Site{
 	public void Remove_Xclass(int location)
 	{
 		//exit if the size is larger than the list length
-		if(location > X_q.size()){return;}
-		X_q.remove(location);
+		if(location > X_list.size()){return;}
+		X_list.remove(location);
 	}
 	
 	/**
@@ -229,17 +229,17 @@ public class Site{
 	 */
 	public int ReadOnly(int _XID, String tid)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
 			//find x
-			if(X_q.get(i).getID() == _XID)
+			if(X_list.get(i).getID() == _XID)
 			{
-					return DM.ReadPreData(X_q.get(i));
+					return DM.ReadPreData(X_list.get(i));
 			}
 		}
 		//cannot find x
 		System.out.println("Read X" + _XID
-				+ " from site" + ID + " fails, because it doesn't exist.");
+				+ " from site" + site_ID + " fails, because it doesn't exist.");
 		return -1;
 	}
 	
@@ -251,41 +251,41 @@ public class Site{
 	 */
 	public int ReadData(int _XID, String tid)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(X_q.get(i).IsCopy())
+			if(X_list.get(i).IsCopy())
 			{
 				continue;
 			}
 			//find x
-			if(X_q.get(i).getID() == _XID)
+			if(X_list.get(i).getID() == _XID)
 			{
 				//x is not locked
-				if(!X_q.get(i).IsLock())
+				if(!X_list.get(i).IsLock())
 				{
 					
-					DM.Ask_LM_setRead_Lock(LM, X_q.get(i), tid);
+					DM.Ask_LM_setRead_Lock(LM, X_list.get(i), tid);
 					this.resetLockMsg();
-					return DM.ReadPreData(X_q.get(i));
+					return DM.ReadPreData(X_list.get(i));
 				}
 				//x is locked by itself
-				else if(X_q.get(i).getLockID().contains(tid))
+				else if(X_list.get(i).getLockID().contains(tid))
 				{
 					this.resetLockMsg();
 //					return DM.ReadData(X_q.get(i));
-					return DM.ReadPreData(X_q.get(i));
+					return DM.ReadPreData(this.X_list.get(i));
 				}
 				//x is locked by others
 				else
 				{
-					this.setLockMsg(X_q.get(i).getLockID());
+					this.setLockMsg(X_list.get(i).getLockID());
 					return -1;
 				}
 			}
 		}
 		//cannot find x
 		System.out.println("Read X" + _XID
-				+ " from site" + ID + " fails, because it doesn't exist.");
+				+ " from site" + site_ID + " fails, because it doesn't exist.");
 		return -1;
 	}
 	
@@ -298,42 +298,42 @@ public class Site{
 	 */
 	public int WriteData(int _XID, int _Value, String tid)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(X_q.get(i).IsCopy())
+			if(X_list.get(i).IsCopy())
 			{
-				System.out.println("test " + X_q.get(i).getID());
+				System.out.println("test " + X_list.get(i).getID());
 				continue;
 			}
 			//find x
-			if(X_q.get(i).getID() == _XID)
+			if(X_list.get(i).getID() == _XID)
 			{
 				//x is not locked
-				if(!X_q.get(i).IsLock())
+				if(!X_list.get(i).IsLock())
 				{
-					DM.Ask_LM_setWrite_Lock(LM, X_q.get(i), tid);
-					DM.WriteData(X_q.get(i), _Value);
+					DM.Ask_LM_setWrite_Lock(LM, X_list.get(i), tid);
+					DM.WriteData(X_list.get(i), _Value);
 					this.resetLockMsg();
 					return _Value;
 				}
 				//x is locked by itself
-				else if(X_q.get(i).getLockID().contains(tid))
+				else if(X_list.get(i).getLockID().contains(tid))
 				{
-					DM.WriteData(X_q.get(i), _Value);
+					DM.WriteData(X_list.get(i), _Value);
 					this.resetLockMsg();
 					return _Value;
 				}
 				//x is locked by others
 				else
 				{
-					this.setLockMsg(X_q.get(i).getLockID());
+					this.setLockMsg(X_list.get(i).getLockID());
 					return -1;
 				}
 			}
 		}
 		//cannot find x
 		System.out.println("Write X" + _XID
-				+ " into site" + ID + " fails, because it doesn't exist.");
+				+ " into site" + site_ID + " fails, because it doesn't exist.");
 		return -1;
 	}
 	
@@ -342,8 +342,8 @@ public class Site{
 	 */
 	public void Fail()
 	{
-		Failed = true;
-		DM.Fail(LM, X_q);
+		fail = true;
+		DM.Fail(LM, X_list);
 	}
 	
 	/**
@@ -364,7 +364,7 @@ public class Site{
 		if(!backup.isDown())
 		{
 			backupID = backup.getID();
-			DM.Backup(X_q, backup.getX_q());
+			DM.Backup(X_list, backup.getX_q());
 		}
 	}
 	
@@ -376,11 +376,11 @@ public class Site{
 	public ArrayList<String> Recovery(Site target)
 	{
 		ArrayList<String> a = new ArrayList<String>();
-		Failed = false;
+		fail = false;
 		
 		if(backupID == target.getID() && !target.isDown())
 		{
-			return DM.Recovery(X_q, target.getX_q());
+			return DM.Recovery(X_list, target.getX_q());
 		}
 		else if(target.isDown())
 		{
@@ -399,7 +399,7 @@ public class Site{
 	 */
 	public void Dump()
 	{
-		DM.Dump(LM, X_q);
+		DM.Dump(LM, X_list);
 	}
 	
 	/**
@@ -408,11 +408,11 @@ public class Site{
 	 */
 	public void Dump(int _XID)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(X_q.get(i).getID() == _XID && !X_q.get(i).IsCopy())
+			if(X_list.get(i).getID() == _XID && !X_list.get(i).IsCopy())
 			{
-				DM.Dump(LM, X_q.get(i));
+				DM.Dump(LM, X_list.get(i));
 			}
 		}
 	}
@@ -423,11 +423,11 @@ public class Site{
 	 */
 	public void Abort(int _XID)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(X_q.get(i).getID() == _XID)
+			if(X_list.get(i).getID() == _XID)
 			{
-				DM.Abort(LM, X_q.get(i));
+				DM.Abort(LM, X_list.get(i));
 			}
 		}	
 	}
@@ -438,11 +438,11 @@ public class Site{
 	 */
 	public void AbortT(String _tid)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(X_q.get(i).getLockID().contains(_tid))
+			if(X_list.get(i).getLockID().contains(_tid))
 			{
-				DM.Abort(LM, X_q.get(i));
+				DM.Abort(LM, X_list.get(i));
 			}
 		}	
 	}
@@ -454,12 +454,12 @@ public class Site{
 	 */
 	public String ByLock(int _XID)
 	{
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(X_q.get(i).getID() == _XID)
+			if(X_list.get(i).getID() == _XID)
 			{
-				return "X" + _XID + " is " + X_q.get(i).getLockType() 
-					+ " locked by "  + X_q.get(i).getLockID();
+				return "X" + _XID + " is " + X_list.get(i).getLockType() 
+					+ " locked by "  + X_list.get(i).getLockID();
 			}
 		}
 		return "X" + _XID + " doesn't exist in this site."; 
@@ -472,7 +472,7 @@ public class Site{
 	public String ToString()
 	{
 		String s;
-		if(Failed)
+		if(fail)
 		{
 			s = "This site is down.\n";
 		}
@@ -480,16 +480,16 @@ public class Site{
 		{
 			s = "This site is up.\n";
 		}
-		for(int i = 0; i < X_q.size(); i++)
+		for(int i = 0; i < X_list.size(); i++)
 		{
-			if(!X_q.get(i).IsCopy()){
-				s += "X" + X_q.get(i).getID() + " = " 
-					+ X_q.get(i).getValue() + " ";
+			if(!X_list.get(i).IsCopy()){
+				s += "X" + X_list.get(i).getID() + " = " 
+					+ X_list.get(i).getValue() + " ";
 			}
 			else
 			{
-				s += "copy X" + X_q.get(i).getID() + " = " 
-				+ X_q.get(i).getValue() + " ";
+				s += "copy X" + X_list.get(i).getID() + " = " 
+				+ X_list.get(i).getValue() + " ";
 			}
 		}
 		return s;
@@ -497,7 +497,7 @@ public class Site{
 	
 	public String dump(){
 		StringBuilder sb =new StringBuilder();
-		if(this.Failed)
+		if(this.fail)
 		{
 			sb.append("This site is down.\n");
 		}
@@ -505,13 +505,13 @@ public class Site{
 		{
 			sb.append("This site is up.\n");
 		}
-		for(Xclass x: this.X_q)
+		for(Xclass x: this.X_list)
 			sb.append("X" + x.getID() + ": " + x.getPreviousValue() + " ");
 		return sb.toString();
 	}
 	
 	public Xclass dump(int xClassNum){
-		return this.X_q.get(xClassNum - 1);
+		return this.X_list.get(xClassNum - 1);
 	}
 	
 }
