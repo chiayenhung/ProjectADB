@@ -329,8 +329,7 @@ public class Site{
 	public ArrayList<String> Recovery(Site target)
 	{
 		ArrayList<String> a = new ArrayList<String>();
-		this.fail = false;
-		
+		fail = false;
 		
 		if(backupID == target.getID() && !target.isDown())
 		{
