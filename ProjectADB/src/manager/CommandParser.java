@@ -124,7 +124,7 @@ public class CommandParser {
 	/**
 	 * @return 
 	 */
-	public int getXClassNum(){
+	public int getXclassNum(){
 		return this.XclassNum;
 	}
 	

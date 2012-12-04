@@ -108,13 +108,13 @@ public class TransactionManager
 			this.recover(cp.getSiteNum());
 			break;
 		case read:
-			this.read(cp.getTransactionNum(), cp.getXClassNum());
+			this.read(cp.getTransactionNum(), cp.getXclassNum());
 			break;
 		case write:
-			this.write(cp.getTransactionNum(), cp.getXClassNum(), cp.getValue());
+			this.write(cp.getTransactionNum(), cp.getXclassNum(), cp.getValue());
 			break;
 		case dump:
-			this.dump(cp.getSiteNum(), cp.getXClassNum());
+			this.dump(cp.getSiteNum(), cp.getXclassNum());
 			break;
 		default : 
 			break;
@@ -126,16 +126,16 @@ public class TransactionManager
 	}
 
 	/**
-	 * @param xClassNum 
+	 * @param XclassNum 
 	 * @param siteNum 
 	 * 
 	 */
-	private void dump(int siteNum, int xClassNum) {
+	private void dump(int siteNum, int XclassNum) {
 		this.logger.log("Processing dump()");
 		try
 		{
 			//to determine whether is a site/a variable /or all
-			if(siteNum == -1 && xClassNum == -1)
+			if(siteNum == -1 && XclassNum == -1)
 			{
 				//commit everything
 				for(Site s: this.sites.values())
@@ -148,22 +148,22 @@ public class TransactionManager
 				//get variable id
 				//extract variable id
 
-				int intID = (xClassNum % 10) + 1;
+				int intID = (XclassNum % 10) + 1;
 				
 				Site s = this.sites.get(intID);
 				if(!s.isDown())
 				{
-//					CommitVariable(xClassNum);
+//					CommitVariable(XclassNum);
 					for(Site ss: this.sites.values())
-						this.logger.log(ss.dump(xClassNum));
-//					this.logger.log("Site" + xClassNum + " " +s.ToString());
+						this.logger.log(ss.dump(XclassNum));
+//					this.logger.log("Site" + XclassNum + " " +s.ToString());
 				}
 				else
 				{
-					this.logger.log("Site" + xClassNum + " is down");
+					this.logger.log("Site" + XclassNum + " is down");
 				}
 			}
-			else if(xClassNum == -1)
+			else if(XclassNum == -1)
 			{
 				//commit a site
 				//get variable id
@@ -190,13 +190,13 @@ public class TransactionManager
 
 	/**
 	 * @param transactionNum
-	 * @param xClassNum
+	 * @param XclassNum
 	 * @param value
 	 */
-	private void write(int transactionNum, int xClassNum, int value) {
+	private void write(int transactionNum, int XclassNum, int value) {
 		try
 		{
-			this.logger.log("Processing write(T" + transactionNum + ", X" + xClassNum + ", " + value + ")");
+			this.logger.log("Processing write(T" + transactionNum + ", X" + XclassNum + ", " + value + ")");
 			boolean blnInsertOp = false; //flag to insert the current operation into the transaction object
 			
 			Transaction t  = null;
@@ -221,19 +221,19 @@ public class TransactionManager
 			}
 			
 			
-			if( (xClassNum % 2) == 1)
+			if( (XclassNum % 2) == 1)
 			{
-				int answer = (xClassNum % 10) +1;
+				int answer = (XclassNum % 10) +1;
 				Site s = this.sites.get(answer);
 				if(!s.isDown())
 				{
-					blnInsertOp=WriteToSingle(xClassNum,value,t_id,answer);
+					blnInsertOp=WriteToSingle(XclassNum,value,t_id,answer);
 				}
 				else
 				{
 					//insert the stuck operation into the waiting list
 					//time stamp = 0 because hasn't written to site yet
-					Operation op = new Operation(OperationType.write,value,xClassNum,0);
+					Operation op = new Operation(OperationType.write,value,XclassNum,0);
 					this.insertIntoWaitingList(op,t_id);
 				}
 			}
@@ -243,12 +243,12 @@ public class TransactionManager
 				boolean writeFlag = false;
 				for(Site s: this.sites.values()){
 					if(!s.isDown()){
-						blnInsertOp=WriteToSingle(xClassNum,value,t_id,s.getID());
+						blnInsertOp=WriteToSingle(XclassNum,value,t_id,s.getID());
 						writeFlag = true;
 					}
 				}
 				if(!writeFlag){
-					Operation op = new Operation(OperationType.write,value,xClassNum,0);
+					Operation op = new Operation(OperationType.write,value,XclassNum,0);
 					this.insertIntoWaitingList(op,t_id);
 				}
 			}
@@ -259,7 +259,7 @@ public class TransactionManager
 				//so that don't hold a same time stamp will regular operation
 				//maybe this is one from waiting list
 				intCurrentTimeStamp++;
-				Operation op = new Operation(OperationType.write, value,xClassNum,intCurrentTimeStamp);
+				Operation op = new Operation(OperationType.write, value,XclassNum,intCurrentTimeStamp);
 				t.Insert_Operation(op);
 				this.logger.log("Operation inserted into T" + t_id);
 			}
@@ -275,10 +275,10 @@ public class TransactionManager
 
 	/**
 	 * @param transactionNum
-	 * @param xClassNum
+	 * @param XclassNum
 	 */
-	private void read(int transactionNum, int xClassNum) {
-		this.logger.log("Processing read(T" + transactionNum + ", X" + xClassNum + ")");
+	private void read(int transactionNum, int XclassNum) {
+		this.logger.log("Processing read(T" + transactionNum + ", X" + XclassNum + ")");
 		try
 		{
 
@@ -296,12 +296,12 @@ public class TransactionManager
 			if(t.getAttribute()==TransactionType.ReadOnly)
 			{
 				//read from multiversion
-				ReadOnly(t_id,xClassNum);
+				ReadOnly(t_id,XclassNum);
 			}
 			else
 			{
 				//set read lock
-				ReadWithLock(xClassNum,t_id);
+				ReadWithLock(XclassNum,t_id);
 			}
 			
 		
@@ -791,16 +791,16 @@ public class TransactionManager
 //	 * 
 //	 */
 //	/**
-//	 * @param xClassNum
+//	 * @param XclassNum
 //	 */
-//	private void CommitVariable(int xClassNum)
+//	private void CommitVariable(int XclassNum)
 //	{
 //		try
 //		{
 //			//get variable id
 //			//extract variable id
 //	
-//			int intX = xClassNum;
+//			int intX = XclassNum;
 //			//calculate the site id
 //			int answer = (intX % 10) +1;
 //			

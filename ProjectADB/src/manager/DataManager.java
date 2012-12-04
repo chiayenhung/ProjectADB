@@ -66,21 +66,21 @@ public class DataManager{
 	}
 	
 	/**
-	 * @param xclass
+	 * @param Xclass
 	 * @param timeStamp
 	 * @return
 	 * @description implement multiversion control
 	 */
-	public int readOnlyData(Xclass xclass, int timeStamp) {
-//		System.out.println("list size: "+xclass.getValueList().size() + " timestamp: " + timeStamp);
-		for(int i = xclass.getValueList().size() -2 ; i >= 0 ; i--){
-			System.out.println("timeStamp: "+xclass.getValueList().get(i).getTimeStamp());
-			if(xclass.getValueList().get(i).getTimeStamp() == 0)
-				return xclass.getValueList().get(i).getValue();
-			if(xclass.getValueList().get(i).getTimeStamp() <= timeStamp)
-				return xclass.getValueList().get(i).getValue();
+	public int readOnlyData(Xclass Xclass, int timeStamp) {
+//		System.out.println("list size: "+Xclass.getValueList().size() + " timestamp: " + timeStamp);
+		for(int i = Xclass.getValueList().size() -2 ; i >= 0 ; i--){
+			System.out.println("timeStamp: "+Xclass.getValueList().get(i).getTimeStamp());
+			if(Xclass.getValueList().get(i).getTimeStamp() == 0)
+				return Xclass.getValueList().get(i).getValue();
+			if(Xclass.getValueList().get(i).getTimeStamp() <= timeStamp)
+				return Xclass.getValueList().get(i).getValue();
 		}
-		return xclass.getValueList().get(0).getValue();	
+		return Xclass.getValueList().get(0).getValue();	
 	}
 	
 	/**
