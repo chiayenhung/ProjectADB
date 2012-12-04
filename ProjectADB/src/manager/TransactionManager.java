@@ -172,8 +172,11 @@ public class TransactionManager
 				Site s = this.sites.get(siteNum);
 				if(!s.isDown())
 				{
+
 //					this.logger.log("Site " + siteNum + " " +s.ToString());
 					this.logger.log(s.dump());
+
+					this.logger.log("Site " + siteNum + " " +s.ToString());
 				}
 				else
 				{
@@ -261,7 +264,7 @@ public class TransactionManager
 				intCurrentTimeStamp++;
 				Operation op = new Operation(OperationType.write, value,XclassNum,intCurrentTimeStamp);
 				t.Insert_Operation(op);
-				this.logger.log("Operation inserted into T" + t_id);
+				this.logger.log("Operation inserted into " + t_id);
 			}
 			
 		}
@@ -301,7 +304,9 @@ public class TransactionManager
 			else
 			{
 				//set read lock
+
 				ReadWithLock(XclassNum,t_id);
+
 			}
 			
 		
@@ -333,15 +338,39 @@ public class TransactionManager
 				return;
 			}
 
+
+
+			
+			//call a site to recovery
+			//get failed site
+			Site s_down = this.sites.get(siteNum);
+			//look for backup site
+			if(siteNum==1)
+			{
+				//available at all 
+				//but this site is a backup for another odd index site
+				//so need to do back up from that site
+				//one back up only
+				s_backup = this.sites.get(10);
+				
+			}
+
 			else
 			{
-				for(Site s: this.sites.values()){
-					if(!s.isDown()){
-						s_backup = s;
-						break;
-					}
-				}
-				Site s_down = this.sites.get(siteNum);
+				//one back up only
+				s_backup = this.sites.get(siteNum-1);
+				
+				
+			}
+			//check whether backup is down also
+			
+			if(s_backup.isDown())
+			{
+				this.logger.log("Operation failed because backup site is down currently");
+			}
+			else
+			{
+				
 				s_down.Recovery(s_backup);
 				/*
 				//update timestamp
@@ -386,13 +415,26 @@ public class TransactionManager
 		try
 		{
 			this.logger.log("Processing fail(" + siteNum + ")");
+
+			Site s_backup = null;
 			//check for valid site id
-			if(!sites.containsKey(siteNum))
-			{
-				this.logger.log("Site " + siteNum + " not found.");
-				return;
-			}
+//			if(!sites.containsKey(siteNum))
+//			{
+//				this.logger.log("Site " + siteNum + " not found.");
+//				return;
+//			}
 			
+
+
+			//call backup before fail
+			if(siteNum==1)
+			{
+				s_backup = this.sites.get(10);
+			}
+			else
+			{
+				s_backup = this.sites.get(siteNum-1);
+			}
 
 			//call a site to fail
 			Site s = this.sites.get(siteNum);
@@ -976,16 +1018,16 @@ public class TransactionManager
 			else
 			{
 				//get from backup site
-				int backup = 0;
-				if(answer%2==0)
-				{
-					backup = answer-1;
-				}
-				else
-				{
-					backup = answer+1;
-				}
-				s = this.sites.get(backup);
+//				int backup = 0;
+//				if(answer%2==0)
+//				{
+//					backup = answer-1;
+//				}
+//				else
+//				{
+//					backup = answer+1;
+//				}
+//				s = this.sites.get(backup);
 				if(!s.isDown())
 				{
 //					System.out.println("Transaction" + t_id +" timestamp: " + this.transactions.get(t_id).getTimeStamp());

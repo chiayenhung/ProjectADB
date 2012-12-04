@@ -1,0 +1,49 @@
+Tue Dec 04 16:44:57 EST 2012: Added site 1
+Tue Dec 04 16:44:57 EST 2012: Added site 2
+Tue Dec 04 16:44:57 EST 2012: Added site 3
+Tue Dec 04 16:44:57 EST 2012: Added site 4
+Tue Dec 04 16:44:57 EST 2012: Added site 5
+Tue Dec 04 16:44:57 EST 2012: Added site 6
+Tue Dec 04 16:44:57 EST 2012: Added site 7
+Tue Dec 04 16:44:57 EST 2012: Added site 8
+Tue Dec 04 16:44:57 EST 2012: Added site 9
+Tue Dec 04 16:44:57 EST 2012: Added site 10
+Tue Dec 04 16:45:01 EST 2012: Transaction 1 has been created.
+Tue Dec 04 16:45:01 EST 2012: Transaction 2 has been created.
+Tue Dec 04 16:45:01 EST 2012: Processing write(T1, X1, 101)
+Tue Dec 04 16:45:01 EST 2012: Operation inserted into 1
+Tue Dec 04 16:45:01 EST 2012: Processing read(T2, X2)
+Tue Dec 04 16:45:01 EST 2012: x2 is 20
+Tue Dec 04 16:45:01 EST 2012: Processing write(T1, X2, 102)
+Tue Dec 04 16:45:01 EST 2012: Operation inserted into 1
+Tue Dec 04 16:45:01 EST 2012: Processing read(T2, X1)
+Tue Dec 04 16:45:01 EST 2012: x1 is 10
+Tue Dec 04 16:45:01 EST 2012: Test commit for transaction 1
+Tue Dec 04 16:45:01 EST 2012: Processing Commit(T1)
+Tue Dec 04 16:45:01 EST 2012: Transaction 1 commited.
+Tue Dec 04 16:45:01 EST 2012: Transaction 1 removed from the list.
+Tue Dec 04 16:45:01 EST 2012: Test commit for transaction 2
+Tue Dec 04 16:45:01 EST 2012: Processing Commit(T2)
+Tue Dec 04 16:45:01 EST 2012: Transaction 2 commited.
+Tue Dec 04 16:45:01 EST 2012: Transaction 2 removed from the list.
+Tue Dec 04 16:45:01 EST 2012: Processing dump()
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 X1: 101 X11: 110 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 X3: 30 X13: 130 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 X5: 50 X15: 150 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 X7: 70 X17: 170 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 
+Tue Dec 04 16:45:01 EST 2012: This site is up.
+X2: 102 X4: 40 X6: 60 X8: 80 X10: 100 X12: 120 X14: 140 X16: 160 X18: 180 X20: 200 X9: 90 X19: 190 

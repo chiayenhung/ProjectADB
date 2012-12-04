@@ -177,9 +177,6 @@ public class DataManager{
 					_X_q.get(i).unCopy();
 					_X_q.get(i).unLock();
 				}
-				if(_X_q.get(i).getID() % 2 == 1){
-					_X_q.get(i).setValue(_X_q.get(i).getPreviousValue());
-				}
 			}
 		}
 		return a;

@@ -1,0 +1,28 @@
+Tue Dec 04 16:41:09 EST 2012: Added site 1
+Tue Dec 04 16:41:09 EST 2012: Added site 2
+Tue Dec 04 16:41:09 EST 2012: Added site 3
+Tue Dec 04 16:41:09 EST 2012: Added site 4
+Tue Dec 04 16:41:09 EST 2012: Added site 5
+Tue Dec 04 16:41:09 EST 2012: Added site 6
+Tue Dec 04 16:41:09 EST 2012: Added site 7
+Tue Dec 04 16:41:09 EST 2012: Added site 8
+Tue Dec 04 16:41:09 EST 2012: Added site 9
+Tue Dec 04 16:41:09 EST 2012: Added site 10
+Tue Dec 04 16:41:16 EST 2012: Transaction 1 has been created.
+Tue Dec 04 16:41:16 EST 2012: Transaction 2 has been created.
+Tue Dec 04 16:41:16 EST 2012: Processing read(T2, X1)
+Tue Dec 04 16:41:16 EST 2012: x1 is 10
+Tue Dec 04 16:41:16 EST 2012: Processing read(T2, X2)
+Tue Dec 04 16:41:16 EST 2012: x2 is 20
+Tue Dec 04 16:41:16 EST 2012: Processing write(T1, X3, 33)
+Tue Dec 04 16:41:16 EST 2012: Operation inserted into 1
+Tue Dec 04 16:41:16 EST 2012: Test commit for transaction 1
+Tue Dec 04 16:41:16 EST 2012: Processing Commit(T1)
+Tue Dec 04 16:41:16 EST 2012: Transaction 1 commited.
+Tue Dec 04 16:41:16 EST 2012: Transaction 1 removed from the list.
+Tue Dec 04 16:41:16 EST 2012: Processing read(T2, X3)
+Tue Dec 04 16:41:16 EST 2012: x3 is 30
+Tue Dec 04 16:41:16 EST 2012: Test commit for transaction 2
+Tue Dec 04 16:41:16 EST 2012: Processing Commit(T2)
+Tue Dec 04 16:41:16 EST 2012: Transaction 2 commited.
+Tue Dec 04 16:41:16 EST 2012: Transaction 2 removed from the list.
