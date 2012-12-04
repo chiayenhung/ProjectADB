@@ -339,12 +339,14 @@ public class TransactionManager
 			
 			if(t.getAttribute()==TransactionType.ReadOnly)
 			{
+				System.out.println("readonly");
 				//read from multiversion
 				ReadOnly(t_id,xClassNum);
 			}
 			else
 			{
 				//set read lock
+				System.out.println("readLock");
 				ReadWithLock(xClassNum,t_id);
 			}
 			
@@ -746,7 +748,7 @@ public class TransactionManager
 						    while (k.hasNext()) 
 						    {
 						    	Site _site = (Site)k.next();
-								_site.Dump(op.getTarget()); //op.getTarget()是得到 X1'2'3 ..... etc
+								_site.Dump(op.getTarget(), this.intCurrentTimeStamp); //op.getTarget()是得到 X1'2'3 ..... etc
 								
 						    }
 						}
@@ -755,7 +757,7 @@ public class TransactionManager
 							//single site + backup
 							//check for site down
 							Site _site = this.sites.get(answer);
-							_site.Dump(op.getTarget());
+							_site.Dump(op.getTarget(), this.intCurrentTimeStamp);
 							//_site = (Site)sites.get(answer+1);
 							//_site.Dump(op.getTarget());
 							
@@ -1001,7 +1003,7 @@ public class TransactionManager
 				while(it.hasNext())
 				{
 					Site s = (Site)it.next();
-					s.Dump(intX);
+					s.Dump(intX, this.intCurrentTimeStamp);
 				}
 			}
 			else
@@ -1014,7 +1016,7 @@ public class TransactionManager
 					return;
 				}
 				Site s = this.sites.get(answer);
-				s.Dump(intX);
+				s.Dump(intX, this.intCurrentTimeStamp);
 			}
 		}
 		catch(Exception e)
@@ -1089,7 +1091,7 @@ public class TransactionManager
 			}
 			else
 			{
-				s.Dump();
+				s.Dump(this.intCurrentTimeStamp);
 			}
 			this.logger.log("Site" + s.getID() + " " + s.ToString());
 		}
@@ -1114,7 +1116,7 @@ public class TransactionManager
 		    while (k.hasNext()) 
 		    {
 		    	s = (Site)k.next();
-				if( s.isDown()==false)
+				if( !s.isDown())
 				{
 					break;//break the loop immediately after you have one site is up
 				}
@@ -1124,7 +1126,8 @@ public class TransactionManager
 			if(s!=null)
 			{
 				//read the value
-				value = s.ReadOnly(intX, t_id);
+				value = s.ReadOnly(intX, t_id, this.transactions.get(t_id).getTimeStamp());
+				System.out.println("wrong here" + value);
 				this.logger.log("x" + intX + " is " + value);
 			}
 			else
@@ -1149,7 +1152,7 @@ public class TransactionManager
 			s = this.sites.get(answer);
 			if(!s.isDown())
 			{
-				value = s.ReadOnly(intX, t_id);
+				value = s.ReadOnly(intX, t_id, this.transactions.get(t_id).getTimeStamp());
 				this.logger.log("x" + intX + " is " + value);
 			}
 			else
@@ -1167,7 +1170,7 @@ public class TransactionManager
 				s = this.sites.get(backup);
 				if(!s.isDown())
 				{
-					value = s.ReadOnly(intX,t_id);
+					value = s.ReadOnly(intX,t_id,this.transactions.get(t_id).getTimeStamp());
 					this.logger.log("x" + intX + " is " + value);
 				}
 				else

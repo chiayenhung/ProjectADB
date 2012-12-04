@@ -1,5 +1,8 @@
 package component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Xclass object class
  * @author Chia-Yen Hung
@@ -11,23 +14,27 @@ public class Xclass{
 	private boolean Lock;
 	private String LockType;
 	private String LockID;
-	private int Value;
-	private int PreviousValue;
+//	private int Value;
+//	private int PreviousValue;
+	private List<TimeStamp> valueList;
 	private boolean Copy;
 	
 	/**
 	 * class constructor
 	 * @param _ID
 	 */
-	public Xclass(int _ID)
+	public Xclass(int ID)
 	{
-		ID = _ID;//assign Xclass id
-		Lock = false;
-		LockType = "NULL";
-		LockID = "NULL";
-		Value = _ID * 10;
-		PreviousValue = _ID * 10;
-		Copy = false;
+		this.ID = ID;//assign Xclass id
+		this.Lock = false;
+		this.LockType = "NULL";
+		this.LockID = "NULL";
+//		this.Value = ID * 10;
+//		this.PreviousValue = ID * 10;
+		this.Copy = false;
+		this.valueList = new ArrayList<TimeStamp>();
+		this.valueList.add(new TimeStamp(ID * 10, 0));
+		this.valueList.add(new TimeStamp(ID * 10, 0));
 	}
 	
 	/**
@@ -72,7 +79,8 @@ public class Xclass{
 	 */
 	public int getValue()
 	{
-		return Value;
+//		return Value;
+		return this.valueList.get(this.valueList.size() - 1).getValue();
 	}
 	
 	/**
@@ -81,7 +89,8 @@ public class Xclass{
 	 */
 	public int getPreviousValue()
 	{
-		return PreviousValue;
+//		return PreviousValue;
+		return this.valueList.get(this.valueList.size() - 2).getValue();
 	}
 	
 	/**
@@ -142,7 +151,8 @@ public class Xclass{
 	 */
 	public void setValue(int _Value)
 	{
-		Value = _Value;
+//		Value = _Value;
+		this.valueList.get(this.valueList.size() - 1).setValue(_Value);
 	}
 	
 	/**
@@ -151,7 +161,8 @@ public class Xclass{
 	 */
 	public void setPreviousValue(int _PreviousValue)
 	{
-		PreviousValue = _PreviousValue;
+//		PreviousValue = _PreviousValue;
+		this.valueList.get(this.valueList.size() - 2).setValue(_PreviousValue);
 	}
 	
 	/**
@@ -181,8 +192,12 @@ public class Xclass{
 			Lock = false;
 		LockType = _x.getLockType();
 		LockID = _x.getLockID();
-		Value = _x.getValue();
-		PreviousValue = _x.getPreviousValue();
+		this.valueList.get(this.valueList.size() - 1).setValue(_x.getValue());
+		this.valueList.get(this.valueList.size() - 2).setValue(_x.getPreviousValue());
 		Copy = true;
+	}
+	
+	public List<TimeStamp> getValueList(){
+		return this.valueList;
 	}
 }

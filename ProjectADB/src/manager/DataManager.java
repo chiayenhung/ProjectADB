@@ -2,6 +2,7 @@ package manager;
 
 import java.util.*;
 
+import component.TimeStamp;
 import component.Xclass;
 
 /**
@@ -50,6 +51,28 @@ public class DataManager{
 	public int ReadPreData(Xclass _X)
 	{
 		return _X.getPreviousValue();
+	}
+	
+	/**
+	 * @param xclass
+	 * @param timeStamp
+	 * @return
+	 */
+	public int readOnlyData(Xclass xclass, int timeStamp) {
+//		for(TimeStamp ts: xclass.getValueList()){
+//			if(ts.getTimeStamp() > timeStamp)
+//		}
+//		for(int i = xclass.getValueList().size() -1 ; i > 0 ; i--){
+////			if(xclass.getValueList().get(i).getTimeStamp() > timeStamp)
+////				return xclass.getValueList().get(i - 1).getValue();
+//			if(xclass.getValueList().get(i).getTimeStamp() >= timeStamp)
+//				return xclass.getValueList().get(i).getValue();
+//		}
+//		return -1;
+		if(xclass.getValueList().size() >= 3)
+			return xclass.getValueList().get(xclass.getValueList().size() - 3).getValue();
+		else
+			return xclass.getValueList().get(xclass.getValueList().size() - 2).getValue();
 	}
 	
 	/**
@@ -145,13 +168,17 @@ public class DataManager{
 	/**
 	 * this method commit the values of all Xclass X
 	 */
-	public void Dump(LockManager _LM, ArrayList<Xclass> _X_q)
+	public void Dump(LockManager _LM, ArrayList<Xclass> _X_q, int time)
 	{
 		for(int i  = 0; i < _X_q.size(); i++)
 		{
 			if(!_X_q.get(i).IsCopy())
 			{
-				_X_q.get(i).setPreviousValue(_X_q.get(i).getValue());
+//				_X_q.get(i).setPreviousValue(_X_q.get(i).getValue());
+//				this.Ask_LM_release_Lock(_LM, _X_q.get(i));
+//				_X_q.get(i).setPreviousValue(_X_q.get(i).getValueList()
+				_X_q.get(i).getValueList().get(_X_q.get(i).getValueList().size() - 1).setTimeStamp(time);
+				_X_q.get(i).getValueList().add(new TimeStamp(_X_q.get(i).getValue(), time));
 				this.Ask_LM_release_Lock(_LM, _X_q.get(i));
 			}
 		}
@@ -160,9 +187,11 @@ public class DataManager{
 	/**
 	 * this method can commit the values of Xclass Xj
 	 */
-	public void Dump(LockManager _LM, Xclass Xj)
+	public void Dump(LockManager _LM, Xclass Xj, int time)
 	{
-		Xj.setPreviousValue(Xj.getValue());
+//		Xj.setPreviousValue(Xj.getValue());
+		Xj.getValueList().get(Xj.getValueList().size() - 1).setTimeStamp(time);
+		Xj.getValueList().add(new TimeStamp(Xj.getValue(), time));
 		this.Ask_LM_release_Lock(_LM, Xj);
 	}
 	
@@ -174,5 +203,7 @@ public class DataManager{
 		X.setValue(X.getPreviousValue());
 		this.Ask_LM_release_Lock(_LM, X);
 	}
+
+	
 
 }

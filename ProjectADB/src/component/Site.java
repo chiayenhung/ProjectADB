@@ -227,14 +227,16 @@ public class Site{
 	 * @param tid
 	 * @return
 	 */
-	public int ReadOnly(int _XID, String tid)
+	public int ReadOnly(int _XID, String tid, int transactionTimeStamp)
 	{
 		for(int i = 0; i < X_list.size(); i++)
 		{
 			//find x
 			if(X_list.get(i).getID() == _XID)
 			{
-					return DM.ReadPreData(X_list.get(i));
+//					return DM.ReadPreData(X_list.get(i));
+				System.out.println("error in site");
+					return DM.readOnlyData(X_list.get(i), transactionTimeStamp);
 			}
 		}
 		//cannot find x
@@ -396,23 +398,24 @@ public class Site{
 	
 	/**
 	 * site dump
+	 * @param intCurrentTimeStamp 
 	 */
-	public void Dump()
+	public void Dump(int time)
 	{
-		DM.Dump(LM, X_list);
+		DM.Dump(LM, X_list, time);
 	}
 	
 	/**
 	 * dump Xclass Xj
 	 * @param _XID
 	 */
-	public void Dump(int _XID)
+	public void Dump(int _XID, int time)
 	{
 		for(int i = 0; i < X_list.size(); i++)
 		{
 			if(X_list.get(i).getID() == _XID && !X_list.get(i).IsCopy())
 			{
-				DM.Dump(LM, X_list.get(i));
+				DM.Dump(LM, X_list.get(i), time);
 			}
 		}
 	}
