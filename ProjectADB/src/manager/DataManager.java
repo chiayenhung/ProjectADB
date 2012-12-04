@@ -7,7 +7,7 @@ import component.Xclass;
 
 /**
  * Data Manager object class
- * @author Chia-Yen Hung
+ * @author Chia-Yen Hung Ming-Chien Kao
  * 
  */
 public class DataManager{

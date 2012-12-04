@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Xclass object class
- * @author Chia-Yen Hung
+ * @author Chia-Yen Hung Ming-Chien Kao
  *
  */
 public class Xclass{

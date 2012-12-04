@@ -5,7 +5,7 @@ import component.Xclass;
 //LockManager object class
 /**
  * This Class implements a Lock Manager object
- * @author Chia-Yen Hung
+ * @author Chia-Yen Hung Ming-Chien Kao
  */
 public class LockManager{
 	

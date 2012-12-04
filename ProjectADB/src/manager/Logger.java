@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.util.Date;
 
 /**
- * @author ching-yingyang
+ * @author Chia-Yen Hung Ming-Chien Kao
  *
  */
 public class Logger {

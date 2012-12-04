@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Chia-Yen Hung
+ * @author Chia-Yen Hung Ming-Chien Kao
  *
  */
 public class InputParser {

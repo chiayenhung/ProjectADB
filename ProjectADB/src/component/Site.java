@@ -9,7 +9,7 @@ import manager.LockManager;
 /**
  * 
  *  Site Class Object
- *  @author Chia-Yen Hung
+ *  @author Chia-Yen Hung Ming-Chien Kao
  */
 public class Site{
 	//class variable

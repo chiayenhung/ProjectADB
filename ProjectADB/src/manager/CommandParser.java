@@ -6,7 +6,7 @@ package manager;
 import type.CommandType;
 
 /**
- * @author Chia-Yen Hung
+ * @author Chia-Yen Hung Ming-Chien Kao
  *
  */
 public class CommandParser {

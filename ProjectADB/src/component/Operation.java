@@ -4,7 +4,7 @@ import type.OperationType;
 
 /**
  * operation object class
- * @author Chia-Yen Hung
+ * @author Chia-Yen Hung Ming-Chien Kao
  *
  */
 public class Operation 
